@@ -21,6 +21,4 @@ class ApiString: NSString {
     let countryUrl = "ws_country.php"
     let stateUrl = "ws_state.php"
     let sreaUrl = "ws_area.php"
-
-
 }
