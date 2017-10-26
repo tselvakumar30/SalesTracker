@@ -19,19 +19,22 @@ PODS:
     - NVActivityIndicatorView/Presenter (= 4.0.0)
   - NVActivityIndicatorView/Presenter (4.0.0)
   - PopupDialog (0.6.0)
+  - SideMenu (3.1.1)
 
 DEPENDENCIES:
   - AFNetworking
   - IQKeyboardManagerSwift
   - NVActivityIndicatorView
   - PopupDialog
+  - SideMenu
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   IQKeyboardManagerSwift: a0592bb636b10a9a1cf75d2b2c61144226226c84
   NVActivityIndicatorView: 54c9b93b6f25a4f467512680c0c90c09a1095cf2
   PopupDialog: 687af43af0f7b89948cd411ac701865f931bd6dc
+  SideMenu: 1bf32e90afaa2dc0e0ab68e938a0ff85014c4217
 
-PODFILE CHECKSUM: 90a1d12eca5376eba9e6b242822e1e5a89eae044
+PODFILE CHECKSUM: 35352d54f7fb286d81f624a531fda04cf1999424
 
 COCOAPODS: 1.1.1

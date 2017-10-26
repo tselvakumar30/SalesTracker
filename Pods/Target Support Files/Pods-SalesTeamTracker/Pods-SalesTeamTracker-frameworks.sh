@@ -88,10 +88,12 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework"
   install_framework "$BUILT_PRODUCTS_DIR/NVActivityIndicatorView/NVActivityIndicatorView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/PopupDialog/PopupDialog.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SideMenu/SideMenu.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework"
   install_framework "$BUILT_PRODUCTS_DIR/NVActivityIndicatorView/NVActivityIndicatorView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/PopupDialog/PopupDialog.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SideMenu/SideMenu.framework"
 fi
