@@ -10,5 +10,7 @@ pod ‘IQKeyboardManagerSwift’
 pod 'AFNetworking'
 pod 'PopupDialog'
 pod 'NVActivityIndicatorView'
+pod 'SideMenu'
+
 
 end
