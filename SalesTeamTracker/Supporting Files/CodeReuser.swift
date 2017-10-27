@@ -4,6 +4,15 @@ import Foundation
 class CodeReuser: NSObject
 {
 
+    func createGradientLayer(view:UIView,fromColor:UIColor,toColor:UIColor)-> UIView {
+        var gradientLayer: CAGradientLayer!
+        gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = view.frame
+        gradientLayer.colors = [fromColor.cgColor, toColor.cgColor]
+        view.layer.addSublayer(gradientLayer)
+        return view
+    }
     func validateMail(textEmail: String) -> Bool
     {
         let REGEX: String

@@ -15,6 +15,16 @@
 		D6CF495D608D7A71A6E6B518 /* Pods_SalesTeamTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C9CAA4E93DEED2496AACBB /* Pods_SalesTeamTracker.framework */; };
 		F2AFDCDD1FA20EE400287C58 /* CodeReuser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCDC1FA20EE400287C58 /* CodeReuser.swift */; };
 		F2AFDCDF1FA20F8A00287C58 /* ApiString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCDE1FA20F8A00287C58 /* ApiString.swift */; };
+		F2AFDCE31FA3006700287C58 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCE21FA3006700287C58 /* AppColors.swift */; };
+		F2AFDCE51FA30A2E00287C58 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCE41FA30A2E00287C58 /* HomeViewController.swift */; };
+		F2AFDCE71FA30F9800287C58 /* ShopDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCE61FA30F9800287C58 /* ShopDetailsViewController.swift */; };
+		F2AFDCEA1FA3134600287C58 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCE91FA3134600287C58 /* SideMenuViewController.swift */; };
+		F2AFDCEE1FA315A600287C58 /* AssignmentProgressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCEC1FA315A600287C58 /* AssignmentProgressTableViewCell.swift */; };
+		F2AFDCEF1FA315A600287C58 /* AssignmentProgressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2AFDCED1FA315A600287C58 /* AssignmentProgressTableViewCell.xib */; };
+		F2AFDCF21FA315C400287C58 /* AssignmentSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCF01FA315C400287C58 /* AssignmentSearchTableViewCell.swift */; };
+		F2AFDCF31FA315C400287C58 /* AssignmentSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2AFDCF11FA315C400287C58 /* AssignmentSearchTableViewCell.xib */; };
+		F2AFDCF61FA3160F00287C58 /* AssignmentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCF41FA3160F00287C58 /* AssignmentsTableViewCell.swift */; };
+		F2AFDCF71FA3160F00287C58 /* AssignmentsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2AFDCF51FA3160F00287C58 /* AssignmentsTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +40,16 @@
 		F1C9CAA4E93DEED2496AACBB /* Pods_SalesTeamTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SalesTeamTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2AFDCDC1FA20EE400287C58 /* CodeReuser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeReuser.swift; sourceTree = "<group>"; };
 		F2AFDCDE1FA20F8A00287C58 /* ApiString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiString.swift; sourceTree = "<group>"; };
+		F2AFDCE21FA3006700287C58 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		F2AFDCE41FA30A2E00287C58 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F2AFDCE61FA30F9800287C58 /* ShopDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopDetailsViewController.swift; sourceTree = "<group>"; };
+		F2AFDCE91FA3134600287C58 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
+		F2AFDCEC1FA315A600287C58 /* AssignmentProgressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentProgressTableViewCell.swift; sourceTree = "<group>"; };
+		F2AFDCED1FA315A600287C58 /* AssignmentProgressTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignmentProgressTableViewCell.xib; sourceTree = "<group>"; };
+		F2AFDCF01FA315C400287C58 /* AssignmentSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentSearchTableViewCell.swift; sourceTree = "<group>"; };
+		F2AFDCF11FA315C400287C58 /* AssignmentSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignmentSearchTableViewCell.xib; sourceTree = "<group>"; };
+		F2AFDCF41FA3160F00287C58 /* AssignmentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsTableViewCell.swift; sourceTree = "<group>"; };
+		F2AFDCF51FA3160F00287C58 /* AssignmentsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignmentsTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,9 +85,13 @@
 		7C5A7B2E1F9F4EF3008C7C29 /* SalesTeamTracker */ = {
 			isa = PBXGroup;
 			children = (
+				F2AFDCEB1FA3155200287C58 /* TableViewCells */,
+				F2AFDCE81FA3133200287C58 /* SideMenu */,
 				F2AFDCDB1FA20E3C00287C58 /* Supporting Files */,
 				7C5A7B2F1F9F4EF4008C7C29 /* AppDelegate.swift */,
 				7C5A7B311F9F4EF4008C7C29 /* ViewController.swift */,
+				F2AFDCE41FA30A2E00287C58 /* HomeViewController.swift */,
+				F2AFDCE61FA30F9800287C58 /* ShopDetailsViewController.swift */,
 				7C5A7B331F9F4EF4008C7C29 /* Main.storyboard */,
 				7C5A7B361F9F4EF4008C7C29 /* Assets.xcassets */,
 				7C5A7B381F9F4EF4008C7C29 /* LaunchScreen.storyboard */,
@@ -97,9 +121,31 @@
 			isa = PBXGroup;
 			children = (
 				F2AFDCDC1FA20EE400287C58 /* CodeReuser.swift */,
+				F2AFDCE21FA3006700287C58 /* AppColors.swift */,
 				F2AFDCDE1FA20F8A00287C58 /* ApiString.swift */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F2AFDCE81FA3133200287C58 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				F2AFDCE91FA3134600287C58 /* SideMenuViewController.swift */,
+			);
+			path = SideMenu;
+			sourceTree = "<group>";
+		};
+		F2AFDCEB1FA3155200287C58 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				F2AFDCEC1FA315A600287C58 /* AssignmentProgressTableViewCell.swift */,
+				F2AFDCED1FA315A600287C58 /* AssignmentProgressTableViewCell.xib */,
+				F2AFDCF01FA315C400287C58 /* AssignmentSearchTableViewCell.swift */,
+				F2AFDCF11FA315C400287C58 /* AssignmentSearchTableViewCell.xib */,
+				F2AFDCF41FA3160F00287C58 /* AssignmentsTableViewCell.swift */,
+				F2AFDCF51FA3160F00287C58 /* AssignmentsTableViewCell.xib */,
+			);
+			path = TableViewCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,7 +211,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C5A7B3A1F9F4EF4008C7C29 /* LaunchScreen.storyboard in Resources */,
+				F2AFDCEF1FA315A600287C58 /* AssignmentProgressTableViewCell.xib in Resources */,
+				F2AFDCF71FA3160F00287C58 /* AssignmentsTableViewCell.xib in Resources */,
 				7C5A7B371F9F4EF4008C7C29 /* Assets.xcassets in Resources */,
+				F2AFDCF31FA315C400287C58 /* AssignmentSearchTableViewCell.xib in Resources */,
 				7C5A7B351F9F4EF4008C7C29 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -225,10 +274,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2AFDCF61FA3160F00287C58 /* AssignmentsTableViewCell.swift in Sources */,
+				F2AFDCEA1FA3134600287C58 /* SideMenuViewController.swift in Sources */,
 				F2AFDCDD1FA20EE400287C58 /* CodeReuser.swift in Sources */,
+				F2AFDCF21FA315C400287C58 /* AssignmentSearchTableViewCell.swift in Sources */,
 				7C5A7B321F9F4EF4008C7C29 /* ViewController.swift in Sources */,
+				F2AFDCE31FA3006700287C58 /* AppColors.swift in Sources */,
 				7C5A7B301F9F4EF4008C7C29 /* AppDelegate.swift in Sources */,
 				F2AFDCDF1FA20F8A00287C58 /* ApiString.swift in Sources */,
+				F2AFDCE51FA30A2E00287C58 /* HomeViewController.swift in Sources */,
+				F2AFDCE71FA30F9800287C58 /* ShopDetailsViewController.swift in Sources */,
+				F2AFDCEE1FA315A600287C58 /* AssignmentProgressTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

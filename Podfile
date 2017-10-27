@@ -11,6 +11,9 @@ pod 'AFNetworking'
 pod 'PopupDialog'
 pod 'NVActivityIndicatorView'
 pod 'SideMenu'
+pod 'GoogleMaps'
+pod 'GooglePlaces'
+
 
 
 end

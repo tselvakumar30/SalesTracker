@@ -14,6 +14,13 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - GoogleMaps (2.5.0):
+    - GoogleMaps/Maps (= 2.5.0)
+  - GoogleMaps/Base (2.5.0)
+  - GoogleMaps/Maps (2.5.0):
+    - GoogleMaps/Base
+  - GooglePlaces (2.5.0):
+    - GoogleMaps/Base (= 2.5.0)
   - IQKeyboardManagerSwift (5.0.4)
   - NVActivityIndicatorView (4.0.0):
     - NVActivityIndicatorView/Presenter (= 4.0.0)
@@ -23,6 +30,8 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - GoogleMaps
+  - GooglePlaces
   - IQKeyboardManagerSwift
   - NVActivityIndicatorView
   - PopupDialog
@@ -30,11 +39,13 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
+  GooglePlaces: dd70d9d71ea1c7944846afe67de3712c99b30a77
   IQKeyboardManagerSwift: a0592bb636b10a9a1cf75d2b2c61144226226c84
   NVActivityIndicatorView: 54c9b93b6f25a4f467512680c0c90c09a1095cf2
   PopupDialog: 687af43af0f7b89948cd411ac701865f931bd6dc
   SideMenu: 1bf32e90afaa2dc0e0ab68e938a0ff85014c4217
 
-PODFILE CHECKSUM: 35352d54f7fb286d81f624a531fda04cf1999424
+PODFILE CHECKSUM: d81a82ae5c949ac416f94067a530877869a0a5a3
 
 COCOAPODS: 1.1.1
