@@ -14,5 +14,8 @@ pod 'SideMenu'
 pod 'GoogleMaps'
 pod 'GooglePlaces'
 pod 'SDWebImage'
+pod 'Charts'
+pod 'BetterSegmentedControl'
+
 
 end

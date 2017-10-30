@@ -14,6 +14,10 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - BetterSegmentedControl (0.9)
+  - Charts (3.0.4):
+    - Charts/Core (= 3.0.4)
+  - Charts/Core (3.0.4)
   - GoogleMaps (2.5.0):
     - GoogleMaps/Maps (= 2.5.0)
   - GoogleMaps/Base (2.5.0)
@@ -33,6 +37,8 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - BetterSegmentedControl
+  - Charts
   - GoogleMaps
   - GooglePlaces
   - IQKeyboardManagerSwift
@@ -43,6 +49,8 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  BetterSegmentedControl: 40b2b6a08bbc59663149624d1b5235efa8d43a3c
+  Charts: 0705898046257443f0afbbc3179f4b67507b6e48
   GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
   GooglePlaces: dd70d9d71ea1c7944846afe67de3712c99b30a77
   IQKeyboardManagerSwift: a0592bb636b10a9a1cf75d2b2c61144226226c84
@@ -51,6 +59,6 @@ SPEC CHECKSUMS:
   SDWebImage: cb6f9f266a9977741efcbc21e618e8be3734c774
   SideMenu: 1bf32e90afaa2dc0e0ab68e938a0ff85014c4217
 
-PODFILE CHECKSUM: bd9b4bb51312e0a4be6306e6dc417a7dad99cd86
+PODFILE CHECKSUM: e0e568406428386f9eca42cf268d4f31c868a075
 
 COCOAPODS: 1.1.1
