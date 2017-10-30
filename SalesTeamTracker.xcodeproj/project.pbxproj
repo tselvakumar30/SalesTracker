@@ -13,6 +13,7 @@
 		7C5A7B371F9F4EF4008C7C29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C5A7B361F9F4EF4008C7C29 /* Assets.xcassets */; };
 		7C5A7B3A1F9F4EF4008C7C29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C5A7B381F9F4EF4008C7C29 /* LaunchScreen.storyboard */; };
 		D6CF495D608D7A71A6E6B518 /* Pods_SalesTeamTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C9CAA4E93DEED2496AACBB /* Pods_SalesTeamTracker.framework */; };
+		F27773041FA70ABC00A2E146 /* imageFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27773031FA70ABC00A2E146 /* imageFiles.swift */; };
 		F2AFDCDD1FA20EE400287C58 /* CodeReuser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCDC1FA20EE400287C58 /* CodeReuser.swift */; };
 		F2AFDCDF1FA20F8A00287C58 /* ApiString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCDE1FA20F8A00287C58 /* ApiString.swift */; };
 		F2AFDCE31FA3006700287C58 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCE21FA3006700287C58 /* AppColors.swift */; };
@@ -25,6 +26,10 @@
 		F2AFDCF31FA315C400287C58 /* AssignmentSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2AFDCF11FA315C400287C58 /* AssignmentSearchTableViewCell.xib */; };
 		F2AFDCF61FA3160F00287C58 /* AssignmentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCF41FA3160F00287C58 /* AssignmentsTableViewCell.swift */; };
 		F2AFDCF71FA3160F00287C58 /* AssignmentsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2AFDCF51FA3160F00287C58 /* AssignmentsTableViewCell.xib */; };
+		F2E77B311FA7005D0083EF89 /* SidemenuHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E77B2F1FA7005D0083EF89 /* SidemenuHeaderTableViewCell.swift */; };
+		F2E77B321FA7005D0083EF89 /* SidemenuHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2E77B301FA7005D0083EF89 /* SidemenuHeaderTableViewCell.xib */; };
+		F2E77B351FA7021B0083EF89 /* SidemenuContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E77B331FA7021B0083EF89 /* SidemenuContentTableViewCell.swift */; };
+		F2E77B361FA7021B0083EF89 /* SidemenuContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2E77B341FA7021B0083EF89 /* SidemenuContentTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +43,7 @@
 		7C5A7B3B1F9F4EF4008C7C29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8D22542E18F447B9690645C /* Pods-SalesTeamTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SalesTeamTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SalesTeamTracker/Pods-SalesTeamTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		F1C9CAA4E93DEED2496AACBB /* Pods_SalesTeamTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SalesTeamTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F27773031FA70ABC00A2E146 /* imageFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageFiles.swift; sourceTree = "<group>"; };
 		F2AFDCDC1FA20EE400287C58 /* CodeReuser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeReuser.swift; sourceTree = "<group>"; };
 		F2AFDCDE1FA20F8A00287C58 /* ApiString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiString.swift; sourceTree = "<group>"; };
 		F2AFDCE21FA3006700287C58 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
@@ -50,6 +56,10 @@
 		F2AFDCF11FA315C400287C58 /* AssignmentSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignmentSearchTableViewCell.xib; sourceTree = "<group>"; };
 		F2AFDCF41FA3160F00287C58 /* AssignmentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsTableViewCell.swift; sourceTree = "<group>"; };
 		F2AFDCF51FA3160F00287C58 /* AssignmentsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignmentsTableViewCell.xib; sourceTree = "<group>"; };
+		F2E77B2F1FA7005D0083EF89 /* SidemenuHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidemenuHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		F2E77B301FA7005D0083EF89 /* SidemenuHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SidemenuHeaderTableViewCell.xib; sourceTree = "<group>"; };
+		F2E77B331FA7021B0083EF89 /* SidemenuContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidemenuContentTableViewCell.swift; sourceTree = "<group>"; };
+		F2E77B341FA7021B0083EF89 /* SidemenuContentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SidemenuContentTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +133,7 @@
 				F2AFDCDC1FA20EE400287C58 /* CodeReuser.swift */,
 				F2AFDCE21FA3006700287C58 /* AppColors.swift */,
 				F2AFDCDE1FA20F8A00287C58 /* ApiString.swift */,
+				F27773031FA70ABC00A2E146 /* imageFiles.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -130,6 +141,7 @@
 		F2AFDCE81FA3133200287C58 /* SideMenu */ = {
 			isa = PBXGroup;
 			children = (
+				F2E77B2E1FA6FFD60083EF89 /* TableViewCells */,
 				F2AFDCE91FA3134600287C58 /* SideMenuViewController.swift */,
 			);
 			path = SideMenu;
@@ -144,6 +156,17 @@
 				F2AFDCF11FA315C400287C58 /* AssignmentSearchTableViewCell.xib */,
 				F2AFDCF41FA3160F00287C58 /* AssignmentsTableViewCell.swift */,
 				F2AFDCF51FA3160F00287C58 /* AssignmentsTableViewCell.xib */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		F2E77B2E1FA6FFD60083EF89 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				F2E77B2F1FA7005D0083EF89 /* SidemenuHeaderTableViewCell.swift */,
+				F2E77B301FA7005D0083EF89 /* SidemenuHeaderTableViewCell.xib */,
+				F2E77B331FA7021B0083EF89 /* SidemenuContentTableViewCell.swift */,
+				F2E77B341FA7021B0083EF89 /* SidemenuContentTableViewCell.xib */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -212,7 +235,9 @@
 			files = (
 				7C5A7B3A1F9F4EF4008C7C29 /* LaunchScreen.storyboard in Resources */,
 				F2AFDCEF1FA315A600287C58 /* AssignmentProgressTableViewCell.xib in Resources */,
+				F2E77B361FA7021B0083EF89 /* SidemenuContentTableViewCell.xib in Resources */,
 				F2AFDCF71FA3160F00287C58 /* AssignmentsTableViewCell.xib in Resources */,
+				F2E77B321FA7005D0083EF89 /* SidemenuHeaderTableViewCell.xib in Resources */,
 				7C5A7B371F9F4EF4008C7C29 /* Assets.xcassets in Resources */,
 				F2AFDCF31FA315C400287C58 /* AssignmentSearchTableViewCell.xib in Resources */,
 				7C5A7B351F9F4EF4008C7C29 /* Main.storyboard in Resources */,
@@ -279,11 +304,14 @@
 				F2AFDCDD1FA20EE400287C58 /* CodeReuser.swift in Sources */,
 				F2AFDCF21FA315C400287C58 /* AssignmentSearchTableViewCell.swift in Sources */,
 				7C5A7B321F9F4EF4008C7C29 /* ViewController.swift in Sources */,
+				F27773041FA70ABC00A2E146 /* imageFiles.swift in Sources */,
 				F2AFDCE31FA3006700287C58 /* AppColors.swift in Sources */,
 				7C5A7B301F9F4EF4008C7C29 /* AppDelegate.swift in Sources */,
 				F2AFDCDF1FA20F8A00287C58 /* ApiString.swift in Sources */,
 				F2AFDCE51FA30A2E00287C58 /* HomeViewController.swift in Sources */,
 				F2AFDCE71FA30F9800287C58 /* ShopDetailsViewController.swift in Sources */,
+				F2E77B311FA7005D0083EF89 /* SidemenuHeaderTableViewCell.swift in Sources */,
+				F2E77B351FA7021B0083EF89 /* SidemenuContentTableViewCell.swift in Sources */,
 				F2AFDCEE1FA315A600287C58 /* AssignmentProgressTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

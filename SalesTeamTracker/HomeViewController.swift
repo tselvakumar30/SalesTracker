@@ -6,6 +6,7 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
     @IBOutlet var buttonAttendance: UIButton!
     var arrayShopList = NSMutableArray()
     var duplicateArray = NSMutableArray()
+    var textField = UITextField()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,9 +94,11 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
             return Cell!
         }else if (indexPath as NSIndexPath).section == 1 {
             let Cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentSearchTableViewCell") as! AssignmentSearchTableViewCell!
+            textField = (Cell?.textFieldSearch)!
             Cell?.textFieldSearch.delegate = self
             Cell?.textFieldSearch.tag = 1
-            
+            Cell?.buttonSearch.addTarget(self, action: #selector(self.buttonSearch(sender:)), for: .touchUpInside)
+            textField = (Cell?.textFieldSearch)!
             return Cell!
         }else{
             let Cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentsTableViewCell") as! AssignmentsTableViewCell!
@@ -118,7 +121,10 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
         print(sender.tag)
 
     }
-    
+    @objc func buttonSearch(sender:UISwitch){
+        textField.resignFirstResponder()
+    }
+
 //    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
 //            let currentText = textField.text ?? ""
 //            let prospectiveText = (currentText as NSString).replacingCharacters(in: range, with: string)

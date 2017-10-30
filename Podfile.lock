@@ -26,6 +26,9 @@ PODS:
     - NVActivityIndicatorView/Presenter (= 4.0.0)
   - NVActivityIndicatorView/Presenter (4.0.0)
   - PopupDialog (0.6.0)
+  - SDWebImage (4.1.2):
+    - SDWebImage/Core (= 4.1.2)
+  - SDWebImage/Core (4.1.2)
   - SideMenu (3.1.1)
 
 DEPENDENCIES:
@@ -35,6 +38,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift
   - NVActivityIndicatorView
   - PopupDialog
+  - SDWebImage
   - SideMenu
 
 SPEC CHECKSUMS:
@@ -44,8 +48,9 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: a0592bb636b10a9a1cf75d2b2c61144226226c84
   NVActivityIndicatorView: 54c9b93b6f25a4f467512680c0c90c09a1095cf2
   PopupDialog: 687af43af0f7b89948cd411ac701865f931bd6dc
+  SDWebImage: cb6f9f266a9977741efcbc21e618e8be3734c774
   SideMenu: 1bf32e90afaa2dc0e0ab68e938a0ff85014c4217
 
-PODFILE CHECKSUM: d81a82ae5c949ac416f94067a530877869a0a5a3
+PODFILE CHECKSUM: bd9b4bb51312e0a4be6306e6dc417a7dad99cd86
 
 COCOAPODS: 1.1.1

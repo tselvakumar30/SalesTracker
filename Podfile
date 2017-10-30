@@ -13,7 +13,6 @@ pod 'NVActivityIndicatorView'
 pod 'SideMenu'
 pod 'GoogleMaps'
 pod 'GooglePlaces'
-
-
+pod 'SDWebImage'
 
 end
