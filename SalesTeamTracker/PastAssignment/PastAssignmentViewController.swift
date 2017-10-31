@@ -141,7 +141,7 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
     {
-        return 10
+        return 5
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 5
@@ -159,7 +159,7 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-            return self.view.frame.height/4.7
+            return self.view.frame.height/3.3
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {

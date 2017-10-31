@@ -168,7 +168,7 @@ extension UIView {
         let shadowOffsetWid: Int = 0
         let shadowOffsetHeig: Int = 3
         let shadowCol: UIColor? = UIColor.black
-        let shadowOpaci: Float = 0.5
+        let shadowOpaci: Float = 0.3
         
         layer.cornerRadius = cornerRad
         let shadowPa = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)

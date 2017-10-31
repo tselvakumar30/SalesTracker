@@ -56,7 +56,7 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
     {
-        return 10
+        return 5
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 3
@@ -78,7 +78,7 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
         }else if (indexPath as NSIndexPath).section == 1 {
             return self.view.frame.height/9.5
         }else{
-            return self.view.frame.height/4.7
+            return self.view.frame.height/3.3
         }
     }
     
