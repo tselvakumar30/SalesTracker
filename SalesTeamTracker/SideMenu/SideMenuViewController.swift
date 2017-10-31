@@ -89,6 +89,19 @@ class SideMenuViewController: UIViewController,UITableViewDelegate,UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         tableViewSideMenu.deselectRow(at: indexPath, animated: false)
+        if indexPath.section == 1{
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"HomeViewController") as! HomeViewController
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+        }else if indexPath.section == 2{
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"PastAssignmentViewController") as! PastAssignmentViewController
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+        }else if indexPath.section == 3{
+            
+        }else if indexPath.section == 4{
+            
+        }else if indexPath.section == 5{
+            
+        }
     }
 
     

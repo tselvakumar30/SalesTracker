@@ -17,6 +17,7 @@ class AssignmentsTableViewCell: UITableViewCell {
     @IBOutlet var labelStreetName: UILabel!
     @IBOutlet var labelShopName: UILabel!
     @IBOutlet var imageViewShops: UIImageView!
+    @IBOutlet var viewCardView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -30,9 +31,10 @@ class AssignmentsTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+        SwitchLocation.frame = CGRect(x: SwitchLocation.frame.origin.x, y: buttonMap.frame.origin.y, width: SwitchLocation.frame.width, height: SwitchLocation.frame.height)
         CodeReuser().viewCircular(circleView: self.buttonMap)
         CodeReuser().viewCircular(circleView: self.buttonCall)
+        self.viewCardView.setCardView(shadowView: self.viewCardView)
     }
     
 }

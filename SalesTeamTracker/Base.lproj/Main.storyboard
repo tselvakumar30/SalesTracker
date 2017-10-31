@@ -205,7 +205,7 @@
         <!--Past Assignment View Controller-->
         <scene sceneID="bvV-gV-1hf">
             <objects>
-                <viewController id="4jQ-Jb-9H7" customClass="PastAssignmentViewController" customModule="SalesTeamTracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PastAssignmentViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4jQ-Jb-9H7" customClass="PastAssignmentViewController" customModule="SalesTeamTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jKC-eN-CJ0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -219,7 +219,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="header_bck_btn"/>
                                         <connections>
-                                            <action selector="buttonBack:" destination="mjP-lI-cFb" eventType="touchUpInside" id="O5e-p4-KG5"/>
+                                            <action selector="buttonBack:" destination="4jQ-Jb-9H7" eventType="touchUpInside" id="YoA-41-egL"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Past Assignment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9IC-Le-TLj">
@@ -232,13 +232,13 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.2901960784" green="0.6705882353" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <view contentMode="scaleAspectFill" id="Ziu-Tu-iIC" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="155" width="320" height="320"/>
+                            <view contentMode="scaleAspectFill" misplaced="YES" id="Ziu-Tu-iIC" customClass="PieChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="145" width="320" height="423"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="Yc5-dR-XbP" userLabel="Control 2" customClass="BetterSegmentedControl" customModule="BetterSegmentedControl">
-                                <rect key="frame" x="40" y="95" width="240" height="40"/>
+                            <view contentMode="scaleToFill" misplaced="YES" id="Yc5-dR-XbP" userLabel="Control 2" customClass="BetterSegmentedControl" customModule="BetterSegmentedControl">
+                                <rect key="frame" x="40" y="85" width="240" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.93333333330000001" green="0.3294117647" blue="0.17254901959999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
@@ -262,17 +262,35 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" misplaced="YES" id="HG3-yT-Ebh">
+                                <rect key="frame" x="0.0" y="145" width="320" height="423"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="xSC-VY-ME2">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="412"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="4jQ-Jb-9H7" id="EZP-kr-hkQ"/>
+                                            <outlet property="delegate" destination="4jQ-Jb-9H7" id="7hA-mi-vd9"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="pieChartView" destination="Ziu-Tu-iIC" id="hXe-Ck-etM"/>
                         <outlet property="segmentController" destination="Yc5-dR-XbP" id="EXn-Vi-8m7"/>
+                        <outlet property="tableViewList" destination="xSC-VY-ME2" id="SUd-kD-WWM"/>
+                        <outlet property="viewList" destination="HG3-yT-Ebh" id="6fe-rz-9cc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Lw-cS-t1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1004.2666666666667" y="-530.13333333333333"/>
+            <point key="canvasLocation" x="1004" y="-531"/>
         </scene>
         <!--Shop Details View Controller-->
         <scene sceneID="iol-Vf-JMd">

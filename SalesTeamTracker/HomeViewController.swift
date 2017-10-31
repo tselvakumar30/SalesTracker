@@ -59,7 +59,7 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
         return 10
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
+        return 3
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
@@ -125,18 +125,8 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
         textField.resignFirstResponder()
     }
 
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
-//            let currentText = textField.text ?? ""
-//            let prospectiveText = (currentText as NSString).replacingCharacters(in: range, with: string)
-//            let substring = (textField.text! as NSString).replacingCharacters(in: range, with: string)
-//                    searchAutocompleteEntriesWithSubstring(substring: substring, tField: textField)
-//        return true
-//    }
-    
     func textFieldDidEndEditing(_ textField: UITextField) {
-  //      let substring = .replacingCharacters(in: range, with: string)
         searchAutocompleteEntriesWithSubstring(substring: textField.text!)
-
     }
     
     func searchAutocompleteEntriesWithSubstring(substring: String)

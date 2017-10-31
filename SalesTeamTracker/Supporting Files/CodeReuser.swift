@@ -97,6 +97,29 @@ extension CALayer {
     }
 }
 
+@IBDesignable
+class CardView: UIView {
+    
+    @IBInspectable var cornerRadius1: CGFloat = 2
+
+    @IBInspectable var shadowOffsetWidth: Int = 0
+    @IBInspectable var shadowOffsetHeight: Int = 3
+    @IBInspectable var shadowColor1: UIColor? = UIColor.black
+    @IBInspectable var shadowOpacity: Float = 0.5
+    
+    override func layoutSubviews() {
+        layer.cornerRadius = cornerRadius1
+        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius1)
+        
+        layer.masksToBounds = false
+        layer.shadowColor = shadowColor1?.cgColor
+        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
+        layer.shadowOpacity = shadowOpacity
+        layer.shadowPath = shadowPath.cgPath
+    }
+    
+}
+
 extension String {
     
     // Returns true if the string has at least one character in common with matchCharacters.
@@ -135,6 +158,28 @@ extension String {
         return scanner.scanDecimal(nil) && scanner.isAtEnd
     }
     
-    
-    
 }
+extension UIView {
+    
+    func setCardView(shadowView : UIView){
+
+        let cornerRad: CGFloat = 2
+        
+        let shadowOffsetWid: Int = 0
+        let shadowOffsetHeig: Int = 3
+        let shadowCol: UIColor? = UIColor.black
+        let shadowOpaci: Float = 0.5
+        
+        layer.cornerRadius = cornerRad
+        let shadowPa = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+        layer.masksToBounds = false
+        layer.shadowColor = shadowCol?.cgColor
+        layer.shadowOffset = CGSize(width: shadowOffsetWid, height: shadowOffsetHeig);
+        layer.shadowOpacity = shadowOpaci
+        layer.shadowPath = shadowPa.cgPath
+    }
+
+}
+
+
+
