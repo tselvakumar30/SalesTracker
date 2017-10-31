@@ -15,6 +15,7 @@
 		D6CF495D608D7A71A6E6B518 /* Pods_SalesTeamTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C9CAA4E93DEED2496AACBB /* Pods_SalesTeamTracker.framework */; };
 		F27773041FA70ABC00A2E146 /* imageFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27773031FA70ABC00A2E146 /* imageFiles.swift */; };
 		F27773091FA73A9D00A2E146 /* PastAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27773081FA73A9D00A2E146 /* PastAssignmentViewController.swift */; };
+		F29B676C1FA87A3E0090F6E8 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29B676B1FA87A3E0090F6E8 /* MapViewController.swift */; };
 		F2AFDCDD1FA20EE400287C58 /* CodeReuser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCDC1FA20EE400287C58 /* CodeReuser.swift */; };
 		F2AFDCDF1FA20F8A00287C58 /* ApiString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCDE1FA20F8A00287C58 /* ApiString.swift */; };
 		F2AFDCE31FA3006700287C58 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCE21FA3006700287C58 /* AppColors.swift */; };
@@ -46,6 +47,7 @@
 		F1C9CAA4E93DEED2496AACBB /* Pods_SalesTeamTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SalesTeamTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F27773031FA70ABC00A2E146 /* imageFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageFiles.swift; sourceTree = "<group>"; };
 		F27773081FA73A9D00A2E146 /* PastAssignmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastAssignmentViewController.swift; sourceTree = "<group>"; };
+		F29B676B1FA87A3E0090F6E8 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		F2AFDCDC1FA20EE400287C58 /* CodeReuser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeReuser.swift; sourceTree = "<group>"; };
 		F2AFDCDE1FA20F8A00287C58 /* ApiString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiString.swift; sourceTree = "<group>"; };
 		F2AFDCE21FA3006700287C58 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 		7C5A7B2E1F9F4EF3008C7C29 /* SalesTeamTracker */ = {
 			isa = PBXGroup;
 			children = (
+				F29B676A1FA879CA0090F6E8 /* MapClass */,
 				F27773071FA73A7A00A2E146 /* PastAssignment */,
 				F2AFDCEB1FA3155200287C58 /* TableViewCells */,
 				F2AFDCE81FA3133200287C58 /* SideMenu */,
@@ -136,6 +139,14 @@
 				F27773081FA73A9D00A2E146 /* PastAssignmentViewController.swift */,
 			);
 			path = PastAssignment;
+			sourceTree = "<group>";
+		};
+		F29B676A1FA879CA0090F6E8 /* MapClass */ = {
+			isa = PBXGroup;
+			children = (
+				F29B676B1FA87A3E0090F6E8 /* MapViewController.swift */,
+			);
+			path = MapClass;
 			sourceTree = "<group>";
 		};
 		F2AFDCDB1FA20E3C00287C58 /* Supporting Files */ = {
@@ -325,6 +336,7 @@
 				F2E77B351FA7021B0083EF89 /* SidemenuContentTableViewCell.swift in Sources */,
 				F27773091FA73A9D00A2E146 /* PastAssignmentViewController.swift in Sources */,
 				F2AFDCEE1FA315A600287C58 /* AssignmentProgressTableViewCell.swift in Sources */,
+				F29B676C1FA87A3E0090F6E8 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
