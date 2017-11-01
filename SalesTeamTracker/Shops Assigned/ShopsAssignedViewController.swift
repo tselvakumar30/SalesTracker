@@ -83,8 +83,8 @@ class ShopsAssignedViewController: UIViewController,UITableViewDelegate,UITableV
         Cell?.labelCity.text = "Coimbatore VJ Business Centre "
         Cell?.SwitchLocation.isHidden = true
         Cell?.buttonMap.addTarget(self, action: #selector(self.buttonMap), for: .touchUpInside)
+        Cell?.buttonCall.addTarget(self, action: #selector(self.buttonCall), for: .touchUpInside)
 
-        
         return Cell!
     }
     
@@ -171,6 +171,16 @@ class ShopsAssignedViewController: UIViewController,UITableViewDelegate,UITableV
     @objc func buttonMap(){
         let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"MapViewController") as! MapViewController
         self.navigationController?.pushViewController(nextViewController, animated: true)
+    }
+    @objc func buttonCall()
+    {
+        if let url = URL(string: "tel://\(8973576442)"), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
     }
 
 

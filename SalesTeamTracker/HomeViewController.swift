@@ -115,6 +115,7 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
             Cell?.SwitchLocation.tag = (indexPath as NSIndexPath).section - 2
             Cell?.SwitchLocation.addTarget(self, action: #selector(self.buttonSwitch(sender:)), for: .valueChanged)
             Cell?.buttonMap.addTarget(self, action: #selector(self.buttonMap), for: .touchUpInside)
+            Cell?.buttonCall.addTarget(self, action: #selector(self.buttonCall), for: .touchUpInside)
             return Cell!
         }
     }
@@ -130,6 +131,16 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
     @objc func buttonMap(){
         let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"MapViewController") as! MapViewController
         self.navigationController?.pushViewController(nextViewController, animated: true)
+    }
+    @objc func buttonCall()
+    {
+        if let url = URL(string: "tel://\(8973576442)"), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
     }
     @objc func buttonSearch(sender:UISwitch){
         textField.resignFirstResponder()

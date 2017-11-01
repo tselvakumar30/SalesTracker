@@ -26,12 +26,11 @@ class SideMenuViewController: UIViewController,UITableViewDelegate,UITableViewDa
         tableViewSideMenu.reloadData()
     }
     func initializeData(){
-        arrayImages = [imageFiles().imageCalender!,imageFiles().imageCalender!,imageFiles().imageCalender!,imageFiles().imageAddShop!,imageFiles().imageLogout!]
+        arrayImages = [imageFiles().imagePastAssignment!,imageFiles().imagePastAssignment!,imageFiles().imageShopAssigned!,imageFiles().imageAddShop!,imageFiles().imageLogout!]
         arrayList = ["Today's Assignment","Past Assignment","Shop Assigned","Add Shop","Logout"]
 
     }
 
-    
     //MARK: - Tableview Delegate Methods -
     func numberOfSections(in tableView: UITableView) -> Int
     {
@@ -99,7 +98,8 @@ class SideMenuViewController: UIViewController,UITableViewDelegate,UITableViewDa
             let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"ShopsAssignedViewController") as! ShopsAssignedViewController
             self.navigationController?.pushViewController(nextViewController, animated: true)
         }else if indexPath.section == 4{
-            
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"AddShopViewController") as! AddShopViewController
+            self.navigationController?.pushViewController(nextViewController, animated: true)
         }else if indexPath.section == 5{
             
         }
