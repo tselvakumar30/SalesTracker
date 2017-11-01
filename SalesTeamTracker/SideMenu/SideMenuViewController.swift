@@ -96,7 +96,8 @@ class SideMenuViewController: UIViewController,UITableViewDelegate,UITableViewDa
             let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"PastAssignmentViewController") as! PastAssignmentViewController
             self.navigationController?.pushViewController(nextViewController, animated: true)
         }else if indexPath.section == 3{
-            
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"ShopsAssignedViewController") as! ShopsAssignedViewController
+            self.navigationController?.pushViewController(nextViewController, animated: true)
         }else if indexPath.section == 4{
             
         }else if indexPath.section == 5{

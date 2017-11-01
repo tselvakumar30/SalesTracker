@@ -2,6 +2,7 @@ import UIKit
 
 class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate  {
 
+    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     @IBOutlet var tableViewAssignMent: UITableView!
     @IBOutlet var buttonAttendance: UIButton!
     var arrayShopList = NSMutableArray()
@@ -23,6 +24,12 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
         arrayShopList.add(param2)
         duplicateArray.add(param1)
         duplicateArray.add(param2)
+        
+        if buttonAttendance.isHidden{
+            tableViewAssignMent.frame = CGRect(x: tableViewAssignMent.frame.origin.x, y: tableViewAssignMent.frame.origin.y, width: tableViewAssignMent.frame.width, height: buttonAttendance.frame.origin.y+(buttonAttendance.frame.height/2))
+        }else{
+            tableViewAssignMent.frame = CGRect(x: tableViewAssignMent.frame.origin.x, y: tableViewAssignMent.frame.origin.y, width: tableViewAssignMent.frame.width, height: buttonAttendance.frame.origin.y-5)
+        }
 
     }
     
@@ -107,6 +114,7 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
             Cell?.labelCity.text = "Coimbatore VJ Business Centre "
             Cell?.SwitchLocation.tag = (indexPath as NSIndexPath).section - 2
             Cell?.SwitchLocation.addTarget(self, action: #selector(self.buttonSwitch(sender:)), for: .valueChanged)
+            Cell?.buttonMap.addTarget(self, action: #selector(self.buttonMap), for: .touchUpInside)
             return Cell!
         }
     }
@@ -117,9 +125,11 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     
     @objc func buttonSwitch(sender:UISwitch){
-    
         print(sender.tag)
-
+    }
+    @objc func buttonMap(){
+        let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"MapViewController") as! MapViewController
+        self.navigationController?.pushViewController(nextViewController, animated: true)
     }
     @objc func buttonSearch(sender:UISwitch){
         textField.resignFirstResponder()

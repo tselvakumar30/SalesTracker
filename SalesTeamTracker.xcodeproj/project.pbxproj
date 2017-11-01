@@ -28,6 +28,8 @@
 		F2AFDCF31FA315C400287C58 /* AssignmentSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2AFDCF11FA315C400287C58 /* AssignmentSearchTableViewCell.xib */; };
 		F2AFDCF61FA3160F00287C58 /* AssignmentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCF41FA3160F00287C58 /* AssignmentsTableViewCell.swift */; };
 		F2AFDCF71FA3160F00287C58 /* AssignmentsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2AFDCF51FA3160F00287C58 /* AssignmentsTableViewCell.xib */; };
+		F2D45A281FA99F950037B916 /* ShopsAssignedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D45A271FA99F950037B916 /* ShopsAssignedViewController.swift */; };
+		F2D45A2B1FA9D4D90037B916 /* AddShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D45A2A1FA9D4D90037B916 /* AddShopViewController.swift */; };
 		F2E77B311FA7005D0083EF89 /* SidemenuHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E77B2F1FA7005D0083EF89 /* SidemenuHeaderTableViewCell.swift */; };
 		F2E77B321FA7005D0083EF89 /* SidemenuHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2E77B301FA7005D0083EF89 /* SidemenuHeaderTableViewCell.xib */; };
 		F2E77B351FA7021B0083EF89 /* SidemenuContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E77B331FA7021B0083EF89 /* SidemenuContentTableViewCell.swift */; };
@@ -60,6 +62,8 @@
 		F2AFDCF11FA315C400287C58 /* AssignmentSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignmentSearchTableViewCell.xib; sourceTree = "<group>"; };
 		F2AFDCF41FA3160F00287C58 /* AssignmentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsTableViewCell.swift; sourceTree = "<group>"; };
 		F2AFDCF51FA3160F00287C58 /* AssignmentsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignmentsTableViewCell.xib; sourceTree = "<group>"; };
+		F2D45A271FA99F950037B916 /* ShopsAssignedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsAssignedViewController.swift; sourceTree = "<group>"; };
+		F2D45A2A1FA9D4D90037B916 /* AddShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShopViewController.swift; sourceTree = "<group>"; };
 		F2E77B2F1FA7005D0083EF89 /* SidemenuHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidemenuHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		F2E77B301FA7005D0083EF89 /* SidemenuHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SidemenuHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		F2E77B331FA7021B0083EF89 /* SidemenuContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidemenuContentTableViewCell.swift; sourceTree = "<group>"; };
@@ -99,6 +103,8 @@
 		7C5A7B2E1F9F4EF3008C7C29 /* SalesTeamTracker */ = {
 			isa = PBXGroup;
 			children = (
+				F2D45A291FA9D4CA0037B916 /* AddShop */,
+				F2D45A261FA99F2E0037B916 /* Shops Assigned */,
 				F29B676A1FA879CA0090F6E8 /* MapClass */,
 				F27773071FA73A7A00A2E146 /* PastAssignment */,
 				F2AFDCEB1FA3155200287C58 /* TableViewCells */,
@@ -180,6 +186,22 @@
 				F2AFDCF51FA3160F00287C58 /* AssignmentsTableViewCell.xib */,
 			);
 			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		F2D45A261FA99F2E0037B916 /* Shops Assigned */ = {
+			isa = PBXGroup;
+			children = (
+				F2D45A271FA99F950037B916 /* ShopsAssignedViewController.swift */,
+			);
+			path = "Shops Assigned";
+			sourceTree = "<group>";
+		};
+		F2D45A291FA9D4CA0037B916 /* AddShop */ = {
+			isa = PBXGroup;
+			children = (
+				F2D45A2A1FA9D4D90037B916 /* AddShopViewController.swift */,
+			);
+			path = AddShop;
 			sourceTree = "<group>";
 		};
 		F2E77B2E1FA6FFD60083EF89 /* TableViewCells */ = {
@@ -329,8 +351,10 @@
 				F27773041FA70ABC00A2E146 /* imageFiles.swift in Sources */,
 				F2AFDCE31FA3006700287C58 /* AppColors.swift in Sources */,
 				7C5A7B301F9F4EF4008C7C29 /* AppDelegate.swift in Sources */,
+				F2D45A2B1FA9D4D90037B916 /* AddShopViewController.swift in Sources */,
 				F2AFDCDF1FA20F8A00287C58 /* ApiString.swift in Sources */,
 				F2AFDCE51FA30A2E00287C58 /* HomeViewController.swift in Sources */,
+				F2D45A281FA99F950037B916 /* ShopsAssignedViewController.swift in Sources */,
 				F2AFDCE71FA30F9800287C58 /* ShopDetailsViewController.swift in Sources */,
 				F2E77B311FA7005D0083EF89 /* SidemenuHeaderTableViewCell.swift in Sources */,
 				F2E77B351FA7021B0083EF89 /* SidemenuContentTableViewCell.swift in Sources */,

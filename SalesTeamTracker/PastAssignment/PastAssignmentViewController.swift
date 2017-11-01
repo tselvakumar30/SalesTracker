@@ -10,6 +10,9 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
     @IBOutlet var viewList: UIView!
     @IBOutlet var segmentController: BetterSegmentedControl!
     var arrayShopList = NSMutableArray()
+    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -169,7 +172,7 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
             Cell?.labelCity.text = "Coimbatore VJ Business Centre "
             Cell?.SwitchLocation.tag = (indexPath as NSIndexPath).section
             Cell?.SwitchLocation.addTarget(self, action: #selector(self.buttonSwitch(sender:)), for: .valueChanged)
-        
+            Cell?.buttonMap.addTarget(self, action: #selector(self.buttonMap), for: .touchUpInside)
             return Cell!
     }
     
@@ -182,6 +185,11 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
         print(sender.tag)
     }
 
+    @objc func buttonMap(){
+        let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"MapViewController") as! MapViewController
+        self.navigationController?.pushViewController(nextViewController, animated: true)
+    }
+    
 
 
 }
