@@ -3,7 +3,16 @@ import Foundation
 
 class CodeReuser: NSObject
 {
-
+    func setBorderToTextField(theTextField: UITextField, theView:UIView){
+        let border = CALayer()
+        let width = CGFloat(2.0)
+        border.borderColor = UIColor(red: 92.0/255.0, green: 94.0/255.0, blue: 102.0/255.0, alpha: 1.0).cgColor
+        border.frame = CGRect(x: 0, y: theTextField.frame.size.height - width, width:  theView.frame.size.width - 60, height: theTextField.frame.size.height)
+        
+        border.borderWidth = width
+        theTextField.layer.addSublayer(border)
+        theTextField.layer.masksToBounds = true
+    }
     func createGradientLayer(view:UIView,fromColor:UIColor,toColor:UIColor)-> UIView {
         var gradientLayer: CAGradientLayer!
         gradientLayer = CAGradientLayer()

@@ -20,11 +20,19 @@ class AddShopViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        updateUI()
+        setUIProperties()
     }
-    
-    func updateUI(){
+
+    func setUIProperties(){
         scrollView.contentSize = CGSize(width: self.viewScroll.frame.width, height: self.buttonSave.frame.height+self.buttonSave.frame.origin.y+25)
+        CodeReuser().setBorderToTextField(theTextField: textFieldLandmark, theView:self.view)
+        CodeReuser().setBorderToTextField(theTextField: textFieldShopAddress, theView:self.view)
+        CodeReuser().setBorderToTextField(theTextField: textFieldLocation, theView:self.view)
+        CodeReuser().setBorderToTextField(theTextField: textFieldStreetName, theView:self.view)
+        CodeReuser().setBorderToTextField(theTextField: textFieldCountryName, theView:self.view)
+        CodeReuser().setBorderToTextField(theTextField: textFieldPersonName, theView:self.view)
+        CodeReuser().setBorderToTextField(theTextField: textFieldPhone, theView:self.view)
+        CodeReuser().setBorderToTextField(theTextField: textFieldShopName, theView:self.view)
 
     }
 
