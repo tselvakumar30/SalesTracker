@@ -16,6 +16,8 @@ pod 'GooglePlaces'
 pod 'SDWebImage'
 pod 'Charts'
 pod 'BetterSegmentedControl'
+pod 'XLPagerTabStrip'
+pod 'YLProgressBar'
 
 
 end

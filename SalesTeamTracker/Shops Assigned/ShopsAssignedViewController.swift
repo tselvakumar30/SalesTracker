@@ -170,6 +170,9 @@ class ShopsAssignedViewController: UIViewController,UITableViewDelegate,UITableV
     
     @objc func buttonMap(){
         let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"MapViewController") as! MapViewController
+        nextViewController.doubleLatitude = 41.887
+        nextViewController.doubleLongitude = -87.622
+        nextViewController.stringMapTitle = "Title Map"
         self.navigationController?.pushViewController(nextViewController, animated: true)
     }
     @objc func buttonCall()

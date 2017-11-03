@@ -13,9 +13,6 @@ class MapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        doubleLatitude = 41.887
-        doubleLongitude = -87.622
-        stringMapTitle = "Map Title"
         let camera = GMSCameraPosition.camera(withLatitude: doubleLatitude,
                                               longitude:doubleLongitude,
                                               zoom:15)
@@ -26,7 +23,7 @@ class MapViewController: UIViewController {
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: doubleLatitude, longitude: doubleLongitude)
         marker.appearAnimation = GMSMarkerAnimation.pop
-        marker.icon = UIImage(named: "locationGrey")
+        marker.icon = imageFiles().imageMarker
         marker.map = mapView
         marker.title = stringMapTitle
         viewMapView.addSubview(mapView)

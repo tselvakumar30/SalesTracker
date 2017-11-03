@@ -1,7 +1,10 @@
 import UIKit
 
-class AddShopViewController: UIViewController {
 
+class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate {
+    
+    let imagePicker = UIImagePickerController()
+    var imageUpload = UIImage()
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     @IBOutlet var buttonSave: UIButton!
     @IBOutlet var scrollView: UIScrollView!
@@ -16,7 +19,8 @@ class AddShopViewController: UIViewController {
     @IBOutlet var textFieldPersonName: UITextField!
     @IBOutlet var textFieldPhone: UITextField!
     @IBOutlet var buttonAddImage: UIButton!
-    
+    @IBOutlet weak var autocompleteContainerView: UIView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,15 +37,59 @@ class AddShopViewController: UIViewController {
         CodeReuser().setBorderToTextField(theTextField: textFieldPersonName, theView:self.view)
         CodeReuser().setBorderToTextField(theTextField: textFieldPhone, theView:self.view)
         CodeReuser().setBorderToTextField(theTextField: textFieldShopName, theView:self.view)
-
     }
 
-    
     @IBAction func buttonBack(_ sender: Any)
     {
         _ = navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func buttonSelectPhoto(_ sender: Any)
+    {
+        self.SelectImage()
+    }
 
+    //MARK: ActionSheet Delegate
+    
+    func showActionSheet2()
+    {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: UIAlertActionStyle.default, handler: { (alert:UIAlertAction!) -> Void in
+            self.camera()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Photo Gallery", style: UIAlertActionStyle.default, handler: { (alert:UIAlertAction!) -> Void in
+            self.photoLibrary()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    func camera()
+    {
+        imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func photoLibrary()
+    {
+        imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    // MARK: - UIImagePickerControllerDelegate Methods
+    
+    func SelectImage()
+    {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum){
+            imagePicker.delegate = self;
+            self.showActionSheet2()
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+            imageViewShopImage.image = chosenImage
+            dismiss(animated: true, completion: nil)
+    }
 
+    
 }

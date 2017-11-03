@@ -1,6 +1,6 @@
 import UIKit
 
-class ShopDetailsViewController: UIViewController {
+class ActivityViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -12,10 +12,7 @@ class ShopDetailsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
- 
-    @IBAction func buttonBack(_ sender: Any)
-    {
-        _ = navigationController?.popViewController(animated: true)
-    }
+
+    
 
 }

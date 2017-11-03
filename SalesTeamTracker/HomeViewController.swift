@@ -123,6 +123,9 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         tableViewAssignMent.deselectRow(at: indexPath, animated: false)
+        let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"ShopDetailsViewController") as! ShopDetailsViewController
+        self.navigationController?.pushViewController(nextViewController, animated: true)
+
     }
     
     @objc func buttonSwitch(sender:UISwitch){
@@ -130,7 +133,10 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     @objc func buttonMap(){
         let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"MapViewController") as! MapViewController
-        self.navigationController?.pushViewController(nextViewController, animated: true)
+        nextViewController.doubleLatitude = 41.887
+        nextViewController.doubleLongitude = -87.622
+        nextViewController.stringMapTitle = "Title Map"
+            self.navigationController?.pushViewController(nextViewController, animated: true)
     }
     @objc func buttonCall()
     {

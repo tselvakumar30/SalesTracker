@@ -13,6 +13,11 @@
 		7C5A7B371F9F4EF4008C7C29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C5A7B361F9F4EF4008C7C29 /* Assets.xcassets */; };
 		7C5A7B3A1F9F4EF4008C7C29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C5A7B381F9F4EF4008C7C29 /* LaunchScreen.storyboard */; };
 		D6CF495D608D7A71A6E6B518 /* Pods_SalesTeamTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C9CAA4E93DEED2496AACBB /* Pods_SalesTeamTracker.framework */; };
+		F228DE2A1FAC568F0023B2B6 /* ShopDetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F228DE281FAC568F0023B2B6 /* ShopDetailsCollectionViewCell.swift */; };
+		F228DE2B1FAC568F0023B2B6 /* ShopDetailsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F228DE291FAC568F0023B2B6 /* ShopDetailsCollectionViewCell.xib */; };
+		F228DE2E1FAC5C650023B2B6 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F228DE2D1FAC5C650023B2B6 /* ActivityViewController.swift */; };
+		F228DE301FAC5C720023B2B6 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F228DE2F1FAC5C720023B2B6 /* MessageViewController.swift */; };
+		F228DE321FAC5C810023B2B6 /* StockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F228DE311FAC5C810023B2B6 /* StockViewController.swift */; };
 		F27773041FA70ABC00A2E146 /* imageFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27773031FA70ABC00A2E146 /* imageFiles.swift */; };
 		F27773091FA73A9D00A2E146 /* PastAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27773081FA73A9D00A2E146 /* PastAssignmentViewController.swift */; };
 		F29B676C1FA87A3E0090F6E8 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29B676B1FA87A3E0090F6E8 /* MapViewController.swift */; };
@@ -28,6 +33,8 @@
 		F2AFDCF31FA315C400287C58 /* AssignmentSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2AFDCF11FA315C400287C58 /* AssignmentSearchTableViewCell.xib */; };
 		F2AFDCF61FA3160F00287C58 /* AssignmentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCF41FA3160F00287C58 /* AssignmentsTableViewCell.swift */; };
 		F2AFDCF71FA3160F00287C58 /* AssignmentsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2AFDCF51FA3160F00287C58 /* AssignmentsTableViewCell.xib */; };
+		F2B3FFE01FAB242A006F97DF /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B3FFDF1FAB242A006F97DF /* Address.swift */; };
+		F2B3FFE31FAB24C8006F97DF /* AutocompleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B3FFE21FAB24C8006F97DF /* AutocompleteCell.swift */; };
 		F2D45A281FA99F950037B916 /* ShopsAssignedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D45A271FA99F950037B916 /* ShopsAssignedViewController.swift */; };
 		F2D45A2B1FA9D4D90037B916 /* AddShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D45A2A1FA9D4D90037B916 /* AddShopViewController.swift */; };
 		F2E77B311FA7005D0083EF89 /* SidemenuHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E77B2F1FA7005D0083EF89 /* SidemenuHeaderTableViewCell.swift */; };
@@ -47,6 +54,12 @@
 		7C5A7B3B1F9F4EF4008C7C29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8D22542E18F447B9690645C /* Pods-SalesTeamTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SalesTeamTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SalesTeamTracker/Pods-SalesTeamTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		F1C9CAA4E93DEED2496AACBB /* Pods_SalesTeamTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SalesTeamTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F228DE281FAC568F0023B2B6 /* ShopDetailsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopDetailsCollectionViewCell.swift; sourceTree = "<group>"; };
+		F228DE291FAC568F0023B2B6 /* ShopDetailsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopDetailsCollectionViewCell.xib; sourceTree = "<group>"; };
+		F228DE2D1FAC5C650023B2B6 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		F228DE2F1FAC5C720023B2B6 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
+		F228DE311FAC5C810023B2B6 /* StockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewController.swift; sourceTree = "<group>"; };
+		F25724551FAB58B2000558F5 /* SalesTeamTracker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SalesTeamTracker-Bridging-Header.h"; sourceTree = "<group>"; };
 		F27773031FA70ABC00A2E146 /* imageFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageFiles.swift; sourceTree = "<group>"; };
 		F27773081FA73A9D00A2E146 /* PastAssignmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastAssignmentViewController.swift; sourceTree = "<group>"; };
 		F29B676B1FA87A3E0090F6E8 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +75,9 @@
 		F2AFDCF11FA315C400287C58 /* AssignmentSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignmentSearchTableViewCell.xib; sourceTree = "<group>"; };
 		F2AFDCF41FA3160F00287C58 /* AssignmentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsTableViewCell.swift; sourceTree = "<group>"; };
 		F2AFDCF51FA3160F00287C58 /* AssignmentsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignmentsTableViewCell.xib; sourceTree = "<group>"; };
+		F2B3FFDF1FAB242A006F97DF /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		F2B3FFE11FAB24C7006F97DF /* AutocompleteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AutocompleteCell.xib; sourceTree = "<group>"; };
+		F2B3FFE21FAB24C8006F97DF /* AutocompleteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteCell.swift; sourceTree = "<group>"; };
 		F2D45A271FA99F950037B916 /* ShopsAssignedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsAssignedViewController.swift; sourceTree = "<group>"; };
 		F2D45A2A1FA9D4D90037B916 /* AddShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShopViewController.swift; sourceTree = "<group>"; };
 		F2E77B2F1FA7005D0083EF89 /* SidemenuHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidemenuHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -103,6 +119,7 @@
 		7C5A7B2E1F9F4EF3008C7C29 /* SalesTeamTracker */ = {
 			isa = PBXGroup;
 			children = (
+				F228DE211FAC55FD0023B2B6 /* ShopDetails */,
 				F2D45A291FA9D4CA0037B916 /* AddShop */,
 				F2D45A261FA99F2E0037B916 /* Shops Assigned */,
 				F29B676A1FA879CA0090F6E8 /* MapClass */,
@@ -113,11 +130,11 @@
 				7C5A7B2F1F9F4EF4008C7C29 /* AppDelegate.swift */,
 				7C5A7B311F9F4EF4008C7C29 /* ViewController.swift */,
 				F2AFDCE41FA30A2E00287C58 /* HomeViewController.swift */,
-				F2AFDCE61FA30F9800287C58 /* ShopDetailsViewController.swift */,
 				7C5A7B331F9F4EF4008C7C29 /* Main.storyboard */,
 				7C5A7B361F9F4EF4008C7C29 /* Assets.xcassets */,
 				7C5A7B381F9F4EF4008C7C29 /* LaunchScreen.storyboard */,
 				7C5A7B3B1F9F4EF4008C7C29 /* Info.plist */,
+				F25724551FAB58B2000558F5 /* SalesTeamTracker-Bridging-Header.h */,
 			);
 			path = SalesTeamTracker;
 			sourceTree = "<group>";
@@ -137,6 +154,35 @@
 				4C236173DAC50C69DB584573 /* Pods-SalesTeamTracker.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		F228DE211FAC55FD0023B2B6 /* ShopDetails */ = {
+			isa = PBXGroup;
+			children = (
+				F228DE2C1FAC5C460023B2B6 /* SegmentClasses */,
+				F228DE221FAC56190023B2B6 /* CollectionViewCells */,
+				F2AFDCE61FA30F9800287C58 /* ShopDetailsViewController.swift */,
+			);
+			path = ShopDetails;
+			sourceTree = "<group>";
+		};
+		F228DE221FAC56190023B2B6 /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				F228DE281FAC568F0023B2B6 /* ShopDetailsCollectionViewCell.swift */,
+				F228DE291FAC568F0023B2B6 /* ShopDetailsCollectionViewCell.xib */,
+			);
+			path = CollectionViewCells;
+			sourceTree = "<group>";
+		};
+		F228DE2C1FAC5C460023B2B6 /* SegmentClasses */ = {
+			isa = PBXGroup;
+			children = (
+				F228DE2D1FAC5C650023B2B6 /* ActivityViewController.swift */,
+				F228DE2F1FAC5C720023B2B6 /* MessageViewController.swift */,
+				F228DE311FAC5C810023B2B6 /* StockViewController.swift */,
+			);
+			path = SegmentClasses;
 			sourceTree = "<group>";
 		};
 		F27773071FA73A7A00A2E146 /* PastAssignment */ = {
@@ -199,6 +245,9 @@
 		F2D45A291FA9D4CA0037B916 /* AddShop */ = {
 			isa = PBXGroup;
 			children = (
+				F2B3FFE21FAB24C8006F97DF /* AutocompleteCell.swift */,
+				F2B3FFE11FAB24C7006F97DF /* AutocompleteCell.xib */,
+				F2B3FFDF1FAB242A006F97DF /* Address.swift */,
 				F2D45A2A1FA9D4D90037B916 /* AddShopViewController.swift */,
 			);
 			path = AddShop;
@@ -250,6 +299,7 @@
 				TargetAttributes = {
 					7C5A7B2B1F9F4EF3008C7C29 = {
 						CreatedOnToolsVersion = 9.0.1;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -277,6 +327,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F228DE2B1FAC568F0023B2B6 /* ShopDetailsCollectionViewCell.xib in Resources */,
 				7C5A7B3A1F9F4EF4008C7C29 /* LaunchScreen.storyboard in Resources */,
 				F2AFDCEF1FA315A600287C58 /* AssignmentProgressTableViewCell.xib in Resources */,
 				F2E77B361FA7021B0083EF89 /* SidemenuContentTableViewCell.xib in Resources */,
@@ -343,24 +394,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2B3FFE01FAB242A006F97DF /* Address.swift in Sources */,
 				F2AFDCF61FA3160F00287C58 /* AssignmentsTableViewCell.swift in Sources */,
+				F228DE2A1FAC568F0023B2B6 /* ShopDetailsCollectionViewCell.swift in Sources */,
 				F2AFDCEA1FA3134600287C58 /* SideMenuViewController.swift in Sources */,
 				F2AFDCDD1FA20EE400287C58 /* CodeReuser.swift in Sources */,
 				F2AFDCF21FA315C400287C58 /* AssignmentSearchTableViewCell.swift in Sources */,
 				7C5A7B321F9F4EF4008C7C29 /* ViewController.swift in Sources */,
+				F228DE321FAC5C810023B2B6 /* StockViewController.swift in Sources */,
 				F27773041FA70ABC00A2E146 /* imageFiles.swift in Sources */,
 				F2AFDCE31FA3006700287C58 /* AppColors.swift in Sources */,
 				7C5A7B301F9F4EF4008C7C29 /* AppDelegate.swift in Sources */,
 				F2D45A2B1FA9D4D90037B916 /* AddShopViewController.swift in Sources */,
 				F2AFDCDF1FA20F8A00287C58 /* ApiString.swift in Sources */,
+				F2B3FFE31FAB24C8006F97DF /* AutocompleteCell.swift in Sources */,
 				F2AFDCE51FA30A2E00287C58 /* HomeViewController.swift in Sources */,
 				F2D45A281FA99F950037B916 /* ShopsAssignedViewController.swift in Sources */,
 				F2AFDCE71FA30F9800287C58 /* ShopDetailsViewController.swift in Sources */,
+				F228DE301FAC5C720023B2B6 /* MessageViewController.swift in Sources */,
 				F2E77B311FA7005D0083EF89 /* SidemenuHeaderTableViewCell.swift in Sources */,
 				F2E77B351FA7021B0083EF89 /* SidemenuContentTableViewCell.swift in Sources */,
 				F27773091FA73A9D00A2E146 /* PastAssignmentViewController.swift in Sources */,
 				F2AFDCEE1FA315A600287C58 /* AssignmentProgressTableViewCell.swift in Sources */,
 				F29B676C1FA87A3E0090F6E8 /* MapViewController.swift in Sources */,
+				F228DE2E1FAC5C650023B2B6 /* ActivityViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,12 +555,15 @@
 			baseConfigurationReference = D8D22542E18F447B9690645C /* Pods-SalesTeamTracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = EQ66433AJ7;
 				INFOPLIST_FILE = SalesTeamTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pluggdd.SalesTeamTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SalesTeamTracker/SalesTeamTracker-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -514,12 +574,14 @@
 			baseConfigurationReference = 4C236173DAC50C69DB584573 /* Pods-SalesTeamTracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = EQ66433AJ7;
 				INFOPLIST_FILE = SalesTeamTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pluggdd.SalesTeamTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SalesTeamTracker/SalesTeamTracker-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

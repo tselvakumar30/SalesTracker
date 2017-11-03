@@ -34,6 +34,8 @@ PODS:
     - SDWebImage/Core (= 4.1.2)
   - SDWebImage/Core (4.1.2)
   - SideMenu (3.1.1)
+  - XLPagerTabStrip (8.0.0)
+  - YLProgressBar (3.10.1)
 
 DEPENDENCIES:
   - AFNetworking
@@ -46,6 +48,8 @@ DEPENDENCIES:
   - PopupDialog
   - SDWebImage
   - SideMenu
+  - XLPagerTabStrip
+  - YLProgressBar
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -58,7 +62,9 @@ SPEC CHECKSUMS:
   PopupDialog: 687af43af0f7b89948cd411ac701865f931bd6dc
   SDWebImage: cb6f9f266a9977741efcbc21e618e8be3734c774
   SideMenu: 1bf32e90afaa2dc0e0ab68e938a0ff85014c4217
+  XLPagerTabStrip: d1ab378af0923320ec0b5eab11d7b2f803d31261
+  YLProgressBar: 763ad9be70b8de5ab98a3fab27953f3771869e3d
 
-PODFILE CHECKSUM: e0e568406428386f9eca42cf268d4f31c868a075
+PODFILE CHECKSUM: a200241c2f5f7a3b9d15a8a34c495784b60aa981
 
 COCOAPODS: 1.1.1

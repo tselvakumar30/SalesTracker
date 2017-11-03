@@ -26,7 +26,7 @@ class SideMenuViewController: UIViewController,UITableViewDelegate,UITableViewDa
         tableViewSideMenu.reloadData()
     }
     func initializeData(){
-        arrayImages = [imageFiles().imagePastAssignment!,imageFiles().imagePastAssignment!,imageFiles().imageShopAssigned!,imageFiles().imageAddShop!,imageFiles().imageLogout!]
+        arrayImages = [imageFiles().imageTodaysAssignment!,imageFiles().imagePastAssignment!,imageFiles().imageShopAssigned!,imageFiles().imageAddShop!,imageFiles().imageLogout!]
         arrayList = ["Today's Assignment","Past Assignment","Shop Assigned","Add Shop","Logout"]
 
     }
