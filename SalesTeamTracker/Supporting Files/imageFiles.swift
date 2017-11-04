@@ -13,6 +13,8 @@ class imageFiles: UIImage {
     let imageUser = UIImage(named: "user")
     let imageLocate = UIImage(named: "locate")
     let imageLandmark = UIImage(named: "landmark")
+    let imageAddPhone = UIImage(named: "phoneAdd")
+
 
     
 }

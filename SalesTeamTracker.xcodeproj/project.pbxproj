@@ -64,6 +64,7 @@
 		F27773031FA70ABC00A2E146 /* imageFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageFiles.swift; sourceTree = "<group>"; };
 		F27773081FA73A9D00A2E146 /* PastAssignmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastAssignmentViewController.swift; sourceTree = "<group>"; };
 		F29681131FAE2CC900C359AF /* SingleShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleShopViewController.swift; sourceTree = "<group>"; };
+		F29681151FAE41E100C359AF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F29B676B1FA87A3E0090F6E8 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		F2AFDCDC1FA20EE400287C58 /* CodeReuser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeReuser.swift; sourceTree = "<group>"; };
 		F2AFDCDE1FA20F8A00287C58 /* ApiString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiString.swift; sourceTree = "<group>"; };
@@ -144,6 +145,7 @@
 		9795F2597FD88BD5111E5E66 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F29681151FAE41E100C359AF /* CoreLocation.framework */,
 				F1C9CAA4E93DEED2496AACBB /* Pods_SalesTeamTracker.framework */,
 			);
 			name = Frameworks;

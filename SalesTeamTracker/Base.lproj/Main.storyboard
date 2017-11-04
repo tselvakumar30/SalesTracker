@@ -519,11 +519,10 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2LE-CM-AHV">
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2LE-CM-AHV">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                                <state key="normal" title="+"/>
+                                                <state key="normal" image="addbutton"/>
                                                 <connections>
                                                     <action selector="buttonSelectPhoto:" destination="WJ4-rv-mIu" eventType="touchUpInside" id="mTF-Ie-L7D"/>
                                                 </connections>
@@ -817,6 +816,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="addbutton" width="63" height="63"/>
         <image name="fromcalendar" width="63" height="63"/>
         <image name="header_bck_btn" width="25" height="25"/>
         <image name="logo" width="183" height="183"/>

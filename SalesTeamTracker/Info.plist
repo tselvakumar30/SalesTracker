@@ -53,5 +53,15 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Sales Tracker Like To Access Your PhotoLibrary To Choose Profile Image!</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Sales Tracker Like To Access Your Camera To Choose Profile Image!</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Sales Tracker Like To Access Your Location</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Sales Tracker Like To Access Your Location</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Sales Tracker Like To Access Your Location</string>
 </dict>
 </plist>

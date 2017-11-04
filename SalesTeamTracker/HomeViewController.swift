@@ -1,6 +1,7 @@
 import UIKit
+import CoreLocation
 
-class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate  {
+class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,CLLocationManagerDelegate  {
 
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     @IBOutlet var tableViewAssignMent: UITableView!
@@ -8,10 +9,13 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
     var arrayShopList = NSMutableArray()
     var duplicateArray = NSMutableArray()
     var textField = UITextField()
+    var locationManager:CLLocationManager!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initializeTableviewUI()
+        setupLocationManager()
     }
     
     func addArrayData(){
@@ -176,4 +180,35 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
         tableViewAssignMent.reloadData()
     }
 
+    
+    // CoreLocation - Get Location
+    
+    
+    // Below method will provide you current location.
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        if currentLocation == nil {
+            currentLocation = locations.last
+            locationManager?.stopMonitoringSignificantLocationChanges()
+            let locationValue:CLLocationCoordinate2D = manager.location!.coordinate
+            
+            print("locations = \(locationValue)")
+            
+            locationManager?.stopUpdatingLocation()
+        }
+    }
+    
+    // Below Mehtod will print error if not able to update location.
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error")
+    }
+    
+    func setupLocationManager(){
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        self.locationManager?.requestAlwaysAuthorization()
+        locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager?.startUpdatingLocation()
+    }
+    
 }
