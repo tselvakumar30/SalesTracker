@@ -1,6 +1,7 @@
 import UIKit
+import XLPagerTabStrip
 
-class ActivityViewController: UIViewController {
+class ActivityViewController: UIViewController,IndicatorInfoProvider {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -13,6 +14,9 @@ class ActivityViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
+        return IndicatorInfo(title: "Activity")
+    }
     
 
 }

@@ -10,9 +10,6 @@ class ShopDetailsViewController: UIViewController,UICollectionViewDelegate,UICol
     @IBOutlet var pageControl: UIPageControl!
     var nIndexpath = Int()
 
-
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 

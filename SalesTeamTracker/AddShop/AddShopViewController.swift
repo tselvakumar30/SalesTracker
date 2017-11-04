@@ -29,14 +29,14 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
 
     func setUIProperties(){
         scrollView.contentSize = CGSize(width: self.viewScroll.frame.width, height: self.buttonSave.frame.height+self.buttonSave.frame.origin.y+25)
-        CodeReuser().setBorderToTextField(theTextField: textFieldLandmark, theView:self.view)
-        CodeReuser().setBorderToTextField(theTextField: textFieldShopAddress, theView:self.view)
-        CodeReuser().setBorderToTextField(theTextField: textFieldLocation, theView:self.view)
-        CodeReuser().setBorderToTextField(theTextField: textFieldStreetName, theView:self.view)
-        CodeReuser().setBorderToTextField(theTextField: textFieldCountryName, theView:self.view)
-        CodeReuser().setBorderToTextField(theTextField: textFieldPersonName, theView:self.view)
-        CodeReuser().setBorderToTextField(theTextField: textFieldPhone, theView:self.view)
-        CodeReuser().setBorderToTextField(theTextField: textFieldShopName, theView:self.view)
+        CodeReuser().setBorderToTextFieldWithImage(theTextField: textFieldLandmark, theView:self.view, image: imageFiles().imageLandmark!)
+        CodeReuser().setBorderToTextFieldWithImage(theTextField: textFieldShopAddress, theView:self.view, image: imageFiles().imageShopAddress!)
+        CodeReuser().setBorderToTextFieldWithImage(theTextField: textFieldLocation, theView:self.view, image: imageFiles().imageLocate!)
+        CodeReuser().setBorderToTextFieldWithImage(theTextField: textFieldStreetName, theView:self.view, image: imageFiles().imageLocate!)
+        CodeReuser().setBorderToTextFieldWithImage(theTextField: textFieldCountryName, theView:self.view, image: imageFiles().imageLocate!)
+        CodeReuser().setBorderToTextFieldWithImage(theTextField: textFieldPersonName, theView:self.view, image: imageFiles().imageUser!)
+        CodeReuser().setBorderToTextFieldWithImage(theTextField: textFieldPhone, theView:self.view, image: imageFiles().imageLocate!)
+        CodeReuser().setBorderToTextFieldWithImage(theTextField: textFieldShopName, theView:self.view, image: imageFiles().imageShopName!)
     }
 
     @IBAction func buttonBack(_ sender: Any)

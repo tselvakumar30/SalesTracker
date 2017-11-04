@@ -20,6 +20,7 @@
 		F228DE321FAC5C810023B2B6 /* StockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F228DE311FAC5C810023B2B6 /* StockViewController.swift */; };
 		F27773041FA70ABC00A2E146 /* imageFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27773031FA70ABC00A2E146 /* imageFiles.swift */; };
 		F27773091FA73A9D00A2E146 /* PastAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27773081FA73A9D00A2E146 /* PastAssignmentViewController.swift */; };
+		F29681141FAE2CC900C359AF /* SingleShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29681131FAE2CC900C359AF /* SingleShopViewController.swift */; };
 		F29B676C1FA87A3E0090F6E8 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29B676B1FA87A3E0090F6E8 /* MapViewController.swift */; };
 		F2AFDCDD1FA20EE400287C58 /* CodeReuser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCDC1FA20EE400287C58 /* CodeReuser.swift */; };
 		F2AFDCDF1FA20F8A00287C58 /* ApiString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCDE1FA20F8A00287C58 /* ApiString.swift */; };
@@ -62,6 +63,7 @@
 		F25724551FAB58B2000558F5 /* SalesTeamTracker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SalesTeamTracker-Bridging-Header.h"; sourceTree = "<group>"; };
 		F27773031FA70ABC00A2E146 /* imageFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageFiles.swift; sourceTree = "<group>"; };
 		F27773081FA73A9D00A2E146 /* PastAssignmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastAssignmentViewController.swift; sourceTree = "<group>"; };
+		F29681131FAE2CC900C359AF /* SingleShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleShopViewController.swift; sourceTree = "<group>"; };
 		F29B676B1FA87A3E0090F6E8 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		F2AFDCDC1FA20EE400287C58 /* CodeReuser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeReuser.swift; sourceTree = "<group>"; };
 		F2AFDCDE1FA20F8A00287C58 /* ApiString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiString.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				F228DE2C1FAC5C460023B2B6 /* SegmentClasses */,
 				F228DE221FAC56190023B2B6 /* CollectionViewCells */,
 				F2AFDCE61FA30F9800287C58 /* ShopDetailsViewController.swift */,
+				F29681131FAE2CC900C359AF /* SingleShopViewController.swift */,
 			);
 			path = ShopDetails;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F29681141FAE2CC900C359AF /* SingleShopViewController.swift in Sources */,
 				F2B3FFE01FAB242A006F97DF /* Address.swift in Sources */,
 				F2AFDCF61FA3160F00287C58 /* AssignmentsTableViewCell.swift in Sources */,
 				F228DE2A1FAC568F0023B2B6 /* ShopDetailsCollectionViewCell.swift in Sources */,

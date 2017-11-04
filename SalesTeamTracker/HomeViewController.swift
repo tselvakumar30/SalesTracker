@@ -123,9 +123,8 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         tableViewAssignMent.deselectRow(at: indexPath, animated: false)
-        let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"ShopDetailsViewController") as! ShopDetailsViewController
+        let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"SingleShopViewController") as! SingleShopViewController
         self.navigationController?.pushViewController(nextViewController, animated: true)
-
     }
     
     @objc func buttonSwitch(sender:UISwitch){

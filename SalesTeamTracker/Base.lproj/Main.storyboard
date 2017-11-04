@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES" initialViewController="aO9-Dj-Obp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES" initialViewController="aO9-Dj-Obp">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -179,7 +179,7 @@
                     <view key="view" contentMode="scaleToFill" id="yvc-KH-cFQ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="448"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93333333330000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <size key="freeformSize" width="320" height="448"/>
                 </viewController>
@@ -187,20 +187,20 @@
             </objects>
             <point key="canvasLocation" x="670" y="718"/>
         </scene>
-        <!--Activity View Controller-->
+        <!--Stock View Controller-->
         <scene sceneID="yqc-fd-Hpy">
             <objects>
-                <viewController storyboardIdentifier="ActivityViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bfc-ke-pPu" customClass="ActivityViewController" customModule="SalesTeamTracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StockViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bfc-ke-pPu" customClass="StockViewController" customModule="SalesTeamTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gpk-cQ-NOR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="448"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <size key="freeformSize" width="320" height="448"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XGX-z9-IHj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1005" y="718"/>
+            <point key="canvasLocation" x="1004" y="718"/>
         </scene>
         <!--Message View Controller-->
         <scene sceneID="Cuw-eP-QSR">
@@ -209,7 +209,7 @@
                     <view key="view" contentMode="scaleToFill" id="r4f-2A-qKM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="448"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <size key="freeformSize" width="320" height="448"/>
                 </viewController>
@@ -528,10 +528,6 @@
                                                     <action selector="buttonSelectPhoto:" destination="WJ4-rv-mIu" eventType="touchUpInside" id="mTF-Ie-L7D"/>
                                                 </connections>
                                             </button>
-                                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" id="VzI-ue-eHq">
-                                                <rect key="frame" x="15" y="313" width="290" height="455"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                            </containerView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -541,7 +537,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="autocompleteContainerView" destination="VzI-ue-eHq" id="rM2-TF-1yR"/>
                         <outlet property="buttonAddImage" destination="2LE-CM-AHV" id="q9Z-pG-D7g"/>
                         <outlet property="buttonSave" destination="QEL-q5-lOb" id="pp0-Ze-mon"/>
                         <outlet property="imageViewShopImage" destination="2ZT-Cj-C9i" id="RNf-C4-Vzf"/>
@@ -561,10 +556,10 @@
             </objects>
             <point key="canvasLocation" x="1766" y="-531"/>
         </scene>
-        <!--Shop Details View Controller-->
+        <!--Single Shop View Controller-->
         <scene sceneID="iol-Vf-JMd">
             <objects>
-                <viewController storyboardIdentifier="ShopDetailsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mjP-lI-cFb" customClass="ShopDetailsViewController" customModule="SalesTeamTracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SingleShopViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mjP-lI-cFb" customClass="SingleShopViewController" customModule="SalesTeamTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fYm-TW-bOv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -578,7 +573,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="header_bck_btn"/>
                                         <connections>
-                                            <action selector="buttonBack:" destination="mjP-lI-cFb" eventType="touchUpInside" id="23U-Vf-wxH"/>
+                                            <action selector="buttonBack:" destination="mjP-lI-cFb" eventType="touchUpInside" id="9Hj-gx-iQy"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shop Details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vT7-xJ-S6N">
@@ -616,8 +611,8 @@
                                             </collectionViewCell>
                                         </cells>
                                         <connections>
-                                            <outlet property="dataSource" destination="mjP-lI-cFb" id="1iR-bU-vs0"/>
-                                            <outlet property="delegate" destination="mjP-lI-cFb" id="udG-2C-TYM"/>
+                                            <outlet property="dataSource" destination="mjP-lI-cFb" id="R1e-EN-U5u"/>
+                                            <outlet property="delegate" destination="mjP-lI-cFb" id="NOs-M9-dDn"/>
                                         </connections>
                                     </collectionView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="14" id="m9m-AB-MJO">
@@ -642,19 +637,32 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" id="TRA-M7-dis">
-                                <rect key="frame" x="0.0" y="385" width="320" height="508"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" id="4PF-4t-ax0">
+                                <rect key="frame" x="-5" y="380" width="330" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                                <color key="tintColor" red="0.2901960784" green="0.6705882353" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </segmentedControl>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" id="36o-7Q-jii">
+                                <rect key="frame" x="0.0" y="420" width="320" height="468"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="collectionViewImages" destination="jav-bb-l68" id="PxY-xD-7R1"/>
-                        <outlet property="labelAddress" destination="BJb-lh-gNf" id="QB9-CP-wxk"/>
-                        <outlet property="labelShopName" destination="4tr-jp-eXo" id="e58-d6-iLU"/>
-                        <outlet property="pageControl" destination="hCd-7w-N9A" id="skT-pP-VbP"/>
+                        <outlet property="collectionViewImages" destination="jav-bb-l68" id="mHi-JX-r8g"/>
+                        <outlet property="containerView" destination="36o-7Q-jii" id="BEx-7r-RHY"/>
+                        <outlet property="labelAddress" destination="BJb-lh-gNf" id="HT5-lm-vvG"/>
+                        <outlet property="labelShopName" destination="m9m-AB-MJO" id="ucN-sk-yjX"/>
+                        <outlet property="pageControl" destination="hCd-7w-N9A" id="iEA-wD-tit"/>
+                        <outlet property="segmentedControl" destination="4PF-4t-ax0" id="q6d-RG-24t"/>
+                        <outlet property="viewHeader" destination="M7v-ys-FDd" id="tSf-Tq-RpV"/>
+                        <outlet property="viewMiddleView" destination="4tr-jp-eXo" id="c7Y-VK-OFV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9LV-2x-k6R" userLabel="First Responder" sceneMemberID="firstResponder"/>

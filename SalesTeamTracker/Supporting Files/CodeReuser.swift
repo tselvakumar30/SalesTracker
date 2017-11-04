@@ -7,12 +7,30 @@ class CodeReuser: NSObject
         let border = CALayer()
         let width = CGFloat(2.0)
         border.borderColor = UIColor(red: 92.0/255.0, green: 94.0/255.0, blue: 102.0/255.0, alpha: 1.0).cgColor
-        border.frame = CGRect(x: 0, y: theTextField.frame.size.height - width, width:  theView.frame.size.width - 60, height: theTextField.frame.size.height)
+        border.frame = CGRect(x: 0, y: theTextField.frame.size.height - width, width:  theView.frame.size.width, height: theTextField.frame.size.height)
         
         border.borderWidth = width
         theTextField.layer.addSublayer(border)
         theTextField.layer.masksToBounds = true
     }
+    
+    func setBorderToTextFieldWithImage(theTextField: UITextField, theView:UIView,image:UIImage){
+        let border = CALayer()
+        let width = CGFloat(2.0)
+        border.borderColor = UIColor(red: 92.0/255.0, green: 94.0/255.0, blue: 102.0/255.0, alpha: 1.0).cgColor
+        border.frame = CGRect(x: 0, y: theTextField.frame.size.height - width, width:  theView.frame.size.width , height: theTextField.frame.size.height)
+        
+        border.borderWidth = width
+        let imageView = UIImageView(frame: CGRect(x: 2, y: 5, width: 25, height: 25))
+        imageView.image = image
+        theTextField.addSubview(imageView)
+        theTextField.leftViewMode = .always
+        theTextField.leftView = imageView
+
+        theTextField.layer.addSublayer(border)
+        theTextField.layer.masksToBounds = true
+    }
+    
     func createGradientLayer(view:UIView,fromColor:UIColor,toColor:UIColor)-> UIView {
         var gradientLayer: CAGradientLayer!
         gradientLayer = CAGradientLayer()
