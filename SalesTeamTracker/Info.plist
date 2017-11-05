@@ -63,5 +63,7 @@
 	<string>Sales Tracker Like To Access Your Location</string>
 	<key>NSLocationUsageDescription</key>
 	<string>Sales Tracker Like To Access Your Location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Sales Tracker Like To Access Your Location</string>
 </dict>
 </plist>

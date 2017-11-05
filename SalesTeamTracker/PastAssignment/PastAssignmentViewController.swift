@@ -1,8 +1,13 @@
 import UIKit
 import Charts
 import BetterSegmentedControl
+import CoreLocation
+import PopupDialog
+import AFNetworking
+import NVActivityIndicatorView
 
-class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableViewDelegate,UITableViewDataSource {
+
+class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate {
 
     @IBOutlet var pieChartView: PieChartView!
   
@@ -11,6 +16,11 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
     @IBOutlet var segmentController: BetterSegmentedControl!
     var arrayShopList = NSMutableArray()
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+    var locationManager:CLLocationManager!
+    var dUserCurrentLatitude:Double = 0.0
+    var dUserCurrentLongitude:Double = 0.0
+    var activity:NVActivityIndicatorView!
+
 
     
     
@@ -18,6 +28,8 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
         super.viewDidLoad()
         viewList.isHidden = false
         initializeUI()
+        determineMyCurrentLocation()
+
         
     }
     
@@ -184,7 +196,18 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
     }
     
     @objc func buttonSwitch(sender:UISwitch){
-        print(sender.tag)
+        
+        let dDestinationLatitude:Double = 10.9987
+        let dDestinationLongitude:Double = 77.0320
+        
+        let distance:Float = self.kilometersfromPlace(fromLatitude: dUserCurrentLatitude, fromLongitude: dUserCurrentLongitude, toLatitude: dDestinationLatitude, toLongitude: dDestinationLongitude)
+        print(distance)
+        
+        if distance <= 0.5{
+            // Call Api
+        }else{
+            popupAlert(Title: "Information", msg: "You are far away from the shop location")
+        }
     }
 
     @objc func buttonMap(){
@@ -204,6 +227,75 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
             }
         }
     }
+    
+    // CoreLocation - Get Location
+    func determineMyCurrentLocation() {
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        self.locationManager?.requestAlwaysAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] as CLLocation
+        
+        dUserCurrentLatitude = userLocation.coordinate.latitude
+        dUserCurrentLongitude = userLocation.coordinate.longitude
+        print("user latitude = \(userLocation.coordinate.latitude)")
+        print("user longitude = \(userLocation.coordinate.longitude)")
+        locationManager.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
+    {
+        print("Error \(error)")
+    }
+    
+    func kilometersfromPlace(fromLatitude: Double,fromLongitude: Double, toLatitude: Double,toLongitude: Double) -> Float {
+        let userloc = CLLocation(latitude: fromLatitude, longitude: fromLongitude)
+        let dest = CLLocation(latitude: toLatitude, longitude: toLongitude)
+        let dist:CLLocationDistance = (userloc.distance(from: dest) / 1000)
+        let distance = "\(dist)"
+        return Float(distance) ?? 0.0
+    }
+    
+    //MARK:- Activity Indicator View
+    func setLoadingIndicator()
+    {
+        activity = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+        activity.color = AppColors().appBlueColor
+        activity.type = NVActivityIndicatorType.ballScaleMultiple
+        activity.startAnimating()
+        activity.center = view.center
+    }
+    func startLoading()
+    {
+        view.isUserInteractionEnabled = false
+        self.view.addSubview(activity)
+    }
+    
+    func stopLoading(){
+        activity.removeFromSuperview()
+        self.view.isUserInteractionEnabled = true
+    }
+    
+    //MARK:- Alert Class
+    
+    func popupAlert(Title:String,msg:String)
+    {
+        let popup = PopupDialog(title: Title, message: msg, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
+        }
+        let buttonOk = DefaultButton(title: "OK")
+        {
+        }
+        buttonOk.buttonColor = UIColor.red
+        buttonOk.titleColor = UIColor.white
+        popup.addButtons([buttonOk])
+        self.present(popup, animated: true, completion: nil)
+    }
+    
+    
     
 
 
