@@ -33,6 +33,7 @@ class AssignmentsTableViewCell: UITableViewCell {
         super.layoutSubviews()
         labelStreetName.sizeToFit()
         labelStreetName.frame = CGRect(x: labelStreetName.frame.origin.x, y: labelStreetName.frame.origin.y, width: labelShopName.frame.width, height: labelStreetName.frame.height)
+        labelStreetName.numberOfLines = 3
         
         imageViewShops.frame = CGRect(x: viewCardView.frame.origin.x+3, y: imageViewShops.frame.origin.y, width: imageViewShops.frame.width, height: imageViewShops.frame.height)
 

@@ -8,9 +8,9 @@ import NVActivityIndicatorView
 
 
 class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate {
-
+    
     @IBOutlet var pieChartView: PieChartView!
-  
+    
     @IBOutlet var tableViewList: UITableView!
     @IBOutlet var viewList: UIView!
     @IBOutlet var segmentController: BetterSegmentedControl!
@@ -20,24 +20,28 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
     var dUserCurrentLatitude:Double = 0.0
     var dUserCurrentLongitude:Double = 0.0
     var activity:NVActivityIndicatorView!
-
-
+    
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewList.isHidden = false
+        setLoadingIndicator()
         initializeUI()
+    }
+    override func viewWillAppear(_ animated: Bool) {
         determineMyCurrentLocation()
-
-        
+        let parameter = NSMutableDictionary()
+        parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
+        GetPastAssignments(params: parameter)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        locationManager.stopUpdatingLocation()
     }
     
     func initializeUI(){
         pieChartView.delegate = self
-        let months = ["Income", "Expense", "Wallet", "Bank"]
-        let unitsSold = [65.0, 45.13, 78.67, 85.52]
-        setChart(dataPoints: months, values: unitsSold)
         segmentController = BetterSegmentedControl(
             frame: CGRect(x: self.segmentController.frame.origin.x, y: self.segmentController.frame.origin.y, width: self.segmentController.frame.width, height: self.segmentController.frame.height),
             titles: ["List","Data"],
@@ -49,35 +53,21 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
                       .titleFont(UIFont(name: "HelveticaNeue", size: 14.0)!),
                       .selectedTitleFont(UIFont(name: "HelveticaNeue-Medium", size: 14.0)!)]
         )
+        segmentController.layer.cornerRadius = segmentController.frame.height/2
         segmentController.borderWidth = 1.0
         segmentController.borderColor = AppColors().appBlueColor
         segmentController.addTarget(self, action: #selector(self.listDataChangeValues(_:)), for: .valueChanged)
         view.addSubview(segmentController)
         viewList.isHidden = true
-        addArrayData()
         self.tableViewList.register(UINib(nibName: "AssignmentsTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "AssignmentsTableViewCell")
-        tableViewList.reloadData()
     }
     
-    func addArrayData(){
-        let param1 = NSMutableDictionary()
-        let param2 = NSMutableDictionary()
-        
-        param1.setValue("PetBuddy Products", forKey: "Shop_Name")
-        param2.setValue("DIGIIQ Limited", forKey: "Shop_Name")
-        arrayShopList.add(param1)
-        arrayShopList.add(param2)
-        arrayShopList.add(param1)
-        arrayShopList.add(param2)
-        
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     //MARK:- ChartViewDelegate
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight){
@@ -101,16 +91,15 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
         let set = PieChartDataSet( values: entries, label: "")
         set.entryLabelFont = UIFont(name: "HelveticaNeue-Light", size: 12.0)
         set.valueFont = NSUIFont.systemFont(ofSize: 14, weight: UIFont.Weight.medium)
-    
+        
         var colors: [UIColor] = []
         
-        for _ in 0..<values.count {
-            let red = Double(arc4random_uniform(256))
-            let green = Double(arc4random_uniform(256))
-            let blue = Double(arc4random_uniform(256))
-            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
-            colors.append(color)
-        }
+        let color = UIColor(red: CGFloat(0/255), green: CGFloat(255/255), blue: CGFloat(100/255), alpha: 1)
+        let color1 = UIColor(red: CGFloat(255/255), green: CGFloat(0/255), blue: CGFloat(0/255), alpha: 1)
+        
+        colors.append(color)
+        colors.append(color1)
+        
         set.colors = colors
         let data = PieChartData(dataSet: set)
         pieChartView.data = data
@@ -119,8 +108,8 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
         
         let attributedText: NSMutableAttributedString = NSMutableAttributedString(string: "Assignment Data" as String)
         attributedText.addAttributes([NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16)], range: NSRange(location: 0, length: 15))
-
-
+        
+        
         let d = Description()
         d.text = " "
         pieChartView.chartDescription = d
@@ -134,7 +123,7 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
     {
         _ = navigationController?.popViewController(animated: true)
     }
-
+    
     // MARK: - Action handlers
     @objc func listDataChangeValues(_ sender: BetterSegmentedControl) {
         if sender.index == 0 {
@@ -174,52 +163,63 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-            return self.view.frame.height/3.3
+        return self.view.frame.height/3.3
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-            let Cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentsTableViewCell") as! AssignmentsTableViewCell!
-            Cell?.labelShopName.text = (arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "Shop_Name") as? String
-            Cell?.labelStreetName.text = "viveganandar Street"
-            Cell?.labelCity.text = "Coimbatore VJ Business Centre "
-            Cell?.SwitchLocation.tag = (indexPath as NSIndexPath).section
-            Cell?.SwitchLocation.addTarget(self, action: #selector(self.buttonSwitch(sender:)), for: .valueChanged)
-            Cell?.buttonMap.addTarget(self, action: #selector(self.buttonMap), for: .touchUpInside)
-            Cell?.buttonCall.addTarget(self, action: #selector(self.buttonCall), for: .touchUpInside)
-
-            return Cell!
+        let Cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentsTableViewCell") as! AssignmentsTableViewCell!
+        Cell?.SwitchLocation.isOn = false
+        Cell?.labelShopName.text = (arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "shopname") as? String
+        Cell?.labelStreetName.text = (arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "shopaddress") as? String
+        
+        if let sStatus:String = (arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "status") as? String{
+            if sStatus == "0"{
+                Cell?.SwitchLocation.isOn = false
+            }else{
+                Cell?.SwitchLocation.isOn = true
+            }
+        }
+        if let arrayImageUrl:NSArray = (arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "images") as? NSArray{
+            if arrayImageUrl.count > 0{
+                if let sImageUrl:String = (arrayImageUrl[0] as AnyObject).value(forKey: "thumb_image") as? String{
+                    var sImage:String = ""
+                    sImage = ApiString().baseUrl + sImageUrl
+                    let Url:URL = URL(string: sImage)!
+                    Cell?.imageViewShops.sd_setImage(with: Url, completed: nil)
+                }
+            }
+        }
+        Cell?.buttonMap.tag = (indexPath as NSIndexPath).section
+        Cell?.buttonCall.tag = (indexPath as NSIndexPath).section
+        Cell?.buttonMap.addTarget(self, action: #selector(self.buttonMap(sender:)), for: .touchUpInside)
+        Cell?.buttonCall.addTarget(self, action: #selector(self.buttonCall(sender:)), for: .touchUpInside)
+        
+        return Cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         tableViewList.deselectRow(at: indexPath, animated: false)
-    }
-    
-    @objc func buttonSwitch(sender:UISwitch){
-        
-        let dDestinationLatitude:Double = 10.9987
-        let dDestinationLongitude:Double = 77.0320
-        
-        let distance:Float = self.kilometersfromPlace(fromLatitude: dUserCurrentLatitude, fromLongitude: dUserCurrentLongitude, toLatitude: dDestinationLatitude, toLongitude: dDestinationLongitude)
-        print(distance)
-        
-        if distance <= 0.5{
-            // Call Api
-        }else{
-            popupAlert(Title: "Information", msg: "You are far away from the shop location")
+        let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"SingleShopViewController") as! SingleShopViewController
+        var dictionary = NSDictionary()
+        if let dictPassDetails:NSDictionary = arrayShopList[(indexPath as NSIndexPath).section] as? NSDictionary{
+            dictionary = dictPassDetails
         }
-    }
-
-    @objc func buttonMap(){
-        let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"MapViewController") as! MapViewController
-        nextViewController.doubleLatitude = 41.887
-        nextViewController.doubleLongitude = -87.622
-        nextViewController.stringMapTitle = "Title Map"
+        nextViewController.dictionaryShopDetails = dictionary
         self.navigationController?.pushViewController(nextViewController, animated: true)
     }
-    @objc func buttonCall()
+    
+    @objc func buttonMap(sender:UIButton){
+        let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"MapViewController") as! MapViewController
+        nextViewController.doubleLatitude = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "latitude") as? String)!)!
+        nextViewController.doubleLongitude = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "longitude") as? String)!)!
+        nextViewController.stringMapTitle = ((arrayShopList[sender.tag] as AnyObject).value(forKey: "shopname") as? String)!
+        self.navigationController?.pushViewController(nextViewController, animated: true)
+    }
+    @objc func buttonCall(sender:UIButton)
     {
-        if let url = URL(string: "tel://\(8973576442)"), UIApplication.shared.canOpenURL(url) {
+        let sPhonenumber:String = ((arrayShopList[sender.tag] as AnyObject).value(forKey: "phonenumber") as? String)!
+        if let url = URL(string: "tel://\(sPhonenumber)"), UIApplication.shared.canOpenURL(url) {
             if #available(iOS 10, *) {
                 UIApplication.shared.open(url)
             } else {
@@ -239,11 +239,9 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation:CLLocation = locations[0] as CLLocation
-        
+
         dUserCurrentLatitude = userLocation.coordinate.latitude
         dUserCurrentLongitude = userLocation.coordinate.longitude
-        print("user latitude = \(userLocation.coordinate.latitude)")
-        print("user longitude = \(userLocation.coordinate.longitude)")
         locationManager.stopUpdatingLocation()
     }
     
@@ -258,6 +256,52 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
         let dist:CLLocationDistance = (userloc.distance(from: dest) / 1000)
         let distance = "\(dist)"
         return Float(distance) ?? 0.0
+    }
+    
+    //MARK:- Webservices
+    func GetPastAssignments(params:NSMutableDictionary)
+    {
+        startLoading()
+        let manager = AFHTTPSessionManager()
+        let stringURL:NSString = String(format: "%@%@", ApiString().baseUrl,ApiString().pastAssignmentUrl) as NSString
+        
+        manager.requestSerializer.setValue(UserDefaults.standard.value(forKey: "AUTHENTICATION") as? String, forHTTPHeaderField: "Auth-Token")
+        manager.post(stringURL as String, parameters: params, progress: nil, success: { (operation, responseObject) -> Void in
+            let responseDictionary:NSDictionary = responseObject as! NSDictionary
+            if let _:Any = (responseDictionary).value(forKey: "status")
+            {
+                let strStatus:NSString = (responseDictionary).value(forKey: "status") as! NSString
+                if strStatus == "true"{
+                    
+                    if let arrayResults:NSArray = responseDictionary.value(forKey: "results") as? NSArray{
+                        self.arrayShopList.removeAllObjects()
+                        self.arrayShopList.addObjects(from: arrayResults as! [Any])
+                        if let nCompleted:Float = responseDictionary.value(forKey: "shop_assignment_completed") as? Float{
+                            if let nTotalCount:Float = responseDictionary.value(forKey: "shopcount") as? Float{
+                                let fCompletedProgress:Float = roundf(nCompleted/nTotalCount * 100)
+                                let fIncompletedProgress:Float = 100 - fCompletedProgress
+                                let status = ["Completed", "In Completed"]
+                                let completed = [Double(fCompletedProgress), Double(fIncompletedProgress)]
+                                self.setChart(dataPoints: status, values: completed)
+                            }
+                            
+                        }
+                        
+                        self.tableViewList.reloadData()
+                    }
+                    self.stopLoading()
+                }else{
+                    self.stopLoading()
+                    if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
+                        
+                        self.popupAlert(Title: "Information", msg: Msg)
+                    }
+                }
+            }
+        }, failure: { (operation, error) -> Void in
+            self.stopLoading()
+            self.popupAlert(Title: "Information", msg: error.localizedDescription)
+        })
     }
     
     //MARK:- Activity Indicator View
@@ -294,9 +338,5 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
         popup.addButtons([buttonOk])
         self.present(popup, animated: true, completion: nil)
     }
-    
-    
-    
-
 
 }
