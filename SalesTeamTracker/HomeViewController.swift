@@ -17,11 +17,22 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
     var dUserCurrentLatitude:Double = 0.0
     var dUserCurrentLongitude:Double = 0.0
     var activity:NVActivityIndicatorView!
+    var nAssignmentStatus:Float = 0
+    var nShopCount:Float = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initializeTableviewUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         determineMyCurrentLocation()
+        let parameter = NSMutableDictionary()
+        parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
+        GetAssignments(params: parameter)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        locationManager.stopUpdatingLocation()
     }
     
     func addArrayData(){
@@ -35,11 +46,7 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
         duplicateArray.add(param1)
         duplicateArray.add(param2)
         
-        if buttonAttendance.isHidden{
-            tableViewAssignMent.frame = CGRect(x: tableViewAssignMent.frame.origin.x, y: tableViewAssignMent.frame.origin.y, width: tableViewAssignMent.frame.width, height: buttonAttendance.frame.origin.y+(buttonAttendance.frame.height/2))
-        }else{
-            tableViewAssignMent.frame = CGRect(x: tableViewAssignMent.frame.origin.x, y: tableViewAssignMent.frame.origin.y, width: tableViewAssignMent.frame.width, height: tableViewAssignMent.frame.height - buttonAttendance.frame.height)
-        }
+        tableViewAssignMent.frame = CGRect(x: tableViewAssignMent.frame.origin.x, y: tableViewAssignMent.frame.origin.y, width: tableViewAssignMent.frame.width, height: tableViewAssignMent.frame.height - buttonAttendance.frame.height)
 
     }
     
@@ -59,7 +66,7 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
 
     @IBAction func buttonAttendance(_ sender: Any)
     {
-        
+        UpdateAttendence()
     }
     
     
@@ -104,11 +111,56 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
     {
         if (indexPath as NSIndexPath).section == 0 {
             let Cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentProgressTableViewCell") as! AssignmentProgressTableViewCell!
-            Cell?.labelName.text = "Jeyavijay"
-            Cell?.labelDesignation.text = "iOS Developer"
-            Cell?.labelAddress.text = "Coimbatore VJ Business Centre "
-            Cell?.labelProgress.text = "10%"
-            Cell?.sliderProgress.value = 0.3
+            Cell?.labelProgress.text = "0%"
+            let sProgress:String = String(roundf(nAssignmentStatus/nShopCount * 100)) + "%"
+            let arr = sProgress.components(separatedBy: ".")
+            Cell?.labelProgress.text = arr[0] + "%"
+            
+            Cell?.sliderProgress.maximumValue = nShopCount
+            Cell?.sliderProgress.value = nAssignmentStatus
+            if let dictDetails:NSDictionary = UserDefaults.standard.value(forKey: "USERDETAILS") as? NSDictionary{
+            if let dictUserDetails:NSArray = dictDetails.value(forKey: "user_details") as? NSArray{
+                var sFullAddress:String = ""
+                if let sStreet:String = (dictUserDetails[0] as AnyObject).value(forKey: "street") as? String{
+                    sFullAddress = sFullAddress + sStreet
+                }
+                if let sCity:String = (dictUserDetails[0] as AnyObject).value(forKey: "city") as? String{
+                    if sFullAddress == ""{
+                        sFullAddress = sFullAddress + sCity
+                    }else{
+                        sFullAddress = sFullAddress + ", " + sCity
+                    }
+                }
+                if let sState:String = (dictUserDetails[0] as AnyObject).value(forKey: "state") as? String{
+                    if sFullAddress == ""{
+                        sFullAddress = sFullAddress + sState
+                    }else{
+                        sFullAddress = sFullAddress + ", " + sState
+                    }
+                }
+                Cell?.labelAddress.text = sFullAddress
+                
+                var sFullName:String = ""
+                if let sFname:String = (dictUserDetails[0] as AnyObject).value(forKey: "firstname") as? String{
+                    sFullName = sFullName + sFname
+                }
+                if let sLname:String = (dictUserDetails[0] as AnyObject).value(forKey: "lastname") as? String{
+                    sFullName = sFullName + " " + sLname
+                }
+                Cell?.labelName.text = sFullName
+                if let sDesignation:String = (dictUserDetails[0] as AnyObject).value(forKey: "designation") as? String{
+                    Cell?.labelDesignation.text = sDesignation
+                }
+                
+                if let sImageUrl:String = (dictUserDetails[0] as AnyObject).value(forKey: "thumbimage") as? String{
+                    var sImage:String = ""
+                    sImage = ApiString().baseUrl + sImageUrl
+                    let Url:URL = URL(string: sImage)!
+                    Cell?.imageViewSalesProduct.sd_setImage(with: Url, completed: nil)
+                }
+            }
+            }
+            
             return Cell!
         }else if (indexPath as NSIndexPath).section == 1 {
             let Cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentSearchTableViewCell") as! AssignmentSearchTableViewCell!
@@ -119,14 +171,36 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
             textField = (Cell?.textFieldSearch)!
             return Cell!
         }else{
+            
+
             let Cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentsTableViewCell") as! AssignmentsTableViewCell!
-            Cell?.labelShopName.text = (arrayShopList[(indexPath as NSIndexPath).section-2] as AnyObject).value(forKey: "Shop_Name") as? String
-            Cell?.labelStreetName.text = "viveganandar Street"
-            Cell?.labelCity.text = "Coimbatore VJ Business Centre "
+            Cell?.SwitchLocation.isOn = false
+            Cell?.labelShopName.text = (arrayShopList[(indexPath as NSIndexPath).section-2] as AnyObject).value(forKey: "shopname") as? String
+            Cell?.labelStreetName.text = (arrayShopList[(indexPath as NSIndexPath).section-2] as AnyObject).value(forKey: "shopaddress") as? String
+            
+            if let sStatus:String = (arrayShopList[(indexPath as NSIndexPath).section-2] as AnyObject).value(forKey: "status") as? String{
+                if sStatus == "0"{
+                    Cell?.SwitchLocation.isOn = false
+                }else{
+                    Cell?.SwitchLocation.isOn = true
+                }
+            }
+            if let arrayImageUrl:NSArray = (arrayShopList[(indexPath as NSIndexPath).section-2] as AnyObject).value(forKey: "images") as? NSArray{
+                if arrayImageUrl.count > 0{
+                    if let sImageUrl:String = (arrayImageUrl[0] as AnyObject).value(forKey: "thumb_image") as? String{
+                        var sImage:String = ""
+                        sImage = ApiString().baseUrl + sImageUrl
+                        let Url:URL = URL(string: sImage)!
+                        Cell?.imageViewShops.sd_setImage(with: Url, completed: nil)
+                    }
+                }
+            }
             Cell?.SwitchLocation.tag = (indexPath as NSIndexPath).section - 2
+            Cell?.buttonMap.tag = (indexPath as NSIndexPath).section - 2
+            Cell?.buttonCall.tag = (indexPath as NSIndexPath).section - 2
             Cell?.SwitchLocation.addTarget(self, action: #selector(self.buttonSwitch(sender:)), for: .valueChanged)
-            Cell?.buttonMap.addTarget(self, action: #selector(self.buttonMap), for: .touchUpInside)
-            Cell?.buttonCall.addTarget(self, action: #selector(self.buttonCall), for: .touchUpInside)
+            Cell?.buttonMap.addTarget(self, action: #selector(self.buttonMap(sender:)), for: .touchUpInside)
+            Cell?.buttonCall.addTarget(self, action: #selector(self.buttonCall(sender:)), for: .touchUpInside)
             return Cell!
         }
     }
@@ -134,35 +208,59 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         tableViewAssignMent.deselectRow(at: indexPath, animated: false)
-        let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"SingleShopViewController") as! SingleShopViewController
-        self.navigationController?.pushViewController(nextViewController, animated: true)
+        if !(indexPath.section == 0 && indexPath.section == 1)
+        {
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"SingleShopViewController") as! SingleShopViewController
+            var dictionary = NSDictionary()
+            if let dictPassDetails:NSDictionary = arrayShopList[(indexPath as NSIndexPath).section-2] as? NSDictionary{
+                dictionary = dictPassDetails
+            }
+            nextViewController.dictionaryShopDetails = dictionary
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+        }
     }
     
     @objc func buttonSwitch(sender:UISwitch){
 
-        let dDestinationLatitude:Double = 10.9987
-        let dDestinationLongitude:Double = 77.0320
+        let dDestinationLatitude:Double = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "latitude") as? String)!)!
+        let dDestinationLongitude:Double = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "longitude") as? String)!)!
         
         let distance:Float = self.kilometersfromPlace(fromLatitude: dUserCurrentLatitude, fromLongitude: dUserCurrentLongitude, toLatitude: dDestinationLatitude, toLongitude: dDestinationLongitude)
-        print(distance)
+        
+        let sAssignmentId:String = ((arrayShopList[sender.tag] as AnyObject).value(forKey: "assignmentid") as? String)!
+        let sShopId:String = ((arrayShopList[sender.tag] as AnyObject).value(forKey: "shopid") as? String)!
+        
+        let parameter = NSMutableDictionary()
+        parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
+        parameter.setValue(sAssignmentId, forKey: "assignmentid")
+        parameter.setValue(sShopId, forKey: "shopid")
         
         if distance <= 0.5{
-          // Call Api
+            if let sStatus:String = (arrayShopList[sender.tag] as AnyObject).value(forKey: "status") as? String{
+                if sStatus == "0"{
+                    parameter.setValue("1", forKey: "status")
+                }else{
+                    parameter.setValue("0", forKey: "status")
+                }
+            }
+            UpdateStatus(params: parameter)
         }else{
+            tableViewAssignMent.reloadData()
             popupAlert(Title: "Information", msg: "You are far away from the shop location")
         }
     }
     
-    @objc func buttonMap(){
+    @objc func buttonMap(sender:UIButton){
         let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"MapViewController") as! MapViewController
-        nextViewController.doubleLatitude = 41.887
-        nextViewController.doubleLongitude = -87.622
-        nextViewController.stringMapTitle = "Title Map"
+        nextViewController.doubleLatitude = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "latitude") as? String)!)!
+        nextViewController.doubleLongitude = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "longitude") as? String)!)!
+        nextViewController.stringMapTitle = ((arrayShopList[sender.tag] as AnyObject).value(forKey: "shopname") as? String)!
             self.navigationController?.pushViewController(nextViewController, animated: true)
     }
-    @objc func buttonCall()
+    @objc func buttonCall(sender:UIButton)
     {
-        if let url = URL(string: "tel://\(8973576442)"), UIApplication.shared.canOpenURL(url) {
+        let sPhonenumber:String = ((arrayShopList[sender.tag] as AnyObject).value(forKey: "phonenumber") as? String)!
+        if let url = URL(string: "tel://\(sPhonenumber)"), UIApplication.shared.canOpenURL(url) {
             if #available(iOS 10, *) {
                 UIApplication.shared.open(url)
             } else {
@@ -185,14 +283,11 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
             arrayShopList.addObjects(from: duplicateArray as [AnyObject])
         }else{
             for i in 0 ..< duplicateArray.count {
-                let myString:NSString = (duplicateArray[i] as AnyObject).value(forKey: "Shop_Name") as! NSString
+                let myString:NSString = (duplicateArray[i] as AnyObject).value(forKey: "shopname") as! NSString
                 let substringRange:NSRange = myString.range(of: substring, options: .caseInsensitive)
                 if (substringRange.location  != NSNotFound)
                 {
-                    let param = NSMutableDictionary()
-                    let str:NSString = (duplicateArray[i] as AnyObject).value(forKey: "Shop_Name") as! NSString
-                    param.setValue(str, forKey: "Shop_Name")
-                    arrayShopList.add(param)
+                    arrayShopList.add(duplicateArray[i])
                 }
             }
         }
@@ -211,12 +306,8 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation:CLLocation = locations[0] as CLLocation
-        
         dUserCurrentLatitude = userLocation.coordinate.latitude
         dUserCurrentLongitude = userLocation.coordinate.longitude
-        print("user latitude = \(userLocation.coordinate.latitude)")
-        print("user longitude = \(userLocation.coordinate.longitude)")
-        locationManager.stopUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
@@ -230,6 +321,118 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
         let dist:CLLocationDistance = (userloc.distance(from: dest) / 1000)
         let distance = "\(dist)"
         return Float(distance) ?? 0.0
+    }
+    
+    //MARK:- Webservices
+    func GetAssignments(params:NSMutableDictionary)
+    {
+        startLoading()
+        let manager = AFHTTPSessionManager()
+        let stringURL:NSString = String(format: "%@%@", ApiString().baseUrl,ApiString().assignmentUrl) as NSString
+        
+        manager.requestSerializer.setValue(UserDefaults.standard.value(forKey: "AUTHENTICATION") as? String, forHTTPHeaderField: "Auth-Token")
+        manager.post(stringURL as String, parameters: params, progress: nil, success: { (operation, responseObject) -> Void in
+            let responseDictionary:NSDictionary = responseObject as! NSDictionary
+            if let _:Any = (responseDictionary).value(forKey: "status")
+            {
+                let strStatus:NSString = (responseDictionary).value(forKey: "status") as! NSString
+                if strStatus == "true"{
+                    if let nTotalCount:Float = responseDictionary.value(forKey: "shopcount") as? Float{
+                        self.nShopCount = nTotalCount
+                    }
+                    if let nInCompleted:Float = responseDictionary.value(forKey: "shop_assignment_completed") as? Float{
+                        self.nAssignmentStatus = nInCompleted
+                    }
+                    if let nAttendence:Float = responseDictionary.value(forKey: "attendance_status") as? Float{
+                        if nAttendence == 0{
+                            self.buttonAttendance.isHidden = false
+                        }else{
+                            self.buttonAttendance.isHidden = true
+                            self.tableViewAssignMent.frame = CGRect(x: self.tableViewAssignMent.frame.origin.x, y: self.tableViewAssignMent.frame.origin.y, width: self.tableViewAssignMent.frame.width, height: self.tableViewAssignMent.frame.height+(self.buttonAttendance.frame.height))
+                        }
+                    }
+                    if let arrayResults:NSArray = responseDictionary.value(forKey: "results") as? NSArray{
+                        self.arrayShopList.removeAllObjects()
+                        self.duplicateArray.removeAllObjects()
+                        self.duplicateArray.addObjects(from: arrayResults as! [Any])
+                        self.arrayShopList.addObjects(from: arrayResults as! [Any])
+                        self.tableViewAssignMent.reloadData()
+                    }
+                    self.stopLoading()
+                }else{
+                    self.stopLoading()
+                    if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
+                        
+                        self.popupAlert(Title: "Information", msg: Msg)
+                    }
+                }
+            }
+        }, failure: { (operation, error) -> Void in
+            self.stopLoading()
+            self.popupAlert(Title: "Information", msg: error.localizedDescription)
+        })
+    }
+    
+    func UpdateStatus(params:NSMutableDictionary)
+    {
+        startLoading()
+        let manager = AFHTTPSessionManager()
+        let stringURL:NSString = String(format: "%@%@", ApiString().baseUrl,ApiString().assignmentUpdateUrl) as NSString
+        
+        manager.requestSerializer.setValue(UserDefaults.standard.value(forKey: "AUTHENTICATION") as? String, forHTTPHeaderField: "Auth-Token")
+        manager.post(stringURL as String, parameters: params, progress: nil, success: { (operation, responseObject) -> Void in
+            let responseDictionary:NSDictionary = responseObject as! NSDictionary
+            if let _:Any = (responseDictionary).value(forKey: "status")
+            {
+                let strStatus:NSString = (responseDictionary).value(forKey: "status") as! NSString
+                if strStatus == "true"{
+                    let parameter = NSMutableDictionary()
+                    parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
+                    self.stopLoading()
+                    self.GetAssignments(params: parameter)
+                }else{
+                    self.stopLoading()
+                    if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
+                        self.popupAlert(Title: "Information", msg: Msg)
+                    }
+                }
+            }
+        }, failure: { (operation, error) -> Void in
+            self.stopLoading()
+            self.popupAlert(Title: "Information", msg: error.localizedDescription)
+        })
+    }
+    
+    func UpdateAttendence()
+    {
+        startLoading()
+        let manager = AFHTTPSessionManager()
+        let stringURL:NSString = String(format: "%@%@", ApiString().baseUrl,ApiString().attendanceUrl) as NSString
+        
+        let params = NSMutableDictionary()
+        params.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
+        
+        manager.requestSerializer.setValue(UserDefaults.standard.value(forKey: "AUTHENTICATION") as? String, forHTTPHeaderField: "Auth-Token")
+        manager.post(stringURL as String, parameters: params, progress: nil, success: { (operation, responseObject) -> Void in
+            let responseDictionary:NSDictionary = responseObject as! NSDictionary
+            if let _:Any = (responseDictionary).value(forKey: "status")
+            {
+                let strStatus:NSString = (responseDictionary).value(forKey: "status") as! NSString
+                if strStatus == "true"{
+                    self.buttonAttendance.isHidden = true
+                    self.tableViewAssignMent.frame = CGRect(x: self.tableViewAssignMent.frame.origin.x, y: self.tableViewAssignMent.frame.origin.y, width: self.tableViewAssignMent.frame.width, height: self.tableViewAssignMent.frame.height+(self.buttonAttendance.frame.height))
+                    self.stopLoading()
+                }else{
+                    self.stopLoading()
+                    if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
+                        self.popupAlert(Title: "Information", msg: Msg)
+                    }
+                }
+            }
+        }, failure: { (operation, error) -> Void in
+            self.stopLoading()
+            self.popupAlert(Title: "Information", msg: error.localizedDescription)
+        })
     }
     
     //MARK:- Activity Indicator View

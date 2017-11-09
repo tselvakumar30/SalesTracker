@@ -3,11 +3,13 @@ import IQKeyboardManagerSwift
 import GoogleMaps
 import GooglePlaces
 import DropDown
+import UserNotifications
+
 
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
 
@@ -18,7 +20,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        GMSServices.provideAPIKey("AIzaSyB1XA8CUkcDrSXV6vGiScUrk8UZ9XVcFFU")
         GMSPlacesClient.provideAPIKey("AIzaSyB1XA8CUkcDrSXV6vGiScUrk8UZ9XVcFFU")
         DropDown.startListeningToKeyboard()
+        
+        #if (arch(i386) || arch(x86_64)) && os(iOS)
+            UserDefaults.standard.set("90cc0d0b47e357836cff5304dcf9a5d190a7080d61b6e4cd9691b55365fb846c", forKey: "DEVICETOKEN")
+        #endif
+        
+        let center  = UNUserNotificationCenter.current()
+        center.delegate = self
+        center.requestAuthorization(options: [.sound,.alert,.badge]) { (granted, error) in
+            
+        }
+        application.registerForRemoteNotifications()
+        
+        navigation()
+
         return true
+    }
+    
+    
+    func navigation(){
+        if let _:Any = UserDefaults.standard.value(forKey: "USERID"){
+            window = UIWindow(frame: UIScreen.main.bounds)
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            let mainController = storyBoard.instantiateViewController(withIdentifier:"HomeViewController") as! HomeViewController
+            let navigationController = UINavigationController(rootViewController: mainController)
+            navigationController.navigationBar.isHidden = true
+            self.window?.rootViewController = navigationController
+            self.window?.makeKeyAndVisible()
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -42,6 +71,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenChars = (deviceToken as NSData).bytes.bindMemory(to: CChar.self, capacity: deviceToken.count)
+        var tokenString = ""
+        
+        for i in 0..<deviceToken.count {
+            tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
+        }
+        UserDefaults.standard.set(tokenString, forKey: "DEVICETOKEN")
+        
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Failed to register:", error)
+    }
+
 
 
 }

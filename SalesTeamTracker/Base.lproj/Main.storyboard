@@ -851,7 +851,7 @@
                         <outlet property="collectionViewImages" destination="jav-bb-l68" id="mHi-JX-r8g"/>
                         <outlet property="containerView" destination="36o-7Q-jii" id="BEx-7r-RHY"/>
                         <outlet property="labelAddress" destination="BJb-lh-gNf" id="HT5-lm-vvG"/>
-                        <outlet property="labelShopName" destination="m9m-AB-MJO" id="ucN-sk-yjX"/>
+                        <outlet property="labelShopName" destination="m9m-AB-MJO" id="XQA-OY-ojK"/>
                         <outlet property="pageControl" destination="hCd-7w-N9A" id="iEA-wD-tit"/>
                         <outlet property="segmentedControl" destination="4PF-4t-ax0" id="q6d-RG-24t"/>
                         <outlet property="viewHeader" destination="M7v-ys-FDd" id="tSf-Tq-RpV"/>

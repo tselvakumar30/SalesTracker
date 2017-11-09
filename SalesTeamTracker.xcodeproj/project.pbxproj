@@ -67,6 +67,7 @@
 		F25724551FAB58B2000558F5 /* SalesTeamTracker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SalesTeamTracker-Bridging-Header.h"; sourceTree = "<group>"; };
 		F27773031FA70ABC00A2E146 /* imageFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageFiles.swift; sourceTree = "<group>"; };
 		F27773081FA73A9D00A2E146 /* PastAssignmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastAssignmentViewController.swift; sourceTree = "<group>"; };
+		F28CFBFA1FB42C2300C07BBD /* SalesTeamTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SalesTeamTracker.entitlements; sourceTree = "<group>"; };
 		F29681131FAE2CC900C359AF /* SingleShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleShopViewController.swift; sourceTree = "<group>"; };
 		F29681151FAE41E100C359AF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F29B676B1FA87A3E0090F6E8 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +127,7 @@
 		7C5A7B2E1F9F4EF3008C7C29 /* SalesTeamTracker */ = {
 			isa = PBXGroup;
 			children = (
+				F28CFBFA1FB42C2300C07BBD /* SalesTeamTracker.entitlements */,
 				F228DE211FAC55FD0023B2B6 /* ShopDetails */,
 				F2D45A291FA9D4CA0037B916 /* AddShop */,
 				F2D45A261FA99F2E0037B916 /* Shops Assigned */,
@@ -320,6 +322,11 @@
 						CreatedOnToolsVersion = 9.0.1;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -578,6 +585,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SalesTeamTracker/SalesTeamTracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = EQ66433AJ7;
 				INFOPLIST_FILE = SalesTeamTracker/Info.plist;
@@ -597,6 +605,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SalesTeamTracker/SalesTeamTracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = EQ66433AJ7;
 				INFOPLIST_FILE = SalesTeamTracker/Info.plist;

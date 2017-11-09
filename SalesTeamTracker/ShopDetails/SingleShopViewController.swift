@@ -9,12 +9,12 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
     var fCenterOfView = CGFloat()
     var fLastPoint = CGFloat()
     @IBOutlet var collectionViewImages: UICollectionView!
-    @IBOutlet var labelShopName: UIView!
+    @IBOutlet var labelShopName: UILabel!
     @IBOutlet var labelAddress: UILabel!
-    var arrayCollectionView = NSMutableArray()
+    var arrayCollectionView = NSArray()
     @IBOutlet var pageControl: UIPageControl!
     var nIndexpath = Int()
-
+    var dictionaryShopDetails = NSDictionary()
     @IBOutlet var viewMiddleView: UIView!
     @IBOutlet var viewHeader: UIView!
     
@@ -36,10 +36,16 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
         
         self.collectionViewImages.register(UINib(nibName: "ShopDetailsCollectionViewCell", bundle: Bundle.main), forCellWithReuseIdentifier: "ShopDetailsCollectionViewCell")
         
-        let image1:UIImage = UIImage(named: "logo")!
-        let image2:UIImage = UIImage(named: "logo")!
-        let image3:UIImage = UIImage(named: "logo")!
-        arrayCollectionView = [image1,image2,image3]
+        if let arrayImageList:NSArray = dictionaryShopDetails.value(forKey: "images") as? NSArray{
+            arrayCollectionView = arrayImageList
+            if arrayCollectionView.count <= 1{
+                pageControl.isHidden = true
+            }
+        }
+        
+        labelShopName.text = dictionaryShopDetails.value(forKey: "shopname") as? String
+        labelAddress.text = dictionaryShopDetails.value(forKey: "shopaddress") as? String
+        
         pageControl.numberOfPages = arrayCollectionView.count
         pageControl.frame = CGRect(x:0,y:self.collectionViewImages.frame.size.height,width: self.pageControl.frame.size.width, height: self.pageControl.frame.size.height)
         
@@ -73,7 +79,7 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
                 segmentedControl.frame = CGRect(x: segmentedControl.frame.origin.x, y: fYofSegment, width: self.segmentedControl.frame.size.width, height: 40)
                 containerView.center = CGPoint(x: containerView.center.x, y: fYofDetails)
                 containerView.isUserInteractionEnabled = false
-
+                
             }
         }else {
             segmentedControl.center = CGPoint(x: segmentedControl.center.x, y: segmentedControl.center.y + translation.y)
@@ -88,9 +94,6 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
         let child_1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ActivityViewController")
         let child_2 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StockViewController")
         let child_3 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MessageViewController")
-       /*  let child_4 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LabourViewController")
-         let child_5 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CardialogyViewController")
-         return [child_1, child_2, child_3, child_4, child_5]*/
         return [child_1,child_2,child_3]
     }
     
@@ -122,6 +125,12 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShopDetailsCollectionViewCell", for: indexPath as IndexPath) as! ShopDetailsCollectionViewCell
         cell.imageViewImage.image = arrayCollectionView[indexPath.row] as? UIImage
+        if let sImageUrl:String = (arrayCollectionView[indexPath.row] as AnyObject).value(forKey: "main_image") as? String{
+            var sImage:String = ""
+            sImage = ApiString().baseUrl + sImageUrl
+            let Url:URL = URL(string: sImage)!
+            cell.imageViewImage.sd_setImage(with: Url, completed: nil)
+        }
         
         return cell
     }
