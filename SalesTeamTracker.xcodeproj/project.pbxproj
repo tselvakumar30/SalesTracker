@@ -18,6 +18,8 @@
 		F228DE2E1FAC5C650023B2B6 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F228DE2D1FAC5C650023B2B6 /* ActivityViewController.swift */; };
 		F228DE301FAC5C720023B2B6 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F228DE2F1FAC5C720023B2B6 /* MessageViewController.swift */; };
 		F228DE321FAC5C810023B2B6 /* StockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F228DE311FAC5C810023B2B6 /* StockViewController.swift */; };
+		F249069E1FB2E72F00627CE4 /* StockCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F249069C1FB2E72F00627CE4 /* StockCollectionViewCell.swift */; };
+		F249069F1FB2E72F00627CE4 /* StockCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F249069D1FB2E72F00627CE4 /* StockCollectionViewCell.xib */; };
 		F27773041FA70ABC00A2E146 /* imageFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27773031FA70ABC00A2E146 /* imageFiles.swift */; };
 		F27773091FA73A9D00A2E146 /* PastAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27773081FA73A9D00A2E146 /* PastAssignmentViewController.swift */; };
 		F29681141FAE2CC900C359AF /* SingleShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29681131FAE2CC900C359AF /* SingleShopViewController.swift */; };
@@ -60,6 +62,8 @@
 		F228DE2D1FAC5C650023B2B6 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		F228DE2F1FAC5C720023B2B6 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		F228DE311FAC5C810023B2B6 /* StockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewController.swift; sourceTree = "<group>"; };
+		F249069C1FB2E72F00627CE4 /* StockCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCollectionViewCell.swift; sourceTree = "<group>"; };
+		F249069D1FB2E72F00627CE4 /* StockCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StockCollectionViewCell.xib; sourceTree = "<group>"; };
 		F25724551FAB58B2000558F5 /* SalesTeamTracker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SalesTeamTracker-Bridging-Header.h"; sourceTree = "<group>"; };
 		F27773031FA70ABC00A2E146 /* imageFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageFiles.swift; sourceTree = "<group>"; };
 		F27773081FA73A9D00A2E146 /* PastAssignmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastAssignmentViewController.swift; sourceTree = "<group>"; };
@@ -183,11 +187,21 @@
 		F228DE2C1FAC5C460023B2B6 /* SegmentClasses */ = {
 			isa = PBXGroup;
 			children = (
+				F249069B1FB2E6F000627CE4 /* CollectionViewCell */,
 				F228DE2D1FAC5C650023B2B6 /* ActivityViewController.swift */,
 				F228DE2F1FAC5C720023B2B6 /* MessageViewController.swift */,
 				F228DE311FAC5C810023B2B6 /* StockViewController.swift */,
 			);
 			path = SegmentClasses;
+			sourceTree = "<group>";
+		};
+		F249069B1FB2E6F000627CE4 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				F249069C1FB2E72F00627CE4 /* StockCollectionViewCell.swift */,
+				F249069D1FB2E72F00627CE4 /* StockCollectionViewCell.xib */,
+			);
+			path = CollectionViewCell;
 			sourceTree = "<group>";
 		};
 		F27773071FA73A7A00A2E146 /* PastAssignment */ = {
@@ -341,6 +355,7 @@
 				7C5A7B371F9F4EF4008C7C29 /* Assets.xcassets in Resources */,
 				F2AFDCF31FA315C400287C58 /* AssignmentSearchTableViewCell.xib in Resources */,
 				7C5A7B351F9F4EF4008C7C29 /* Main.storyboard in Resources */,
+				F249069F1FB2E72F00627CE4 /* StockCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +423,7 @@
 				F2AFDCF21FA315C400287C58 /* AssignmentSearchTableViewCell.swift in Sources */,
 				7C5A7B321F9F4EF4008C7C29 /* ViewController.swift in Sources */,
 				F228DE321FAC5C810023B2B6 /* StockViewController.swift in Sources */,
+				F249069E1FB2E72F00627CE4 /* StockCollectionViewCell.swift in Sources */,
 				F27773041FA70ABC00A2E146 /* imageFiles.swift in Sources */,
 				F2AFDCE31FA3006700287C58 /* AppColors.swift in Sources */,
 				7C5A7B301F9F4EF4008C7C29 /* AppDelegate.swift in Sources */,

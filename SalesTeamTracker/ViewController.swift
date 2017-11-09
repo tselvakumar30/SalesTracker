@@ -2,6 +2,8 @@ import UIKit
 import PopupDialog
 import AFNetworking
 import NVActivityIndicatorView
+import GooglePlaces
+
 
 
 class ViewController: UIViewController {
@@ -13,7 +15,6 @@ class ViewController: UIViewController {
     var activity:NVActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
-     
         setLoadingIndicator()
         self.viewBackground = CodeReuser().createGradientLayer(view: self.viewBackground, fromColor: AppColors().appSkyBlueColor, toColor: AppColors().appBlueColor)
     }
@@ -72,6 +73,6 @@ class ViewController: UIViewController {
         self.view.isUserInteractionEnabled = true
     }
     
-
+    
 }
 

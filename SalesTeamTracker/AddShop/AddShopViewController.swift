@@ -1,7 +1,10 @@
 import UIKit
+import DropDown
+import GooglePlaces
 
 
-class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate {
+
+class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UITextFieldDelegate {
     
     let imagePicker = UIImagePickerController()
     var imageUpload = UIImage()
@@ -20,6 +23,8 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     @IBOutlet var textFieldPhone: UITextField!
     @IBOutlet var buttonAddImage: UIButton!
     @IBOutlet weak var autocompleteContainerView: UIView!
+    
+    let dropDown = DropDown()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +42,21 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         CodeReuser().setBorderToTextFieldWithImage(theTextField: textFieldPersonName, theView:self.view, image: imageFiles().imageUser!)
         CodeReuser().setBorderToTextFieldWithImage(theTextField: textFieldPhone, theView:self.view, image: imageFiles().imageAddPhone!)
         CodeReuser().setBorderToTextFieldWithImage(theTextField: textFieldShopName, theView:self.view, image: imageFiles().imageShopName!)
+        dropDown.anchorView = self.textFieldShopAddress
+        dropDown.dataSource = ["Car", "Motorcycle", "Truck"]
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+        }
+        dropDown.dismissMode = .onTap
+        dropDown.direction = .any
+        dropDown.bottomOffset = CGPoint(x: 0, y: self.textFieldShopAddress.bounds.height)
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            self.textFieldShopAddress.text = item
+        }
+
+
+
+
     }
 
     @IBAction func buttonBack(_ sender: Any)
@@ -48,6 +68,22 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     {
         self.SelectImage()
     }
+    
+    //MARK: TextField Delegate
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if textField == textFieldShopAddress{
+            
+            if(textFieldShopAddress.text?.characters.count)! > 2 {
+                placeAutocomplete()
+            }
+            
+        }
+        
+        return true
+    }
+
 
     //MARK: ActionSheet Delegate
     
@@ -91,5 +127,29 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
             dismiss(animated: true, completion: nil)
     }
 
+    
+    func placeAutocomplete() {
+        let filter = GMSAutocompleteFilter()
+        filter.type = .noFilter
+        filter.country = "IN"
+        let placesClient = GMSPlacesClient()
+        placesClient.autocompleteQuery(textFieldShopAddress.text!, bounds: nil, filter: filter, callback: {(results, error) -> Void in
+            if let error = error {
+                print("Autocomplete error \(error)")
+                return
+            }
+            let arrayAddress = NSMutableArray()
+            if let results = results {
+                for result in results {
+                    print(result.attributedFullText.string)
+                    arrayAddress.add(result.attributedFullText.string)
+                }
+                if arrayAddress.count > 0{
+                    self.dropDown.dataSource = arrayAddress as! [String]
+                    self.dropDown.show()
+                }
+            }
+        })
+    }
     
 }

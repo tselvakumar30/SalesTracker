@@ -11,7 +11,7 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
     @IBOutlet var collectionViewImages: UICollectionView!
     @IBOutlet var labelShopName: UIView!
     @IBOutlet var labelAddress: UILabel!
-    var arrayCollectionView = NSArray()
+    var arrayCollectionView = NSMutableArray()
     @IBOutlet var pageControl: UIPageControl!
     var nIndexpath = Int()
 
@@ -68,14 +68,18 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
                 
                 let fCenterContainerY:CGFloat = containerView.frame.height / 2
                 containerView.center = CGPoint(x: containerView.center.x, y: fCenterContainerY + 100)
+                containerView.isUserInteractionEnabled = true
             }else{
                 segmentedControl.frame = CGRect(x: segmentedControl.frame.origin.x, y: fYofSegment, width: self.segmentedControl.frame.size.width, height: 40)
                 containerView.center = CGPoint(x: containerView.center.x, y: fYofDetails)
+                containerView.isUserInteractionEnabled = false
+
             }
         }else {
             segmentedControl.center = CGPoint(x: segmentedControl.center.x, y: segmentedControl.center.y + translation.y)
             containerView.center = CGPoint(x: containerView.center.x, y: containerView.center.y + translation.y)
             fLastPoint = segmentedControl.center.y
+            containerView.isUserInteractionEnabled = false
         }
         sender.setTranslation(CGPoint.zero, in: self.view)
     }

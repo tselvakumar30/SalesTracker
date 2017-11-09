@@ -2,6 +2,8 @@ import UIKit
 import IQKeyboardManagerSwift
 import GoogleMaps
 import GooglePlaces
+import DropDown
+
 
 
 @UIApplicationMain
@@ -15,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.sharedManager().enable = true
        GMSServices.provideAPIKey("AIzaSyB1XA8CUkcDrSXV6vGiScUrk8UZ9XVcFFU")
         GMSPlacesClient.provideAPIKey("AIzaSyB1XA8CUkcDrSXV6vGiScUrk8UZ9XVcFFU")
-
+        DropDown.startListeningToKeyboard()
         return true
     }
 

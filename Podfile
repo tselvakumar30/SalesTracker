@@ -18,6 +18,7 @@ pod 'Charts'
 pod 'BetterSegmentedControl'
 pod 'XLPagerTabStrip'
 pod 'YLProgressBar'
+pod 'DropDown'
 
 
 end

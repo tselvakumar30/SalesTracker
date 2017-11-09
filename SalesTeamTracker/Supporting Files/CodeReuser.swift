@@ -204,6 +204,7 @@ extension UIView {
         layer.shadowOffset = CGSize(width: shadowOffsetWid, height: shadowOffsetHeig);
         layer.shadowOpacity = shadowOpaci
         layer.shadowPath = shadowPa.cgPath
+        shadowView.backgroundColor = UIColor.white
     }
 
 }

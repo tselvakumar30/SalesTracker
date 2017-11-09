@@ -18,6 +18,7 @@ PODS:
   - Charts (3.0.4):
     - Charts/Core (= 3.0.4)
   - Charts/Core (3.0.4)
+  - DropDown (2)
   - GoogleMaps (2.5.0):
     - GoogleMaps/Maps (= 2.5.0)
   - GoogleMaps/Base (2.5.0)
@@ -41,6 +42,7 @@ DEPENDENCIES:
   - AFNetworking
   - BetterSegmentedControl
   - Charts
+  - DropDown
   - GoogleMaps
   - GooglePlaces
   - IQKeyboardManagerSwift
@@ -55,6 +57,7 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   BetterSegmentedControl: 40b2b6a08bbc59663149624d1b5235efa8d43a3c
   Charts: 0705898046257443f0afbbc3179f4b67507b6e48
+  DropDown: 744784d9c9aa505100e942c16acd05430cbb2f0a
   GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
   GooglePlaces: dd70d9d71ea1c7944846afe67de3712c99b30a77
   IQKeyboardManagerSwift: a0592bb636b10a9a1cf75d2b2c61144226226c84
@@ -65,6 +68,6 @@ SPEC CHECKSUMS:
   XLPagerTabStrip: d1ab378af0923320ec0b5eab11d7b2f803d31261
   YLProgressBar: 763ad9be70b8de5ab98a3fab27953f3771869e3d
 
-PODFILE CHECKSUM: a200241c2f5f7a3b9d15a8a34c495784b60aa981
+PODFILE CHECKSUM: 678f436cd993ed2c9bb6708aa9aaeffc0657a855
 
 COCOAPODS: 1.1.1
