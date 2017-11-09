@@ -146,6 +146,7 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
                 }
                 if arrayAddress.count > 0{
                     self.dropDown.dataSource = arrayAddress as! [String]
+                    //
                     self.dropDown.show()
                 }
             }
