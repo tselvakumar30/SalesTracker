@@ -27,6 +27,7 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
     
     override func viewWillAppear(_ animated: Bool) {
         determineMyCurrentLocation()
+        addArrayData()
         let parameter = NSMutableDictionary()
         parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
         GetAssignments(params: parameter)
@@ -45,14 +46,19 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
         arrayShopList.add(param2)
         duplicateArray.add(param1)
         duplicateArray.add(param2)
-        
-        tableViewAssignMent.frame = CGRect(x: tableViewAssignMent.frame.origin.x, y: tableViewAssignMent.frame.origin.y, width: tableViewAssignMent.frame.width, height: tableViewAssignMent.frame.height - buttonAttendance.frame.height)
+
+//        if (buttonAttendance.isHidden){
+//            tableViewAssignMent.frame = CGRect(x: tableViewAssignMent.frame.origin.x, y: tableViewAssignMent.frame.origin.y, width: tableViewAssignMent.frame.width, height: tableViewAssignMent.frame.height + (buttonAttendance.frame.height)/2.3)
+//
+//        }else{
+//            tableViewAssignMent.frame = CGRect(x: tableViewAssignMent.frame.origin.x, y: tableViewAssignMent.frame.origin.y, width: tableViewAssignMent.frame.width, height: tableViewAssignMent.frame.height - buttonAttendance.frame.height)
+//        }
 
     }
     
     func initializeTableviewUI(){
         setLoadingIndicator()
-        addArrayData()
+        //addArrayData()
         self.tableViewAssignMent.register(UINib(nibName: "AssignmentProgressTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "AssignmentProgressTableViewCell")
         self.tableViewAssignMent.register(UINib(nibName: "AssignmentSearchTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "AssignmentSearchTableViewCell")
         self.tableViewAssignMent.register(UINib(nibName: "AssignmentsTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "AssignmentsTableViewCell")
@@ -346,9 +352,11 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
                     if let nAttendence:Float = responseDictionary.value(forKey: "attendance_status") as? Float{
                         if nAttendence == 0{
                             self.buttonAttendance.isHidden = false
+                            self.tableViewAssignMent.frame = CGRect(x: self.tableViewAssignMent.frame.origin.x, y: self.tableViewAssignMent.frame.origin.y, width: self.tableViewAssignMent.frame.width, height: self.tableViewAssignMent.frame.height - self.buttonAttendance.frame.height)
+
                         }else{
                             self.buttonAttendance.isHidden = true
-                            self.tableViewAssignMent.frame = CGRect(x: self.tableViewAssignMent.frame.origin.x, y: self.tableViewAssignMent.frame.origin.y, width: self.tableViewAssignMent.frame.width, height: self.tableViewAssignMent.frame.height+(self.buttonAttendance.frame.height))
+                            self.tableViewAssignMent.frame = CGRect(x: self.tableViewAssignMent.frame.origin.x, y: self.tableViewAssignMent.frame.origin.y, width: self.tableViewAssignMent.frame.width, height: self.tableViewAssignMent.frame.height+(self.buttonAttendance.frame.height)/2.3)
                         }
                     }
                     if let arrayResults:NSArray = responseDictionary.value(forKey: "results") as? NSArray{
@@ -420,9 +428,11 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
                 let strStatus:NSString = (responseDictionary).value(forKey: "status") as! NSString
                 if strStatus == "true"{
                     self.buttonAttendance.isHidden = true
-                    self.tableViewAssignMent.frame = CGRect(x: self.tableViewAssignMent.frame.origin.x, y: self.tableViewAssignMent.frame.origin.y, width: self.tableViewAssignMent.frame.width, height: self.tableViewAssignMent.frame.height+(self.buttonAttendance.frame.height))
+                    self.tableViewAssignMent.frame = CGRect(x: self.tableViewAssignMent.frame.origin.x, y: self.tableViewAssignMent.frame.origin.y, width: self.tableViewAssignMent.frame.width, height: self.tableViewAssignMent.frame.height+(self.buttonAttendance.frame.height)/2.3)
                     self.stopLoading()
                 }else{
+                    self.tableViewAssignMent.frame = CGRect(x: self.tableViewAssignMent.frame.origin.x, y: self.tableViewAssignMent.frame.origin.y, width: self.tableViewAssignMent.frame.width, height: self.tableViewAssignMent.frame.height - self.buttonAttendance.frame.height)
+
                     self.stopLoading()
                     if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
                         self.popupAlert(Title: "Information", msg: Msg)

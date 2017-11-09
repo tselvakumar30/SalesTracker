@@ -31,6 +31,10 @@ class AssignmentsTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        labelStreetName.sizeToFit()
+        labelStreetName.frame = CGRect(x: labelStreetName.frame.origin.x, y: labelStreetName.frame.origin.y, width: labelShopName.frame.width, height: labelStreetName.frame.height)
+
+        
         SwitchLocation.frame = CGRect(x: SwitchLocation.frame.origin.x, y: buttonMap.frame.origin.y, width: SwitchLocation.frame.width, height: SwitchLocation.frame.height)
         CodeReuser().viewCircular(circleView: self.buttonMap)
         CodeReuser().viewCircular(circleView: self.buttonCall)
