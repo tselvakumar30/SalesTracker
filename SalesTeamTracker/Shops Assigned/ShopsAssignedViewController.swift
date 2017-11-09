@@ -136,11 +136,13 @@ class ShopsAssignedViewController: UIViewController,UITableViewDelegate,UITableV
         tableViewAssignments.deselectRow(at: indexPath, animated: false)
         let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"SingleShopViewController") as! SingleShopViewController
         var dictionary = NSDictionary()
-        if let dictPassDetails:NSDictionary = arrayShopList[(indexPath as NSIndexPath).section] as? NSDictionary{
+        if let dictPassDetails:NSDictionary = arrayShopList[(indexPath as NSIndexPath).section-2] as? NSDictionary{
             dictionary = dictPassDetails
         }
         nextViewController.dictionaryShopDetails = dictionary
+        UserDefaults.standard.setValue(dictionary, forKey: "CURRENTSHOPDETAILS")
         self.navigationController?.pushViewController(nextViewController, animated: true)
+        
     }
     
     //MARK:- TextField Delegates

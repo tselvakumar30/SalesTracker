@@ -168,15 +168,14 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let Cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentsTableViewCell") as! AssignmentsTableViewCell!
-        Cell?.SwitchLocation.isOn = false
         Cell?.labelShopName.text = (arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "shopname") as? String
         Cell?.labelStreetName.text = (arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "shopaddress") as? String
         
         if let sStatus:String = (arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "status") as? String{
             if sStatus == "0"{
-                Cell?.SwitchLocation.isOn = false
+                //Cell?.SwitchLocation.isOn = false
             }else{
-                Cell?.SwitchLocation.isOn = true
+                //Cell?.SwitchLocation.isOn = true
             }
         }
         if let arrayImageUrl:NSArray = (arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "images") as? NSArray{
@@ -193,20 +192,21 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
         Cell?.buttonCall.tag = (indexPath as NSIndexPath).section
         Cell?.buttonMap.addTarget(self, action: #selector(self.buttonMap(sender:)), for: .touchUpInside)
         Cell?.buttonCall.addTarget(self, action: #selector(self.buttonCall(sender:)), for: .touchUpInside)
-        
+        Cell?.SwitchLocation.isHidden = true
         return Cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         tableViewList.deselectRow(at: indexPath, animated: false)
-        let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"SingleShopViewController") as! SingleShopViewController
-        var dictionary = NSDictionary()
-        if let dictPassDetails:NSDictionary = arrayShopList[(indexPath as NSIndexPath).section] as? NSDictionary{
-            dictionary = dictPassDetails
-        }
-        nextViewController.dictionaryShopDetails = dictionary
-        self.navigationController?.pushViewController(nextViewController, animated: true)
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"SingleShopViewController") as! SingleShopViewController
+            var dictionary = NSDictionary()
+            if let dictPassDetails:NSDictionary = arrayShopList[(indexPath as NSIndexPath).section-2] as? NSDictionary{
+                dictionary = dictPassDetails
+            }
+            nextViewController.dictionaryShopDetails = dictionary
+            UserDefaults.standard.setValue(dictionary, forKey: "CURRENTSHOPDETAILS")
+            self.navigationController?.pushViewController(nextViewController, animated: true)
     }
     
     @objc func buttonMap(sender:UIButton){

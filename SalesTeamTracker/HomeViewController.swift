@@ -223,6 +223,7 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
                 dictionary = dictPassDetails
             }
             nextViewController.dictionaryShopDetails = dictionary
+            UserDefaults.standard.setValue(dictionary, forKey: "CURRENTSHOPDETAILS")
             self.navigationController?.pushViewController(nextViewController, animated: true)
         }
     }

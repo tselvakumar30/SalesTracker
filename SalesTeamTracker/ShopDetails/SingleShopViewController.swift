@@ -73,11 +73,15 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
                 segmentedControl.frame = CGRect(x: segmentedControl.frame.origin.x, y: viewHeader.frame.height, width: self.segmentedControl.frame.size.width, height: 40)
                 
                 let fCenterContainerY:CGFloat = containerView.frame.height / 2
-                containerView.center = CGPoint(x: containerView.center.x, y: fCenterContainerY + viewHeader.frame.height+39)
+               // containerView.center = CGPoint(x: containerView.center.x, y: fCenterContainerY + viewHeader.frame.height+39)
+                containerView.frame = CGRect(x: containerView.frame.origin.x, y: segmentedControl.frame.origin.y+39, width: self.containerView.frame.size.width, height: self.containerView.frame.size.height)
+
                 containerView.isUserInteractionEnabled = true
             }else{
                 segmentedControl.frame = CGRect(x: segmentedControl.frame.origin.x, y: fYofSegment, width: self.segmentedControl.frame.size.width, height: 40)
-                containerView.center = CGPoint(x: containerView.center.x, y: fYofDetails)
+             //   containerView.center = CGPoint(x: containerView.center.x, y: fYofDetails)
+                containerView.frame = CGRect(x: containerView.frame.origin.x, y: segmentedControl.frame.origin.y+39, width: self.containerView.frame.size.width, height: self.containerView.frame.size.height)
+
                 containerView.isUserInteractionEnabled = false
                 
             }

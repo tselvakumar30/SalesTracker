@@ -28,7 +28,6 @@
 		F2AFDCDF1FA20F8A00287C58 /* ApiString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCDE1FA20F8A00287C58 /* ApiString.swift */; };
 		F2AFDCE31FA3006700287C58 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCE21FA3006700287C58 /* AppColors.swift */; };
 		F2AFDCE51FA30A2E00287C58 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCE41FA30A2E00287C58 /* HomeViewController.swift */; };
-		F2AFDCE71FA30F9800287C58 /* ShopDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCE61FA30F9800287C58 /* ShopDetailsViewController.swift */; };
 		F2AFDCEA1FA3134600287C58 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCE91FA3134600287C58 /* SideMenuViewController.swift */; };
 		F2AFDCEE1FA315A600287C58 /* AssignmentProgressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCEC1FA315A600287C58 /* AssignmentProgressTableViewCell.swift */; };
 		F2AFDCEF1FA315A600287C58 /* AssignmentProgressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2AFDCED1FA315A600287C58 /* AssignmentProgressTableViewCell.xib */; };
@@ -75,7 +74,6 @@
 		F2AFDCDE1FA20F8A00287C58 /* ApiString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiString.swift; sourceTree = "<group>"; };
 		F2AFDCE21FA3006700287C58 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		F2AFDCE41FA30A2E00287C58 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		F2AFDCE61FA30F9800287C58 /* ShopDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopDetailsViewController.swift; sourceTree = "<group>"; };
 		F2AFDCE91FA3134600287C58 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		F2AFDCEC1FA315A600287C58 /* AssignmentProgressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentProgressTableViewCell.swift; sourceTree = "<group>"; };
 		F2AFDCED1FA315A600287C58 /* AssignmentProgressTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignmentProgressTableViewCell.xib; sourceTree = "<group>"; };
@@ -171,7 +169,6 @@
 			children = (
 				F228DE2C1FAC5C460023B2B6 /* SegmentClasses */,
 				F228DE221FAC56190023B2B6 /* CollectionViewCells */,
-				F2AFDCE61FA30F9800287C58 /* ShopDetailsViewController.swift */,
 				F29681131FAE2CC900C359AF /* SingleShopViewController.swift */,
 			);
 			path = ShopDetails;
@@ -439,7 +436,6 @@
 				F2B3FFE31FAB24C8006F97DF /* AutocompleteCell.swift in Sources */,
 				F2AFDCE51FA30A2E00287C58 /* HomeViewController.swift in Sources */,
 				F2D45A281FA99F950037B916 /* ShopsAssignedViewController.swift in Sources */,
-				F2AFDCE71FA30F9800287C58 /* ShopDetailsViewController.swift in Sources */,
 				F228DE301FAC5C720023B2B6 /* MessageViewController.swift in Sources */,
 				F2E77B311FA7005D0083EF89 /* SidemenuHeaderTableViewCell.swift in Sources */,
 				F2E77B351FA7021B0083EF89 /* SidemenuContentTableViewCell.swift in Sources */,

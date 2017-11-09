@@ -14,7 +14,7 @@ class MessageViewController: UIViewController,IndicatorInfoProvider {
     }
 
     func initializeUI(){
-        viewTextField.layer.cornerRadius = textFieldMessage.frame.height/2.5
+        viewTextField.layer.cornerRadius = textFieldMessage.frame.height/2.6
     }
 
     override func didReceiveMemoryWarning() {
