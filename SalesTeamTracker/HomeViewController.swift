@@ -26,6 +26,7 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.tableViewAssignMent.frame = CGRect(x: self.tableViewAssignMent.frame.origin.x, y: self.tableViewAssignMent.frame.origin.y, width: self.tableViewAssignMent.frame.width, height: self.view.frame.height - self.tableViewAssignMent.frame.origin.y-10)
         determineMyCurrentLocation()
         addArrayData()
         let parameter = NSMutableDictionary()
