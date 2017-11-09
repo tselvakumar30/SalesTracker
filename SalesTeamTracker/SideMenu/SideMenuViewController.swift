@@ -16,7 +16,6 @@ class SideMenuViewController: UIViewController,UITableViewDelegate,UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
          initializeTableviewUI()
-
     }
     
     func initializeTableviewUI(){
@@ -28,7 +27,6 @@ class SideMenuViewController: UIViewController,UITableViewDelegate,UITableViewDa
     func initializeData(){
         arrayImages = [imageFiles().imageTodaysAssignment!,imageFiles().imagePastAssignment!,imageFiles().imageShopAssigned!,imageFiles().imageAddShop!,imageFiles().imageLogout!]
         arrayList = ["Today's Assignment","Past Assignment","Shop Assigned","Add Shop","Logout"]
-
     }
 
     //MARK: - Tableview Delegate Methods -
@@ -73,9 +71,30 @@ class SideMenuViewController: UIViewController,UITableViewDelegate,UITableViewDa
     {
         if (indexPath as NSIndexPath).section == 0 {
             let Cell = tableView.dequeueReusableCell(withIdentifier: "SidemenuHeaderTableViewCell") as! SidemenuHeaderTableViewCell!
-            Cell!.imageViewUserImage.sd_setImage(with: URL(string: "https://lh3.googleusercontent.com/-GDlSc4gOqXA/WfbCf-PA1vI/AAAAAAAABQk/NzPh3xcoCJcY9GoKCe2ell0-a7erBD4XwCL0BGAYYCw/h1280/7429304438610927207%253Faccount_id%253D2"), placeholderImage: UIImage(named: "logo"))
             
-
+            if let dictDetails:NSDictionary = UserDefaults.standard.value(forKey: "USERDETAILS") as? NSDictionary{
+                if let dictUserDetails:NSArray = dictDetails.value(forKey: "user_details") as? NSArray{
+                    
+                    var sFullName:String = ""
+                    if let sFname:String = (dictUserDetails[0] as AnyObject).value(forKey: "firstname") as? String{
+                        sFullName = sFullName + sFname
+                    }
+                    if let sLname:String = (dictUserDetails[0] as AnyObject).value(forKey: "lastname") as? String{
+                        sFullName = sFullName + " " + sLname
+                    }
+                    Cell?.labelName.text = sFullName
+                    if let sDesignation:String = (dictUserDetails[0] as AnyObject).value(forKey: "designation") as? String{
+                        Cell?.labelDesignation.text = sDesignation
+                    }
+                    
+                    if let sImageUrl:String = (dictUserDetails[0] as AnyObject).value(forKey: "thumbimage") as? String{
+                        var sImage:String = ""
+                        sImage = ApiString().baseUrl + sImageUrl
+                        let Url:URL = URL(string: sImage)!
+                        Cell!.imageViewUserImage.sd_setImage(with: Url, completed: nil)
+                    }
+                }
+            }
             return Cell!
         }else{
             let Cell = tableView.dequeueReusableCell(withIdentifier: "SidemenuContentTableViewCell") as! SidemenuContentTableViewCell!

@@ -4,10 +4,17 @@ import XLPagerTabStrip
 
 class MessageViewController: UIViewController,IndicatorInfoProvider {
 
-    override func viewDidLoad() {
+    @IBOutlet var viewTextField: UIView!
+    @IBOutlet var textFieldMessage: UITextField!
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        initializeUI()
 
-        // Do any additional setup after loading the view.
+    }
+
+    func initializeUI(){
+        viewTextField.layer.cornerRadius = textFieldMessage.frame.height/2.5
     }
 
     override func didReceiveMemoryWarning() {
@@ -17,7 +24,7 @@ class MessageViewController: UIViewController,IndicatorInfoProvider {
     
 
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        return IndicatorInfo(title: "Message")
+        return IndicatorInfo(title: "Comments")
     }
 
 }

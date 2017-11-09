@@ -1,4 +1,7 @@
 import UIKit
+import PopupDialog
+import AFNetworking
+import NVActivityIndicatorView
 
 class ShopsAssignedViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
 
@@ -11,31 +14,58 @@ class ShopsAssignedViewController: UIViewController,UITableViewDelegate,UITableV
     var strFromDate = String()
     var strToDate = String()
     var nTextFieldTag = Int()
-
+    var activity:NVActivityIndicatorView!
 
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initializeTableviewUI()
-
+        
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        textFieldFrom.inputAccessoryView = doneToolbar
+        textFieldTo.inputAccessoryView = doneToolbar
+        
+        setLoadingIndicator()
     }
     
+    @objc func doneButtonAction(){
+        textFieldFrom.resignFirstResponder()
+        textFieldTo.resignFirstResponder()
+        callWebservice()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        textFieldTo.text = dateFormatterString(date: NSDate())
+        textFieldFrom.text = dateFormatterString(date: NSDate())
+        callWebservice()
+    }
+    func callWebservice(){
+        let parameter = NSMutableDictionary()
+        parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
+        parameter.setValue(textFieldFrom.text, forKey: "from_date")
+        parameter.setValue(textFieldTo.text, forKey: "to_date")
+        GetShopsAssigned(params: parameter)
+    }
     
-    func addArrayData(){
-        let param1 = NSMutableDictionary()
-        let param2 = NSMutableDictionary()
-        
-        param1.setValue("PetBuddy Products", forKey: "Shop_Name")
-        param2.setValue("DIGIIQ Limited", forKey: "Shop_Name")
-        arrayShopList.add(param1)
-        arrayShopList.add(param2)
+    func dateFormatterString(date:NSDate)->String{
+        var returnString:String = ""
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        returnString = formatter.string(from: date as Date)
+        return returnString
     }
     
     func initializeTableviewUI(){
-        addArrayData()
         self.tableViewAssignments.register(UINib(nibName: "AssignmentsTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "AssignmentsTableViewCell")
-        tableViewAssignments.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -78,12 +108,25 @@ class ShopsAssignedViewController: UIViewController,UITableViewDelegate,UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let Cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentsTableViewCell") as! AssignmentsTableViewCell!
-        Cell?.labelShopName.text = (arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "Shop_Name") as? String
-        Cell?.labelStreetName.text = "viveganandar Street"
-        Cell?.labelCity.text = "Coimbatore VJ Business Centre "
+        Cell?.labelShopName.text = (arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "shopname") as? String
+        Cell?.labelStreetName.text = (arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "shopaddress") as? String
+        
         Cell?.SwitchLocation.isHidden = true
-        Cell?.buttonMap.addTarget(self, action: #selector(self.buttonMap), for: .touchUpInside)
-        Cell?.buttonCall.addTarget(self, action: #selector(self.buttonCall), for: .touchUpInside)
+        
+        if let arrayImageUrl:NSArray = (arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "images") as? NSArray{
+            if arrayImageUrl.count > 0{
+                if let sImageUrl:String = (arrayImageUrl[0] as AnyObject).value(forKey: "thumb_image") as? String{
+                    var sImage:String = ""
+                    sImage = ApiString().baseUrl + sImageUrl
+                    let Url:URL = URL(string: sImage)!
+                    Cell?.imageViewShops.sd_setImage(with: Url, completed: nil)
+                }
+            }
+        }
+        Cell?.buttonMap.tag = (indexPath as NSIndexPath).section
+        Cell?.buttonCall.tag = (indexPath as NSIndexPath).section
+        Cell?.buttonMap.addTarget(self, action: #selector(self.buttonMap(sender:)), for: .touchUpInside)
+        Cell?.buttonCall.addTarget(self, action: #selector(self.buttonCall(sender:)), for: .touchUpInside)
 
         return Cell!
     }
@@ -91,29 +134,34 @@ class ShopsAssignedViewController: UIViewController,UITableViewDelegate,UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         tableViewAssignments.deselectRow(at: indexPath, animated: false)
+        let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"SingleShopViewController") as! SingleShopViewController
+        var dictionary = NSDictionary()
+        if let dictPassDetails:NSDictionary = arrayShopList[(indexPath as NSIndexPath).section] as? NSDictionary{
+            dictionary = dictPassDetails
+        }
+        nextViewController.dictionaryShopDetails = dictionary
+        self.navigationController?.pushViewController(nextViewController, animated: true)
     }
     
     //MARK:- TextField Delegates
-    
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
-        var datePickerView1 = UIDatePicker()
-        datePickerview = datePickerView1
         textField.inputView = datePickerview
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        
         if textField == self.textFieldFrom{
             nTextFieldTag = 1
+            datePickerview.setDate(formatter.date(from: textFieldFrom.text!)!, animated: false)
             datePickerview.datePickerMode = UIDatePickerMode.date
             datePickerview.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControlEvents.valueChanged)
         }else if textField == self.textFieldTo{
             nTextFieldTag = 2
+            datePickerview.setDate(formatter.date(from: textFieldTo.text!)!, animated: false)
             datePickerview.datePickerMode = UIDatePickerMode.date
             datePickerview.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControlEvents.valueChanged)
         }
     
         return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
     }
     
     @IBAction func buttonFrom(_ sender: Any)
@@ -130,54 +178,29 @@ class ShopsAssignedViewController: UIViewController,UITableViewDelegate,UITableV
     //MARK:- DatePicker
     
     @objc func datePickerValueChanged(sender: UIDatePicker) {
-        
-//        let dateFormatter1 = DateFormatter()
-//        dateFormatter1.dateFormat = "MM/dd/yyyy" //Your date format
-//        let date = dateFormatter1.date(from: "01-01-2017") //according to date format your date string
-        let now = Date()
-        let calendar = NSCalendar.current
-        let nTime:Int = calendar.timeZone.secondsFromGMT(for: now)
-        let oneDayAgoInterval:TimeInterval = TimeInterval((-1 * 24 * 60 * 60)+nTime)
-        let currentDayInterval:TimeInterval = TimeInterval((1 * 24 * 60 * 60)+nTime)
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        let dateFormatter1 = DateFormatter()
-        dateFormatter1.dateStyle = .medium
-        dateFormatter1.timeStyle = .none
-        dateFormatter1.dateFormat = "MM/dd/yyyy"
-
         if nTextFieldTag == 1{
-            let oneDaysAgo: Date? = now.addingTimeInterval(oneDayAgoInterval)
-            datePickerview.maximumDate = oneDaysAgo
-            strFromDate = dateFormatter.string(from: sender.date)
-            textFieldFrom.text = strFromDate
+            textFieldFrom.text = dateFormatterString(date: sender.date as NSDate)
         }else{
-            let oneDaysAgo: Date? = now.addingTimeInterval(currentDayInterval)
-            datePickerview.minimumDate = oneDaysAgo
-            strToDate = dateFormatter1.string(from: sender.date)
-            textFieldTo.text = strToDate
+            textFieldTo.text = dateFormatterString(date: sender.date as NSDate)
         }
     }
-    
     
     @IBAction func buttonBack(_ sender: Any)
     {
         _ = navigationController?.popViewController(animated: true)
     }
     
-    @objc func buttonMap(){
+    @objc func buttonMap(sender:UIButton){
         let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"MapViewController") as! MapViewController
-        nextViewController.doubleLatitude = 41.887
-        nextViewController.doubleLongitude = -87.622
-        nextViewController.stringMapTitle = "Title Map"
+        nextViewController.doubleLatitude = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "latitude") as? String)!)!
+        nextViewController.doubleLongitude = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "longitude") as? String)!)!
+        nextViewController.stringMapTitle = ((arrayShopList[sender.tag] as AnyObject).value(forKey: "shopname") as? String)!
         self.navigationController?.pushViewController(nextViewController, animated: true)
     }
-    @objc func buttonCall()
+    @objc func buttonCall(sender:UIButton)
     {
-        if let url = URL(string: "tel://\(8973576442)"), UIApplication.shared.canOpenURL(url) {
+        let sPhonenumber:String = ((arrayShopList[sender.tag] as AnyObject).value(forKey: "phonenumber") as? String)!
+        if let url = URL(string: "tel://\(sPhonenumber)"), UIApplication.shared.canOpenURL(url) {
             if #available(iOS 10, *) {
                 UIApplication.shared.open(url)
             } else {
@@ -187,6 +210,76 @@ class ShopsAssignedViewController: UIViewController,UITableViewDelegate,UITableV
     }
 
 
+    //MARK:- Webservices
+    func GetShopsAssigned(params:NSMutableDictionary)
+    {
+        startLoading()
+        self.arrayShopList.removeAllObjects()
+        let manager = AFHTTPSessionManager()
+        let stringURL:NSString = String(format: "%@%@", ApiString().baseUrl,ApiString().shopsAssignedDate) as NSString
+        
+        manager.requestSerializer.setValue(UserDefaults.standard.value(forKey: "AUTHENTICATION") as? String, forHTTPHeaderField: "Auth-Token")
+        manager.post(stringURL as String, parameters: params, progress: nil, success: { (operation, responseObject) -> Void in
+            let responseDictionary:NSDictionary = responseObject as! NSDictionary
+            if let _:Any = (responseDictionary).value(forKey: "status")
+            {
+                let strStatus:NSString = (responseDictionary).value(forKey: "status") as! NSString
+                if strStatus == "true"{
+                    
+                    if let arrayResults:NSArray = responseDictionary.value(forKey: "results") as? NSArray{
+                        self.arrayShopList.addObjects(from: arrayResults as! [Any])
+                        self.tableViewAssignments.reloadData()
+                    }
+                    self.stopLoading()
+                }else{
+                    self.tableViewAssignments.reloadData()
+                    self.stopLoading()
+                    if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
+                        
+                        self.popupAlert(Title: "Information", msg: Msg)
+                    }
+                }
+            }
+        }, failure: { (operation, error) -> Void in
+            self.stopLoading()
+            self.tableViewAssignments.reloadData()
+            self.popupAlert(Title: "Information", msg: error.localizedDescription)
+        })
+    }
+    //MARK:- Activity Indicator View
+    func setLoadingIndicator()
+    {
+        activity = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+        activity.color = AppColors().appBlueColor
+        activity.type = NVActivityIndicatorType.ballScaleMultiple
+        activity.startAnimating()
+        activity.center = view.center
+    }
+    func startLoading()
+    {
+        view.isUserInteractionEnabled = false
+        self.view.addSubview(activity)
+    }
+    
+    func stopLoading(){
+        activity.removeFromSuperview()
+        self.view.isUserInteractionEnabled = true
+    }
+    
+    //MARK:- Alert Class
+    
+    func popupAlert(Title:String,msg:String)
+    {
+        let popup = PopupDialog(title: Title, message: msg, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
+        }
+        let buttonOk = DefaultButton(title: "OK")
+        {
+        }
+        buttonOk.buttonColor = UIColor.red
+        buttonOk.titleColor = UIColor.white
+        popup.addButtons([buttonOk])
+        self.present(popup, animated: true, completion: nil)
+    }
     
 
 }
