@@ -28,17 +28,14 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jix-RY-1qw">
-                        <rect key="frame" x="100" y="30" width="206" height="20"/>
+                        <rect key="frame" x="100" y="26" width="206" height="20"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="OIf-XK-3x7"/>
-                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="ESv-8Q-Fgz">
-                        <rect key="frame" x="220" y="5" width="91" height="20"/>
+                        <rect key="frame" x="220" y="1" width="91" height="20"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="LlT-DU-PAK"/>
@@ -59,17 +56,17 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Ibk-IA-Pce" firstAttribute="top" secondItem="Jix-RY-1qw" secondAttribute="bottom" id="7ZY-Jz-k8Q"/>
+                    <constraint firstItem="Jix-RY-1qw" firstAttribute="top" secondItem="ESv-8Q-Fgz" secondAttribute="bottom" constant="5" id="48i-uC-sh9"/>
                     <constraint firstItem="ESv-8Q-Fgz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="9Ds-2i-3MD"/>
                     <constraint firstItem="Ibk-IA-Pce" firstAttribute="leading" secondItem="R3R-RX-t8v" secondAttribute="trailing" constant="10" id="E90-Nd-SfG"/>
-                    <constraint firstAttribute="trailing" secondItem="Jix-RY-1qw" secondAttribute="trailing" constant="14" id="MCV-zN-vMe"/>
+                    <constraint firstAttribute="trailing" secondItem="Jix-RY-1qw" secondAttribute="trailing" constant="14" id="LuD-bh-7pp"/>
+                    <constraint firstAttribute="bottom" secondItem="Ibk-IA-Pce" secondAttribute="bottom" constant="10.5" id="MCX-sw-K0l"/>
                     <constraint firstItem="Ibk-IA-Pce" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="QIf-Z5-awZ"/>
-                    <constraint firstItem="Jix-RY-1qw" firstAttribute="top" secondItem="ESv-8Q-Fgz" secondAttribute="bottom" constant="5" id="WOE-2h-aFo"/>
                     <constraint firstItem="R3R-RX-t8v" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Wly-Yq-KlY"/>
                     <constraint firstAttribute="trailing" secondItem="ESv-8Q-Fgz" secondAttribute="trailing" constant="10" id="b8c-9f-4oU"/>
-                    <constraint firstItem="Jix-RY-1qw" firstAttribute="leading" secondItem="R3R-RX-t8v" secondAttribute="trailing" constant="42" id="i5J-cg-UeP"/>
-                    <constraint firstItem="Ibk-IA-Pce" firstAttribute="top" secondItem="Jix-RY-1qw" secondAttribute="bottom" id="lG2-hd-H6B"/>
                     <constraint firstItem="R3R-RX-t8v" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="mrH-Tn-1sm"/>
+                    <constraint firstItem="Jix-RY-1qw" firstAttribute="leading" secondItem="R3R-RX-t8v" secondAttribute="trailing" constant="10" id="uP4-IK-O1A"/>
+                    <constraint firstItem="Ibk-IA-Pce" firstAttribute="top" secondItem="Jix-RY-1qw" secondAttribute="bottom" constant="4" id="wga-B9-TF8"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

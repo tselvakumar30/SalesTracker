@@ -1,11 +1,12 @@
 import UIKit
 import XLPagerTabStrip
 import PopupDialog
+import AFNetworking
 import NVActivityIndicatorView
 
 
 class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate {
-
+    
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     var panGesture = UIPanGestureRecognizer()
     var fYofSegment = CGFloat()
@@ -23,12 +24,14 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
     @IBOutlet var viewHeader: UIView!
     var imageAddForShop = UIImage()
     let imagePicker = UIImagePickerController()
-
+    
+    var activity:NVActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initializeUI()
+        setLoadingIndicator()
         fCenterOfView = (self.view.frame.height - 20) / 2
         fYofSegment = viewMiddleView.frame.origin.y+viewMiddleView.frame.height
         fYofDetails = containerView.center.y
@@ -66,8 +69,8 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
         collectionViewImages.frame = CGRect(x:0,y:0,width: self.collectionViewImages.frame.size.width, height: self.collectionViewImages.frame.size.height)
         segmentedControl.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.white], for: UIControlState.selected)
         segmentedControl.frame = CGRect(x: segmentedControl.frame.origin.x, y: segmentedControl.frame.origin.y, width: segmentedControl.frame.size.width, height: 40)
-
-
+        
+        
         collectionViewImages.reloadData()
         
     }
@@ -80,15 +83,15 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
                 segmentedControl.frame = CGRect(x: segmentedControl.frame.origin.x, y: viewHeader.frame.height, width: self.segmentedControl.frame.size.width, height: 40)
                 
                 let fCenterContainerY:CGFloat = containerView.frame.height / 2
-               // containerView.center = CGPoint(x: containerView.center.x, y: fCenterContainerY + viewHeader.frame.height+39)
+                // containerView.center = CGPoint(x: containerView.center.x, y: fCenterContainerY + viewHeader.frame.height+39)
                 containerView.frame = CGRect(x: containerView.frame.origin.x, y: segmentedControl.frame.origin.y+39, width: self.containerView.frame.size.width, height: self.containerView.frame.size.height)
-
+                
                 containerView.isUserInteractionEnabled = true
             }else{
                 segmentedControl.frame = CGRect(x: segmentedControl.frame.origin.x, y: fYofSegment, width: self.segmentedControl.frame.size.width, height: 40)
-             //   containerView.center = CGPoint(x: containerView.center.x, y: fYofDetails)
+                //   containerView.center = CGPoint(x: containerView.center.x, y: fYofDetails)
                 containerView.frame = CGRect(x: containerView.frame.origin.x, y: segmentedControl.frame.origin.y+39, width: self.containerView.frame.size.width, height: self.containerView.frame.size.height)
-
+                
                 containerView.isUserInteractionEnabled = false
                 
             }
@@ -126,7 +129,7 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
     @IBAction func buttonAddImageForShop(_ sender:Any){
         SelectImage()
     }
-
+    
     
     
     //MARK: CollectionView Delegates and Datasource
@@ -178,7 +181,7 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
     {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum){
             imagePicker.delegate = self
-            self.showActionSheet()
+            self.camera()
         }
     }
     
@@ -186,8 +189,20 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         imageAddForShop = chosenImage
         dismiss(animated: true, completion: nil)
+        
+        let dictionaryFullDetails:NSDictionary = UserDefaults.standard.value(forKey: "CURRENTSHOPDETAILS") as! NSDictionary
+        let parameter = NSMutableDictionary()
+        parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
+        if let sShopId:String = dictionaryFullDetails.value(forKey: "shopid") as? String{
+            parameter.setValue(sShopId, forKey: "shopid")
+        }
+        AddImage(params: parameter)
     }
-
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     //MARK: ActionSheet Delegate
     
     func showActionSheet()
@@ -205,4 +220,84 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
         present(imagePicker, animated: true, completion: nil)
     }
     
+    //MARK:- Webservices
+    func AddImage(params:NSMutableDictionary)
+    {
+        startLoading()
+        let manager = AFHTTPSessionManager()
+        let stringURL:NSString = String(format: "%@%@", ApiString().baseUrl,ApiString().addShopImagesUrl) as NSString
+        
+        manager.requestSerializer.setValue(UserDefaults.standard.value(forKey: "AUTHENTICATION") as? String, forHTTPHeaderField: "Auth-Token")
+        manager.post(stringURL as String, parameters: params, constructingBodyWith: {
+            (data: AFMultipartFormData!) in
+            let strData:Data = UIImageJPEGRepresentation(self.imageAddForShop, 0.3)!
+            data.appendPart(withFileData: strData, name: "fileToUpload[]", fileName: "photo.jpg", mimeType: "image/jpeg")
+            
+        }, progress: nil, success: { (operation, responseObject) -> Void in
+            let responseDictionary:NSDictionary = responseObject as! NSDictionary
+            if let _:Any = (responseDictionary).value(forKey: "status")
+            {
+                let strStatus:NSString = (responseDictionary).value(forKey: "status") as! NSString
+                if strStatus == "true"{
+                    print(responseDictionary)
+                    if let arrayImageList:NSArray = responseDictionary.value(forKey: "images") as? NSArray{
+                        self.arrayCollectionView = arrayImageList
+                        if self.arrayCollectionView.count <= 1{
+                            self.pageControl.isHidden = true
+                        }
+                        self.pageControl.numberOfPages = self.arrayCollectionView.count
+                        self.collectionViewImages.reloadData()
+                    }
+                    self.stopLoading()
+                    if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
+                        self.popupAlert(Title: "Information", msg: Msg)
+                    }
+                }else{
+                    self.stopLoading()
+                    if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
+                        self.popupAlert(Title: "Information", msg: Msg)
+                    }
+                }
+            }
+        }, failure: { (operation, error) -> Void in
+            self.stopLoading()
+            self.popupAlert(Title: "Information", msg: error.localizedDescription)
+        })
+    }
+    
+    //MARK:- Activity Indicator View
+    func setLoadingIndicator()
+    {
+        activity = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+        activity.color = AppColors().appBlueColor
+        activity.type = NVActivityIndicatorType.ballScaleMultiple
+        activity.startAnimating()
+        activity.center = view.center
+    }
+    func startLoading()
+    {
+        view.isUserInteractionEnabled = false
+        self.view.addSubview(activity)
+    }
+    
+    func stopLoading(){
+        activity.removeFromSuperview()
+        self.view.isUserInteractionEnabled = true
+    }
+    
+    //MARK:- Alert Class
+    func popupAlert(Title:String,msg:String)
+    {
+        let popup = PopupDialog(title: Title, message: msg, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
+        }
+        let buttonOk = DefaultButton(title: "OK")
+        {
+        }
+        buttonOk.buttonColor = UIColor.red
+        buttonOk.titleColor = UIColor.white
+        popup.addButtons([buttonOk])
+        self.present(popup, animated: true, completion: nil)
+    }
+    
 }
+

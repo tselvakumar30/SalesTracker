@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="140" height="221"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FpJ-JB-KBm">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="backgroundimage2" translatesAutoresizingMaskIntoConstraints="NO" id="FpJ-JB-KBm">
                         <rect key="frame" x="0.0" y="0.0" width="140" height="221"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     </imageView>
@@ -89,4 +89,7 @@
             </connections>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="backgroundimage2" width="140" height="200"/>
+    </resources>
 </document>
