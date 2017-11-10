@@ -124,6 +124,8 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
         _ = navigationController?.popViewController(animated: true)
     }
     
+    
+    
     // MARK: - Action handlers
     @objc func listDataChangeValues(_ sender: BetterSegmentedControl) {
         if sender.index == 0 {

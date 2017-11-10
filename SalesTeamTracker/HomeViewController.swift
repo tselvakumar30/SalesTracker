@@ -42,19 +42,8 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
         let param2 = NSMutableDictionary()
         
         param1.setValue("PetBuddy Products", forKey: "Shop_Name")
-        param2.setValue("DIGIIQ Limited", forKey: "Shop_Name")
         arrayShopList.add(param1)
-        arrayShopList.add(param2)
         duplicateArray.add(param1)
-        duplicateArray.add(param2)
-
-//        if (buttonAttendance.isHidden){
-//            tableViewAssignMent.frame = CGRect(x: tableViewAssignMent.frame.origin.x, y: tableViewAssignMent.frame.origin.y, width: tableViewAssignMent.frame.width, height: tableViewAssignMent.frame.height + (buttonAttendance.frame.height)/2.3)
-//
-//        }else{
-//            tableViewAssignMent.frame = CGRect(x: tableViewAssignMent.frame.origin.x, y: tableViewAssignMent.frame.origin.y, width: tableViewAssignMent.frame.width, height: tableViewAssignMent.frame.height - buttonAttendance.frame.height)
-//        }
-
     }
     
     func initializeTableviewUI(){
@@ -372,7 +361,7 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
                 }else{
                     self.stopLoading()
                     if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
-                        
+                        self.tableViewAssignMent.frame = CGRect(x: self.tableViewAssignMent.frame.origin.x, y: self.tableViewAssignMent.frame.origin.y, width: self.tableViewAssignMent.frame.width, height: self.tableViewAssignMent.frame.height - self.buttonAttendance.frame.height)
                         self.popupAlert(Title: "Information", msg: Msg)
                     }
                 }

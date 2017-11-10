@@ -1,8 +1,12 @@
 import UIKit
 import XLPagerTabStrip
+import PopupDialog
+import NVActivityIndicatorView
 
-class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectionViewDelegate,UICollectionViewDataSource {
 
+class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate {
+
+    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     var panGesture = UIPanGestureRecognizer()
     var fYofSegment = CGFloat()
     var fYofDetails = CGFloat()
@@ -17,6 +21,9 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
     var dictionaryShopDetails = NSDictionary()
     @IBOutlet var viewMiddleView: UIView!
     @IBOutlet var viewHeader: UIView!
+    var imageAddForShop = UIImage()
+    let imagePicker = UIImagePickerController()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,6 +118,15 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
         _ = navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func buttonAddCart(_ sender:Any){
+        
+        let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"AddCartViewController") as! AddCartViewController
+        self.navigationController?.pushViewController(nextViewController, animated: true)
+    }
+    @IBAction func buttonAddImageForShop(_ sender:Any){
+        SelectImage()
+    }
+
     
     
     //MARK: CollectionView Delegates and Datasource
@@ -153,6 +169,40 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
                 pageControl.currentPage = nPage
             }
         }
+    }
+    
+    
+    // MARK: - UIImagePickerControllerDelegate Methods
+    
+    func SelectImage()
+    {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum){
+            imagePicker.delegate = self
+            self.showActionSheet()
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        imageAddForShop = chosenImage
+        dismiss(animated: true, completion: nil)
+    }
+
+    //MARK: ActionSheet Delegate
+    
+    func showActionSheet()
+    {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: UIAlertActionStyle.default, handler: { (alert:UIAlertAction!) -> Void in
+            self.camera()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    func camera()
+    {
+        imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+        present(imagePicker, animated: true, completion: nil)
     }
     
 }
