@@ -1,48 +1,64 @@
 import UIKit
 import XLPagerTabStrip
+import PopupDialog
+import AFNetworking
+import NVActivityIndicatorView
 
-
-class MessageViewController: UIViewController,IndicatorInfoProvider,UITableViewDelegate,UITableViewDataSource{
-
+class MessageViewController: UIViewController,IndicatorInfoProvider,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate{
+    
     @IBOutlet var tableViewComments: UITableView!
     @IBOutlet var viewTextField: UIView!
     @IBOutlet var textFieldMessage: UITextField!
     var arrayComments = NSMutableArray()
+    var fKeyboardHeighaxis = CGFloat()
+    var fTextFieldInitialYaxis = CGFloat()
+
+    var activity:NVActivityIndicatorView!
+    var dictionaryFullDetails = NSDictionary()
     
     @IBOutlet var buttonSend: UIButton!
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        getKeyboardHeight()
         initializeUI()
-
+        setLoadingIndicator()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getCommentWebservice()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        fTextFieldInitialYaxis = self.viewTextField.frame.origin.y
+    }
+    
+    func getCommentWebservice(){
+        if let dictDetails:NSDictionary = UserDefaults.standard.value(forKey: "CURRENTSHOPDETAILS") as? NSDictionary{
+            dictionaryFullDetails = dictDetails
+        }
+        let parameter = NSMutableDictionary()
+        parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
+        if let sAssignId:String = dictionaryFullDetails.value(forKey: "assignmentid") as? String{
+            parameter.setValue(sAssignId, forKey: "assignmentid")
+        }
+        if let sShopId:String = dictionaryFullDetails.value(forKey: "shopid") as? String{
+            parameter.setValue(sShopId, forKey: "shopid")
+        }
+        GetComments(params: parameter)
     }
     
     func initializeUI(){
         viewTextField.layer.cornerRadius = textFieldMessage.frame.height/2.6
         self.tableViewComments.register(UINib(nibName: "CommentsTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "CommentsTableViewCell")
-        
-        let dict = NSMutableDictionary()
-        let dict1 = NSMutableDictionary()
-        let dict2 = NSMutableDictionary()
-        dict.setValue("jksadkjas bndsndkj snkjasnD", forKey: "Message")
-        dict1.setValue("JJK funcCKDLSKLSAD KLCJKLSADJ CDNNC  dsfjhsdjsdj cjkscjksckjsd ncknscnsdlkc sldclksdjclkjsdl sljcksldj numberOfSections(in tableView: UIIn", forKey: "Message")
-        dict2.setValue("JJK funcCKDLSKLSAD KLCJKLSADJ CDNNC  dsfjhsdjsdj cjkscjksckjsd ncknscnsdlkc sldclksdjclkjsdl sljcksldj numberOfSections(in taklsdjlksdj fjlsj sdljklsdjlksad dasljdlasj djilajdlaj kaskljlaks saljlak aladkla anlakdnlsak bleView: UIIn", forKey: "Message")
-        arrayComments.add(dict)
-        arrayComments.add(dict1)
-        arrayComments.add(dict2)
-        
-   //      self.tableViewComments.rowHeight = UITableViewAutomaticDimension
-        tableViewComments.reloadData()
-
-
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         return IndicatorInfo(title: "Comments")
     }
@@ -78,33 +94,23 @@ class MessageViewController: UIViewController,IndicatorInfoProvider,UITableViewD
         return viewHeader
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-////        let strMessage:String = ((arrayComments.object(at: indexPath.section) as AnyObject).value(forKey: "Message") as? String)!
-////        let rowHeight:CGSize = getHeightBasedonText(Message: strMessage, textViewSize: CGSize(width:self.view.frame.width/1.58,height: 999 ))
-////        if rowHeight.height <= self.view.frame.height/12{
-////            return self.view.frame.height/5.2
-////        }else{
-////            //return rowHeight.height + self.view.frame.height/7
-////            return UITableViewAutomaticDimension
-////        }
-//        return UITableViewAutomaticDimension
-//
-//    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let Cell = tableView.dequeueReusableCell(withIdentifier: "CommentsTableViewCell") as! CommentsTableViewCell!
-        let strMessage:String = ((arrayComments.object(at: indexPath.section) as AnyObject).value(forKey: "Message") as? String)!
-   //     let textViewHeight:CGFloat = (Cell?.textViewMessage.frame.height)!
-    //    let rowHeight:CGSize = getHeightBasedonText(Message: strMessage, textViewSize: CGSize(width:self.view.frame.width/1.58,height: 999 ))
-//        if textViewHeight < rowHeight.height{
-//         //   Cell?.textViewMessage.frame = CGRect(x: Cell?.textViewMessage.frame.origin.x, y: Cell?.textViewMessage.frame.origin.y, width: Cell?.textViewMessage.frame.width, height: Cell?.textViewMessage.frame.height)
-//        }else{
-//         //   Cell?.textViewMessage.frame.size = rowHeight
-//        }
-        Cell?.textViewMessage.text = strMessage
-     //   Cell?.labelDate.frame = CGRect(x: (Cell?.labelDate.frame.origin.x)!, y:(Cell?.frame.height)!-25, width: (Cell?.labelDate.frame.width)!, height: 20)
-
+        if let strMessage:String = (arrayComments.object(at: indexPath.section) as AnyObject).value(forKey: "comment") as? String{
+            Cell?.textViewMessage.text = strMessage
+        }
+        if let arr:NSArray = (arrayComments.object(at: indexPath.section) as AnyObject).value(forKey: "comment_user_details") as? NSArray{
+            if let sName:String = (arr.object(at: 0) as AnyObject).value(forKey: "firstname") as? String{
+                Cell?.labelName.text = sName
+            }
+            if let sUrl:String = (arr.object(at: 0) as AnyObject).value(forKey: "thumbimage") as? String{
+                var sImage:String = ""
+                sImage = ApiString().baseUrl + sUrl
+                let Url:URL = URL(string: sImage)!
+                Cell?.imageViewUserImage.sd_setImage(with: Url, completed: nil)
+            }
+        }
         return Cell!
     }
     
@@ -117,9 +123,9 @@ class MessageViewController: UIViewController,IndicatorInfoProvider,UITableViewD
     {
         return 44.0
     }
-
+    
     func getHeightBasedonText(Message:String,textViewSize:CGSize)->CGSize{
-
+        
         let cellFont: UIFont? = (UIFont(name: "Helvetica", size: 16.0))
         let attrString = NSAttributedString.init(string: Message, attributes: [NSAttributedStringKey.font:cellFont])
         let rect = attrString.boundingRect(with: textViewSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
@@ -127,12 +133,160 @@ class MessageViewController: UIViewController,IndicatorInfoProvider,UITableViewD
         return size
         
     }
-
+    
     @IBAction func buttonSendMessage(_ sender: Any)
     {
-        let dict = NSMutableDictionary()
-        dict.setValue(textFieldMessage.text!, forKey: "Message")
-        arrayComments.add(dict)
-        tableViewComments.reloadData()
+        if (textFieldMessage.text?.count)! > 0{
+            let parameter = NSMutableDictionary()
+            parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
+            if let sAssignId:String = dictionaryFullDetails.value(forKey: "assignmentid") as? String{
+                parameter.setValue(sAssignId, forKey: "assignmentid")
+            }
+            if let sShopId:String = dictionaryFullDetails.value(forKey: "shopid") as? String{
+                parameter.setValue(sShopId, forKey: "shopid")
+            }
+            parameter.setValue(textFieldMessage.text, forKey: "comment")
+            AddComments(params: parameter)
+            textFieldMessage.text = ""
+        }else{
+            popupAlert(Title: "Information", msg: "Please add a comment!")
+        }
+        self.viewTextField.frame.origin.y = fTextFieldInitialYaxis
+
+    }
+    
+    //MARK:- Webservices
+    func GetComments(params:NSMutableDictionary)
+    {
+        startLoading()
+        arrayComments.removeAllObjects()
+        let manager = AFHTTPSessionManager()
+        let stringURL:NSString = String(format: "%@%@", ApiString().baseUrl,ApiString().singleAssignmentUrl) as NSString
+        
+        manager.requestSerializer.setValue(UserDefaults.standard.value(forKey: "AUTHENTICATION") as? String, forHTTPHeaderField: "Auth-Token")
+        manager.post(stringURL as String, parameters: params, progress: nil, success: { (operation, responseObject) -> Void in
+            let responseDictionary:NSDictionary = responseObject as! NSDictionary
+            if let _:Any = (responseDictionary).value(forKey: "status")
+            {
+                let strStatus:NSString = (responseDictionary).value(forKey: "status") as! NSString
+                if strStatus == "true"{
+                    if let arrayResults:NSArray = responseDictionary.value(forKey: "comment_result") as? NSArray{
+                        self.arrayComments.addObjects(from: arrayResults as! [Any])
+                        self.tableViewComments.reloadData()
+                    }
+                    self.stopLoading()
+                }else{
+                    self.stopLoading()
+                    if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
+                        self.popupAlert(Title: "Information", msg: Msg)
+                    }
+                }
+            }
+        }, failure: { (operation, error) -> Void in
+            self.stopLoading()
+            self.popupAlert(Title: "Information", msg: error.localizedDescription)
+        })
+    }
+    func AddComments(params:NSMutableDictionary)
+    {
+        startLoading()
+        let manager = AFHTTPSessionManager()
+        let stringURL:NSString = String(format: "%@%@", ApiString().baseUrl,ApiString().commentUrl) as NSString
+        
+        manager.requestSerializer.setValue(UserDefaults.standard.value(forKey: "AUTHENTICATION") as? String, forHTTPHeaderField: "Auth-Token")
+        manager.post(stringURL as String, parameters: params, progress: nil, success: { (operation, responseObject) -> Void in
+            let responseDictionary:NSDictionary = responseObject as! NSDictionary
+            if let _:Any = (responseDictionary).value(forKey: "status")
+            {
+                let strStatus:NSString = (responseDictionary).value(forKey: "status") as! NSString
+                if strStatus == "true"{
+                    self.textFieldMessage.text = ""
+                    self.getCommentWebservice()
+                }else{
+                    self.stopLoading()
+                    if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
+                        self.popupAlert(Title: "Information", msg: Msg)
+                    }
+                }
+            }
+        }, failure: { (operation, error) -> Void in
+            self.stopLoading()
+            self.popupAlert(Title: "Information", msg: error.localizedDescription)
+        })
+    }
+    
+    //MARK:- Activity Indicator View
+    func setLoadingIndicator()
+    {
+        activity = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+        activity.color = AppColors().appBlueColor
+        activity.type = NVActivityIndicatorType.ballScaleMultiple
+        activity.startAnimating()
+        activity.center = view.center
+    }
+    func startLoading()
+    {
+        view.isUserInteractionEnabled = false
+        self.view.addSubview(activity)
+    }
+    
+    func stopLoading(){
+        activity.removeFromSuperview()
+        self.view.isUserInteractionEnabled = true
+    }
+    
+    func getKeyboardHeight(){
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: NSNotification.Name.UIKeyboardWillShow,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: NSNotification.Name.UIKeyboardWillHide,
+            object: nil
+        )
+
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+             fKeyboardHeighaxis = keyboardRectangle.height
+             self.viewTextField.frame.origin.y = fTextFieldInitialYaxis - keyboardRectangle.height
+        }
+    }
+    @objc func keyboardWillHide(_ notification: Notification) {
+        self.viewTextField.frame.origin.y = fTextFieldInitialYaxis
+    }
+    
+    
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+   //     self.viewTextField.frame.origin.y = fTextFieldInitialYaxis - fKeyboardHeighaxis
+
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+   //     self.viewTextField.frame.origin.y = fKeyboardHeighaxis + fTextFieldInitialYaxis
+        return true
+    }
+    
+    
+    //MARK:- Alert Class
+    func popupAlert(Title:String,msg:String)
+    {
+        let popup = PopupDialog(title: Title, message: msg, buttonAlignment: .horizontal, transitionStyle: .zoomIn, gestureDismissal: false) {
+        }
+        let buttonOk = DefaultButton(title: "OK")
+        {
+        }
+        buttonOk.buttonColor = UIColor.red
+        buttonOk.titleColor = UIColor.white
+        popup.addButtons([buttonOk])
+        self.present(popup, animated: true, completion: nil)
     }
 }

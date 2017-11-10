@@ -3,11 +3,14 @@ import DropDown
 import GooglePlaces
 import PopupDialog
 import NVActivityIndicatorView
+import AFNetworking
+import CoreLocation
 
-
-
-class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource {
+class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,CLLocationManagerDelegate {
     var activity:NVActivityIndicatorView!
+    var locationManager:CLLocationManager!
+    var dUserCurrentLatitude:Double = 0.0
+    var dUserCurrentLongitude:Double = 0.0
     let imagePicker = UIImagePickerController()
     var imageUpload = UIImage()
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
@@ -31,18 +34,86 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     var arrayCollectionView = NSMutableArray()
     @IBOutlet var pageControl: UIPageControl!
     var nIndexpath = Int()
-
-
+    var arrayCountry = NSArray()
+    var arrayState = NSArray()
+    var arrayArea = NSArray()
+    
+    var nCountryId:Int = 1
+    var nStateId:Int = 1
+    var nAreaId:Int = 1
+    
+    
     @IBOutlet var collectionViewAddShop: UICollectionView!
     
     let dropDown = DropDown()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setLoadingIndicator()
         setUIProperties()
+        
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        textFieldCountryName.inputAccessoryView = doneToolbar
+        textFieldStreetName.inputAccessoryView = doneToolbar
+        textFieldLocation.inputAccessoryView = doneToolbar
     }
-
+    @objc func doneButtonAction(){
+        textFieldCountryName.resignFirstResponder()
+        textFieldStreetName.resignFirstResponder()
+        textFieldLocation.resignFirstResponder()
+        if nTextFieldTags == 2{
+            let parameter = NSMutableDictionary()
+            parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
+            parameter.setValue(self.nStateId, forKey: "stateid")
+            self.GetArea(params: parameter)
+        }else if nTextFieldTags == 1{
+            let parameter = NSMutableDictionary()
+            parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
+            parameter.setValue(self.nCountryId, forKey: "countryid")
+            self.GetState(params: parameter)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let parameter = NSMutableDictionary()
+        parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
+        GetCountry(params: parameter)
+        determineMyCurrentLocation()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        locationManager.stopUpdatingLocation()
+    }
+    
+    // CoreLocation - Get Location
+    func determineMyCurrentLocation() {
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        self.locationManager?.requestAlwaysAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] as CLLocation
+        dUserCurrentLatitude = userLocation.coordinate.latitude
+        dUserCurrentLongitude = userLocation.coordinate.longitude
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
+    {
+        print("Error \(error)")
+    }
+    
     func setUIProperties(){
         scrollView.contentSize = CGSize(width: self.viewScroll.frame.width, height: self.buttonSave.frame.height+self.buttonSave.frame.origin.y+25)
         CodeReuser().setBorderToTextFieldWithImage(theTextField: textFieldLandmark, theView:self.view, image: imageFiles().imageLandmark!)
@@ -78,7 +149,7 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         layout.itemSize = CGSize(width: CGFloat(self.collectionViewAddShop.frame.size.width), height: CGFloat(self.collectionViewAddShop.frame.size.height))
         collectionViewAddShop.collectionViewLayout = layout
     }
-
+    
     @IBAction func buttonBack(_ sender: Any)
     {
         _ = navigationController?.popViewController(animated: true)
@@ -114,10 +185,24 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         }else if (textFieldLocation.text?.count)! <= 1{
             self.popupAlert(Title: "Information",msg: "Please Enter the Location")
         }else{
-            
+            let parameter = NSMutableDictionary()
+            parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
+            parameter.setValue(textFieldShopName.text, forKey: "shopname")
+            parameter.setValue(textFieldShopAddress.text, forKey: "shopaddress")
+            parameter.setValue(dUserCurrentLatitude, forKey: "latitude")
+            parameter.setValue(dUserCurrentLongitude, forKey: "longitude")
+            parameter.setValue(dUserCurrentLatitude, forKey: "latitude2")
+            parameter.setValue(dUserCurrentLongitude, forKey: "longitude2")
+            parameter.setValue(textFieldPersonName.text, forKey: "uniqueid")
+            parameter.setValue(textFieldPhone.text, forKey: "phonenumber")
+            parameter.setValue(textFieldLandmark.text, forKey: "landmark")
+            parameter.setValue(nCountryId, forKey: "country")
+            parameter.setValue(nStateId, forKey: "state")
+            parameter.setValue(nAreaId, forKey: "area")
+            AddShop(params: parameter)
         }
     }
-
+    
     //MARK: TextField Delegate
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -134,21 +219,21 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         pickerviewList.delegate = self
         pickerviewList.showsSelectionIndicator = true
         if textField == textFieldCountryName{
-            arrayPickerview = ["India","Pakis","Bangla","Canad"]
+            arrayPickerview = arrayCountry
             nTextFieldTags = 1
             pickerviewList.showsSelectionIndicator = true
             textFieldCountryName.inputView = pickerviewList
             pickerviewList.reloadAllComponents()
         }
         if textField == textFieldStreetName{
-            arrayPickerview = ["chn","mao","lef","Nagar","Road"]
+            arrayPickerview = arrayState
             nTextFieldTags = 2
             pickerviewList.showsSelectionIndicator = true
             textFieldStreetName.inputView = pickerviewList
             pickerviewList.reloadAllComponents()
         }
         if textField == textFieldLocation{
-            arrayPickerview = ["chn","mao","lef"]
+            arrayPickerview = arrayArea
             nTextFieldTags = 3
             textFieldLocation.inputView = pickerviewList
             pickerviewList.reloadAllComponents()
@@ -168,22 +253,29 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
         
         var title = String()
-        title = (arrayPickerview[row] as AnyObject)as! String
+        if nTextFieldTags == 1{
+            title = ((arrayPickerview[row] as AnyObject).value(forKey: "country") as? String)!
+        }else if nTextFieldTags == 2{
+            title = ((arrayPickerview[row] as AnyObject).value(forKey: "state") as? String)!
+        }else if nTextFieldTags == 3{
+            title = ((arrayPickerview[row] as AnyObject).value(forKey: "area") as? String)!
+        }
         return title
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        var strSelected = String()
-        strSelected = (arrayPickerview[row] as AnyObject)as! String
         if nTextFieldTags == 1{
-            textFieldCountryName.text = strSelected
+            textFieldCountryName.text = (arrayPickerview[row] as AnyObject).value(forKey: "country") as? String
+            nCountryId = Int(((self.arrayPickerview[row] as AnyObject).value(forKey: "countryid") as? String)!)!
         }else if nTextFieldTags == 2{
-            textFieldStreetName.text = strSelected
+            textFieldStreetName.text = (arrayPickerview[row] as AnyObject).value(forKey: "state") as? String
+            nStateId = Int(((self.arrayPickerview[row] as AnyObject).value(forKey: "stateid") as? String)!)!
         }else if nTextFieldTags == 3{
-            textFieldLocation.text = strSelected
+            textFieldLocation.text = (arrayPickerview[row] as AnyObject).value(forKey: "area") as? String
+            nAreaId = Int(((self.arrayPickerview[row] as AnyObject).value(forKey: "areaid") as? String)!)!
         }
     }
-
+    
     //MARK: ActionSheet Delegate
     
     func showActionSheet2()
@@ -200,7 +292,7 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         imagePicker.sourceType = UIImagePickerControllerSourceType.camera
         present(imagePicker, animated: true, completion: nil)
     }
-
+    
     
     // MARK: - UIImagePickerControllerDelegate Methods
     
@@ -221,7 +313,6 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         collectionViewAddShop.reloadData()
         dismiss(animated: true, completion: nil)
     }
-
     
     func placeAutocomplete() {
         let filter = GMSAutocompleteFilter()
@@ -282,7 +373,7 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         self.view.isUserInteractionEnabled = true
     }
     
-
+    
     
     //MARK: CollectionView Delegates and Datasource
     
@@ -299,7 +390,7 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShopDetailsCollectionViewCell", for: indexPath as IndexPath) as! ShopDetailsCollectionViewCell
         cell.imageViewImage.image = arrayCollectionView[indexPath.row] as? UIImage
-
+        
         return cell
     }
     
@@ -320,8 +411,140 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         }
     }
     
+    //MARK:- Webservices
+    func GetCountry(params:NSMutableDictionary)
+    {
+        textFieldStreetName.text = ""
+        textFieldLocation.text = ""
+        startLoading()
+        let manager = AFHTTPSessionManager()
+        let stringURL:NSString = String(format: "%@%@", ApiString().baseUrl,ApiString().countryUrl) as NSString
+        
+        manager.requestSerializer.setValue(UserDefaults.standard.value(forKey: "AUTHENTICATION") as? String, forHTTPHeaderField: "Auth-Token")
+        manager.post(stringURL as String, parameters: params, progress: nil, success: { (operation, responseObject) -> Void in
+            let responseDictionary:NSDictionary = responseObject as! NSDictionary
+            if let _:Any = (responseDictionary).value(forKey: "status")
+            {
+                let strStatus:NSString = (responseDictionary).value(forKey: "status") as! NSString
+                if strStatus == "true"{
+                    if let arrayResults:NSArray = responseDictionary.value(forKey: "countryList") as? NSArray{
+                        self.arrayCountry = arrayResults
+                        self.textFieldCountryName.text = (self.arrayCountry[0] as AnyObject).value(forKey: "country") as? String
+                        self.nCountryId = Int(((self.arrayCountry[0] as AnyObject).value(forKey: "countryid") as? String)!)!
+                    }
+                    let parameter = NSMutableDictionary()
+                    parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
+                    parameter.setValue(self.nCountryId, forKey: "countryid")
+                    self.GetState(params: parameter)
+                }else{
+                    self.stopLoading()
+                    if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
+                        self.popupAlert(Title: "Information", msg: Msg)
+                    }
+                }
+            }
+        }, failure: { (operation, error) -> Void in
+            self.stopLoading()
+            self.popupAlert(Title: "Information", msg: error.localizedDescription)
+        })
+    }
+    func GetState(params:NSMutableDictionary)
+    {
+        textFieldLocation.text = ""
+        startLoading()
+        let manager = AFHTTPSessionManager()
+        let stringURL:NSString = String(format: "%@%@", ApiString().baseUrl,ApiString().stateUrl) as NSString
+        
+        manager.requestSerializer.setValue(UserDefaults.standard.value(forKey: "AUTHENTICATION") as? String, forHTTPHeaderField: "Auth-Token")
+        manager.post(stringURL as String, parameters: params, progress: nil, success: { (operation, responseObject) -> Void in
+            let responseDictionary:NSDictionary = responseObject as! NSDictionary
+            if let _:Any = (responseDictionary).value(forKey: "status")
+            {
+                let strStatus:NSString = (responseDictionary).value(forKey: "status") as! NSString
+                if strStatus == "true"{
+                    
+                    if let arrayResults:NSArray = responseDictionary.value(forKey: "StateList") as? NSArray{
+                        self.arrayState = arrayResults
+                    }
+                    self.stopLoading()
+                }else{
+                    self.stopLoading()
+                    if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
+                        self.popupAlert(Title: "Information", msg: Msg)
+                    }
+                }
+            }
+        }, failure: { (operation, error) -> Void in
+            self.stopLoading()
+            self.popupAlert(Title: "Information", msg: error.localizedDescription)
+        })
+    }
+    func GetArea(params:NSMutableDictionary)
+    {
+        startLoading()
+        let manager = AFHTTPSessionManager()
+        let stringURL:NSString = String(format: "%@%@", ApiString().baseUrl,ApiString().sreaUrl) as NSString
+        
+        manager.requestSerializer.setValue(UserDefaults.standard.value(forKey: "AUTHENTICATION") as? String, forHTTPHeaderField: "Auth-Token")
+        manager.post(stringURL as String, parameters: params, progress: nil, success: { (operation, responseObject) -> Void in
+            let responseDictionary:NSDictionary = responseObject as! NSDictionary
+            if let _:Any = (responseDictionary).value(forKey: "status")
+            {
+                let strStatus:NSString = (responseDictionary).value(forKey: "status") as! NSString
+                if strStatus == "true"{
+                    if let arrayResults:NSArray = responseDictionary.value(forKey: "areaList") as? NSArray{
+                        self.arrayArea = arrayResults
+                    }
+                    self.stopLoading()
+                }else{
+                    self.stopLoading()
+                    if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
+                        self.popupAlert(Title: "Information", msg: Msg)
+                    }
+                }
+            }
+        }, failure: { (operation, error) -> Void in
+            self.stopLoading()
+            self.popupAlert(Title: "Information", msg: error.localizedDescription)
+        })
+    }
     
-
-    
+    func AddShop(params:NSMutableDictionary)
+    {
+        startLoading()
+        let manager = AFHTTPSessionManager()
+        let stringURL:NSString = String(format: "%@%@", ApiString().baseUrl,ApiString().addShopUrl) as NSString
+        
+        manager.requestSerializer.setValue(UserDefaults.standard.value(forKey: "AUTHENTICATION") as? String, forHTTPHeaderField: "Auth-Token")
+        
+        manager.post(stringURL as String, parameters: params, constructingBodyWith: {
+            (data: AFMultipartFormData!) in
+            for i in 0 ... self.arrayCollectionView.count - 1{
+                let strData:Data = UIImageJPEGRepresentation((self.arrayCollectionView[i] as? UIImage)!, 0.3)!
+                data.appendPart(withFileData: strData, name: "fileToUpload[]", fileName: "photo\(i).jpg", mimeType: "image/jpeg")
+            }
+        }, progress: nil, success: { (operation, responseObject) -> Void in
+            let responseDictionary:NSDictionary = responseObject as! NSDictionary
+            if let _:Any = (responseDictionary).value(forKey: "status")
+            {
+                let strStatus:NSString = (responseDictionary).value(forKey: "status") as! NSString
+                if strStatus == "true"{
+                    if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
+                        self.popupAlert(Title: "Information", msg: Msg)
+                    }
+                    self.stopLoading()
+                }else{
+                    self.stopLoading()
+                    if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
+                        self.popupAlert(Title: "Information", msg: Msg)
+                    }
+                }
+            }
+        }, failure: { (operation, error) -> Void in
+            self.stopLoading()
+            self.popupAlert(Title: "Information", msg: error.localizedDescription)
+        })
+    }
     
 }
+

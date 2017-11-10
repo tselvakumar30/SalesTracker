@@ -181,7 +181,7 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
     {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum){
             imagePicker.delegate = self
-            self.camera()
+            self.showActionSheet()
         }
     }
     
@@ -300,4 +300,3 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
     }
     
 }
-
