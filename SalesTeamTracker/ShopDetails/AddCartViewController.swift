@@ -62,7 +62,7 @@ class AddCartViewController: UIViewController,UICollectionViewDelegate, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StockCollectionViewCell", for: indexPath as IndexPath) as! StockCollectionViewCell
-        cell.imageViewProductImage.sd_setImage(with: URL(string: "https://b.zmtcdn.com/data/zomato_events/photos/5dc/33e3298909ea21f3bd3876717a2bf5dc_1508569415.jpg"), placeholderImage: UIImage(named: "logo"))
+        cell.imageViewProductImage.sd_setImage(with: URL(string: "https://images-na.ssl-images-amazon.com/images/I/41ylyIRaRoL._SY300_.jpg"), placeholderImage: UIImage(named: "logo"))
         cell.labelProductName.text = (arrayCollectionView[indexPath.row] as AnyObject).value(forKey:"productName") as? String
         cell.labelCountValues.text = (arrayCollectionView[indexPath.row] as AnyObject).value(forKey:"productCount") as? String
         

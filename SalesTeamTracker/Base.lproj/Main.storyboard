@@ -404,6 +404,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="478"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="NEg-hA-MWY">
+                                <rect key="frame" x="0.0" y="16" width="320" height="398"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="8GR-AW-xtA" id="t7p-Rh-tia"/>
+                                    <outlet property="delegate" destination="8GR-AW-xtA" id="wvj-an-oAS"/>
+                                </connections>
+                            </tableView>
                             <view contentMode="scaleToFill" misplaced="YES" id="Bqm-9R-sAE">
                                 <rect key="frame" x="0.0" y="414" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -426,13 +435,16 @@
                                         <rect key="frame" x="260" y="0.0" width="60" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="buttonSendMessage:" destination="8GR-AW-xtA" eventType="touchUpInside" id="W22-DI-tqp"/>
+                                        </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Your Comments" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="12" id="Zra-n6-ZrA">
                                         <rect key="frame" x="20" y="11" width="230" height="42"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <textInputTraits key="textInputTraits" spellCheckingType="yes" keyboardType="emailAddress" keyboardAppearance="light" returnKeyType="send"/>
+                                        <textInputTraits key="textInputTraits" spellCheckingType="yes" keyboardType="emailAddress"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -449,16 +461,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="NEg-hA-MWY">
-                                <rect key="frame" x="0.0" y="16" width="320" height="398"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <size key="freeformSize" width="320" height="478"/>
                     <connections>
+                        <outlet property="buttonSend" destination="7Ea-3p-zOz" id="EaJ-tc-sde"/>
                         <outlet property="tableViewComments" destination="NEg-hA-MWY" id="GjU-7f-Eo6"/>
                         <outlet property="textFieldMessage" destination="Zra-n6-ZrA" id="JsZ-rA-Rnh"/>
                         <outlet property="viewTextField" destination="aVb-TM-tPG" id="Jyy-D5-J6W"/>
