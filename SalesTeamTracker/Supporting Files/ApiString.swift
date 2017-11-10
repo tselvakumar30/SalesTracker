@@ -22,4 +22,6 @@ class ApiString: NSString {
     let stateUrl = "ws_state.php"
     let sreaUrl = "ws_area.php"
     let shopsAssignedDate = "ws_assignment_bydate.php"
+    let stockUrl = "ws_stock.php"
+
 }

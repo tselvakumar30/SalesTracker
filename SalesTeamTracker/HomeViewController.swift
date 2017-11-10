@@ -361,7 +361,6 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
                 }else{
                     self.stopLoading()
                     if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
-                        self.tableViewAssignMent.frame = CGRect(x: self.tableViewAssignMent.frame.origin.x, y: self.tableViewAssignMent.frame.origin.y, width: self.tableViewAssignMent.frame.width, height: self.tableViewAssignMent.frame.height - self.buttonAttendance.frame.height)
                         self.popupAlert(Title: "Information", msg: Msg)
                     }
                 }

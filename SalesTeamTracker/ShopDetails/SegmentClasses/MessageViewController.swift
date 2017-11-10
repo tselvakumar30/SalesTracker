@@ -16,7 +16,7 @@ class MessageViewController: UIViewController,IndicatorInfoProvider,UITableViewD
         initializeUI()
 
     }
-
+    
     func initializeUI(){
         viewTextField.layer.cornerRadius = textFieldMessage.frame.height/2.6
         self.tableViewComments.register(UINib(nibName: "CommentsTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "CommentsTableViewCell")
@@ -30,6 +30,8 @@ class MessageViewController: UIViewController,IndicatorInfoProvider,UITableViewD
         arrayComments.add(dict)
         arrayComments.add(dict1)
         arrayComments.add(dict2)
+        
+   //      self.tableViewComments.rowHeight = UITableViewAutomaticDimension
         tableViewComments.reloadData()
 
 
@@ -76,33 +78,46 @@ class MessageViewController: UIViewController,IndicatorInfoProvider,UITableViewD
         return viewHeader
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let strMessage:String = ((arrayComments.object(at: indexPath.section) as AnyObject).value(forKey: "Message") as? String)!
-        let rowHeight:CGSize = getHeightBasedonText(Message: strMessage, textViewSize: CGSize(width:self.view.frame.width/1.58,height: 999 ))
-        if rowHeight.height <= self.view.frame.height/12{
-            return self.view.frame.height/5.2
-        }else{
-            return rowHeight.height + self.view.frame.height/9.8
-        }
-    }
-    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+////        let strMessage:String = ((arrayComments.object(at: indexPath.section) as AnyObject).value(forKey: "Message") as? String)!
+////        let rowHeight:CGSize = getHeightBasedonText(Message: strMessage, textViewSize: CGSize(width:self.view.frame.width/1.58,height: 999 ))
+////        if rowHeight.height <= self.view.frame.height/12{
+////            return self.view.frame.height/5.2
+////        }else{
+////            //return rowHeight.height + self.view.frame.height/7
+////            return UITableViewAutomaticDimension
+////        }
+//        return UITableViewAutomaticDimension
+//
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let Cell = tableView.dequeueReusableCell(withIdentifier: "CommentsTableViewCell") as! CommentsTableViewCell!
         let strMessage:String = ((arrayComments.object(at: indexPath.section) as AnyObject).value(forKey: "Message") as? String)!
-        let textViewHeight:CGFloat = (Cell?.textViewMessage.frame.height)!
-        let rowHeight:CGSize = getHeightBasedonText(Message: strMessage, textViewSize: CGSize(width:self.view.frame.width/1.58,height: 999 ))
-        if textViewHeight < rowHeight.height{
-         //   Cell?.textViewMessage.frame = CGRect(x: Cell?.textViewMessage.frame.origin.x, y: Cell?.textViewMessage.frame.origin.y, width: Cell?.textViewMessage.frame.width, height: Cell?.textViewMessage.frame.height)
-        }else{
-            Cell?.textViewMessage.frame.size = rowHeight
-        }
+   //     let textViewHeight:CGFloat = (Cell?.textViewMessage.frame.height)!
+    //    let rowHeight:CGSize = getHeightBasedonText(Message: strMessage, textViewSize: CGSize(width:self.view.frame.width/1.58,height: 999 ))
+//        if textViewHeight < rowHeight.height{
+//         //   Cell?.textViewMessage.frame = CGRect(x: Cell?.textViewMessage.frame.origin.x, y: Cell?.textViewMessage.frame.origin.y, width: Cell?.textViewMessage.frame.width, height: Cell?.textViewMessage.frame.height)
+//        }else{
+//         //   Cell?.textViewMessage.frame.size = rowHeight
+//        }
         Cell?.textViewMessage.text = strMessage
+     //   Cell?.labelDate.frame = CGRect(x: (Cell?.labelDate.frame.origin.x)!, y:(Cell?.frame.height)!-25, width: (Cell?.labelDate.frame.width)!, height: 20)
+
         return Cell!
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return UITableViewAutomaticDimension
+    }
     
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return 44.0
+    }
+
     func getHeightBasedonText(Message:String,textViewSize:CGSize)->CGSize{
 
         let cellFont: UIFont? = (UIFont(name: "Helvetica", size: 16.0))

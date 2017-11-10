@@ -11,7 +11,7 @@ import UIKit
 class CommentsTableViewCell: UITableViewCell {
 
     @IBOutlet var labelDate: UILabel!
-    @IBOutlet var textViewMessage: UITextView!
+    @IBOutlet var textViewMessage: UILabel!
     @IBOutlet var labelName: UILabel!
     @IBOutlet var imageViewUserImage: UIImageView!
     override func awakeFromNib() {
@@ -23,6 +23,14 @@ class CommentsTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+       // textViewMessage.sizeToFit()
+       // textViewMessage.lineBreakMode = .byWordWrapping
+        imageViewUserImage.frame = CGRect(x: imageViewUserImage.frame.origin.x, y: imageViewUserImage.frame.origin.y, width: imageViewUserImage.frame.width, height: imageViewUserImage.frame.width)
+
     }
     
 }

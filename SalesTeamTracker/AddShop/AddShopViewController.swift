@@ -6,7 +6,7 @@ import NVActivityIndicatorView
 
 
 
-class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource {
+class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource {
     var activity:NVActivityIndicatorView!
     let imagePicker = UIImagePickerController()
     var imageUpload = UIImage()
@@ -28,7 +28,12 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     var arrayPickerview = NSArray()
     var pickerviewList = UIPickerView()
     var nTextFieldTags = Int()
+    var arrayCollectionView = NSMutableArray()
+    @IBOutlet var pageControl: UIPageControl!
+    var nIndexpath = Int()
 
+
+    @IBOutlet var collectionViewAddShop: UICollectionView!
     
     let dropDown = DropDown()
 
@@ -59,7 +64,19 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.textFieldShopAddress.text = item
         }
-
+        
+        self.collectionViewAddShop.register(UINib(nibName: "ShopDetailsCollectionViewCell", bundle: Bundle.main), forCellWithReuseIdentifier: "ShopDetailsCollectionViewCell")
+        pageControl.isHidden = true
+        pageControl.numberOfPages = arrayCollectionView.count
+        pageControl.frame = CGRect(x:0,y:self.collectionViewAddShop.frame.size.height-self.pageControl.frame.size.height,width: self.pageControl.frame.size.width, height: self.pageControl.frame.size.height)
+        
+        let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: CGFloat(self.collectionViewAddShop.frame.size.width), height: CGFloat(self.collectionViewAddShop.frame.size.height))
+        collectionViewAddShop.collectionViewLayout = layout
     }
 
     @IBAction func buttonBack(_ sender: Any)
@@ -191,15 +208,18 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum){
             imagePicker.delegate = self;
-            self.showActionSheet2()
+            self.camera()
         }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-            imageViewShopImage.image = chosenImage
-            imageViewShopImage.frame = buttonAddImage.frame
-            dismiss(animated: true, completion: nil)
+        
+        arrayCollectionView.add(chosenImage)
+        pageControl.isHidden = false
+        pageControl.numberOfPages = arrayCollectionView.count
+        collectionViewAddShop.reloadData()
+        dismiss(animated: true, completion: nil)
     }
 
     
@@ -261,6 +281,45 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         activity.removeFromSuperview()
         self.view.isUserInteractionEnabled = true
     }
+    
+
+    
+    //MARK: CollectionView Delegates and Datasource
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        return arrayCollectionView.count
+    }
+    func numberOfSections(in collectionView: UICollectionView) -> Int
+    {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShopDetailsCollectionViewCell", for: indexPath as IndexPath) as! ShopDetailsCollectionViewCell
+        cell.imageViewImage.image = arrayCollectionView[indexPath.row] as? UIImage
+
+        return cell
+    }
+    
+    //MARK : ScrollView
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if scrollView == collectionViewAddShop {
+            if scrollView.contentOffset.x == 0 {
+                pageControl.currentPage = 0
+            }
+            else if scrollView.contentOffset.x == (4 * view.bounds.size.width) {
+                
+            }
+            else {
+                let nPage: Int = (Int(scrollView.contentOffset.x / view.bounds.size.width))
+                pageControl.currentPage = nPage
+            }
+        }
+    }
+    
     
 
     

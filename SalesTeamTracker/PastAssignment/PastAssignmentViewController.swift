@@ -94,8 +94,8 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
         
         var colors: [UIColor] = []
         
-        let color = UIColor(red: CGFloat(0/255), green: CGFloat(255/255), blue: CGFloat(100/255), alpha: 1)
-        let color1 = UIColor(red: CGFloat(255/255), green: CGFloat(0/255), blue: CGFloat(0/255), alpha: 1)
+        let color = UIColor(red: CGFloat(30.0/255.0), green: CGFloat(120.0/255), blue: CGFloat(30.0/255), alpha: 1)
+        let color1 = UIColor(red: CGFloat(180.0/255), green: CGFloat(10.0/255), blue: CGFloat(10.0/255), alpha: 1)
         
         colors.append(color)
         colors.append(color1)
@@ -203,7 +203,7 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
         tableViewList.deselectRow(at: indexPath, animated: false)
             let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"SingleShopViewController") as! SingleShopViewController
             var dictionary = NSDictionary()
-            if let dictPassDetails:NSDictionary = arrayShopList[(indexPath as NSIndexPath).section-2] as? NSDictionary{
+            if let dictPassDetails:NSDictionary = arrayShopList[(indexPath as NSIndexPath).section] as? NSDictionary{
                 dictionary = dictPassDetails
             }
             nextViewController.dictionaryShopDetails = dictionary

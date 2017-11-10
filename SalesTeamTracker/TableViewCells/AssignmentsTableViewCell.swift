@@ -39,7 +39,7 @@ class AssignmentsTableViewCell: UITableViewCell {
 
 
         
-        SwitchLocation.frame = CGRect(x: SwitchLocation.frame.origin.x, y: buttonMap.frame.origin.y, width: SwitchLocation.frame.width, height: SwitchLocation.frame.height)
+       // SwitchLocation.frame = CGRect(x: SwitchLocation.frame.origin.x, y: buttonMap.frame.origin.y, width: SwitchLocation.frame.width, height: SwitchLocation.frame.height)
         CodeReuser().viewCircular(circleView: self.buttonMap)
         CodeReuser().viewCircular(circleView: self.buttonCall)
         self.viewCardView.setCardView(shadowView: self.viewCardView)
