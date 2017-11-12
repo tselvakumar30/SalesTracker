@@ -11,6 +11,8 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     var locationManager:CLLocationManager!
     var dUserCurrentLatitude:Double = 0.0
     var dUserCurrentLongitude:Double = 0.0
+    var dShopCurrentLatitude:Double = 0.0
+    var dShopCurrentLongitude:Double = 0.0
     let imagePicker = UIImagePickerController()
     var imageUpload = UIImage()
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
@@ -191,8 +193,8 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
             parameter.setValue(textFieldShopAddress.text, forKey: "shopaddress")
             parameter.setValue(dUserCurrentLatitude, forKey: "latitude")
             parameter.setValue(dUserCurrentLongitude, forKey: "longitude")
-            parameter.setValue(dUserCurrentLatitude, forKey: "latitude2")
-            parameter.setValue(dUserCurrentLongitude, forKey: "longitude2")
+            parameter.setValue(dShopCurrentLatitude, forKey: "latitude2")
+            parameter.setValue(dShopCurrentLongitude, forKey: "longitude2")
             parameter.setValue(textFieldPersonName.text, forKey: "uniqueid")
             parameter.setValue(textFieldPhone.text, forKey: "phonenumber")
             parameter.setValue(textFieldLandmark.text, forKey: "landmark")
@@ -239,6 +241,12 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
             pickerviewList.reloadAllComponents()
         }
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == textFieldShopAddress{
+            self.getShopCoordinates(strTextField: textFieldShopAddress.text!)
+        }
     }
     
     //MARK:- Picker View Delegate and Datasource
@@ -545,6 +553,24 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
             self.popupAlert(Title: "Information", msg: error.localizedDescription)
         })
     }
+    
+    // MARK:- Get Latitude&Longitude of Shop Address
+    
+    func getShopCoordinates(strTextField:String){
+        let geoCoder = CLGeocoder()
+        geoCoder.geocodeAddressString(strTextField) { (placemarks, error) in
+            if error == nil{
+                let placemarks = placemarks
+                let location = placemarks?.first?.location
+                self.dShopCurrentLatitude = (location?.coordinate.latitude)!
+                self.dShopCurrentLongitude = (location?.coordinate.longitude)!
+            }
+            else {
+            }
+        }
+    
+    }
+        
     
 }
 
