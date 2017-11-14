@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C02E4B31FBADC3900AFDF69 /* Coimbatore.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 7C02E4B21FBADC3900AFDF69 /* Coimbatore.gpx */; };
 		7C5A7B301F9F4EF4008C7C29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5A7B2F1F9F4EF4008C7C29 /* AppDelegate.swift */; };
 		7C5A7B321F9F4EF4008C7C29 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5A7B311F9F4EF4008C7C29 /* ViewController.swift */; };
 		7C5A7B351F9F4EF4008C7C29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C5A7B331F9F4EF4008C7C29 /* Main.storyboard */; };
@@ -49,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		4C236173DAC50C69DB584573 /* Pods-SalesTeamTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SalesTeamTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-SalesTeamTracker/Pods-SalesTeamTracker.release.xcconfig"; sourceTree = "<group>"; };
+		7C02E4B21FBADC3900AFDF69 /* Coimbatore.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Coimbatore.gpx; sourceTree = "<group>"; };
 		7C5A7B2C1F9F4EF3008C7C29 /* SalesTeamTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SalesTeamTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C5A7B2F1F9F4EF4008C7C29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7C5A7B311F9F4EF4008C7C29 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 		7C5A7B2E1F9F4EF3008C7C29 /* SalesTeamTracker */ = {
 			isa = PBXGroup;
 			children = (
+				7C02E4B21FBADC3900AFDF69 /* Coimbatore.gpx */,
 				F28CFBFA1FB42C2300C07BBD /* SalesTeamTracker.entitlements */,
 				F228DE211FAC55FD0023B2B6 /* ShopDetails */,
 				F2D45A291FA9D4CA0037B916 /* AddShop */,
@@ -372,6 +375,7 @@
 				F2AFDCF71FA3160F00287C58 /* AssignmentsTableViewCell.xib in Resources */,
 				F2E77B321FA7005D0083EF89 /* SidemenuHeaderTableViewCell.xib in Resources */,
 				7C5A7B371F9F4EF4008C7C29 /* Assets.xcassets in Resources */,
+				7C02E4B31FBADC3900AFDF69 /* Coimbatore.gpx in Resources */,
 				F2AFDCF31FA315C400287C58 /* AssignmentSearchTableViewCell.xib in Resources */,
 				7C5A7B351F9F4EF4008C7C29 /* Main.storyboard in Resources */,
 				F249069F1FB2E72F00627CE4 /* StockCollectionViewCell.xib in Resources */,
