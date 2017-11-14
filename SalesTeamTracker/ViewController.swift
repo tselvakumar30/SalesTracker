@@ -4,8 +4,6 @@ import AFNetworking
 import NVActivityIndicatorView
 import GooglePlaces
 
-
-
 class ViewController: UIViewController {
     
     @IBOutlet var textFieldPassword: UITextField!

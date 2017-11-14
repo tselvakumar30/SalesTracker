@@ -561,9 +561,9 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         geoCoder.geocodeAddressString(strTextField) { (placemarks, error) in
             if error == nil{
                 let placemarks = placemarks
-                let location = placemarks?.first?.location
-                self.dShopCurrentLatitude = (location?.coordinate.latitude)!
-                self.dShopCurrentLongitude = (location?.coordinate.longitude)!
+                let location:CLLocation = (placemarks?.first?.location)!
+                self.dShopCurrentLatitude = (location.coordinate.latitude)
+                self.dShopCurrentLongitude = (location.coordinate.longitude)
             }
             else {
             }

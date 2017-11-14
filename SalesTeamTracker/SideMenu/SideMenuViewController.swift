@@ -4,8 +4,6 @@ import AFNetworking
 import NVActivityIndicatorView
 import SDWebImage
 
-
-
 class SideMenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate  {
     @IBOutlet var tableViewSideMenu: UITableView!
     var arrayList = NSMutableArray()
@@ -120,7 +118,9 @@ class SideMenuViewController: UIViewController,UITableViewDelegate,UITableViewDa
             let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"AddShopViewController") as! AddShopViewController
             self.navigationController?.pushViewController(nextViewController, animated: true)
         }else if indexPath.section == 5{
-            
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"ViewController") as! ViewController
+            UserDefaults.standard.removeObject(forKey: "USERID")
+            self.navigationController?.pushViewController(nextViewController, animated: false)
         }
     }
 

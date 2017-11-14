@@ -121,18 +121,9 @@ class MessageViewController: UIViewController,IndicatorInfoProvider,UITableViewD
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        return 44.0
+        return 100.0
     }
     
-    func getHeightBasedonText(Message:String,textViewSize:CGSize)->CGSize{
-        
-        let cellFont: UIFont? = (UIFont(name: "Helvetica", size: 16.0))
-        let attrString = NSAttributedString.init(string: Message, attributes: [NSAttributedStringKey.font:cellFont])
-        let rect = attrString.boundingRect(with: textViewSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
-        let size = CGSize(width: rect.size.width, height: rect.size.height)
-        return size
-        
-    }
     
     @IBAction func buttonSendMessage(_ sender: Any)
     {

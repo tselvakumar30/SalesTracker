@@ -38,7 +38,6 @@
 		F2AFDCF31FA315C400287C58 /* AssignmentSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2AFDCF11FA315C400287C58 /* AssignmentSearchTableViewCell.xib */; };
 		F2AFDCF61FA3160F00287C58 /* AssignmentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AFDCF41FA3160F00287C58 /* AssignmentsTableViewCell.swift */; };
 		F2AFDCF71FA3160F00287C58 /* AssignmentsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2AFDCF51FA3160F00287C58 /* AssignmentsTableViewCell.xib */; };
-		F2B3FFE01FAB242A006F97DF /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B3FFDF1FAB242A006F97DF /* Address.swift */; };
 		F2B3FFE31FAB24C8006F97DF /* AutocompleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B3FFE21FAB24C8006F97DF /* AutocompleteCell.swift */; };
 		F2D45A281FA99F950037B916 /* ShopsAssignedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D45A271FA99F950037B916 /* ShopsAssignedViewController.swift */; };
 		F2D45A2B1FA9D4D90037B916 /* AddShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D45A2A1FA9D4D90037B916 /* AddShopViewController.swift */; };
@@ -87,7 +86,6 @@
 		F2AFDCF11FA315C400287C58 /* AssignmentSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignmentSearchTableViewCell.xib; sourceTree = "<group>"; };
 		F2AFDCF41FA3160F00287C58 /* AssignmentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsTableViewCell.swift; sourceTree = "<group>"; };
 		F2AFDCF51FA3160F00287C58 /* AssignmentsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssignmentsTableViewCell.xib; sourceTree = "<group>"; };
-		F2B3FFDF1FAB242A006F97DF /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		F2B3FFE11FAB24C7006F97DF /* AutocompleteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AutocompleteCell.xib; sourceTree = "<group>"; };
 		F2B3FFE21FAB24C8006F97DF /* AutocompleteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteCell.swift; sourceTree = "<group>"; };
 		F2D45A271FA99F950037B916 /* ShopsAssignedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsAssignedViewController.swift; sourceTree = "<group>"; };
@@ -282,7 +280,6 @@
 			children = (
 				F2B3FFE21FAB24C8006F97DF /* AutocompleteCell.swift */,
 				F2B3FFE11FAB24C7006F97DF /* AutocompleteCell.xib */,
-				F2B3FFDF1FAB242A006F97DF /* Address.swift */,
 				F2D45A2A1FA9D4D90037B916 /* AddShopViewController.swift */,
 			);
 			path = AddShop;
@@ -438,7 +435,6 @@
 			files = (
 				F29681141FAE2CC900C359AF /* SingleShopViewController.swift in Sources */,
 				F28CFC011FB4DD5800C07BBD /* AddCartViewController.swift in Sources */,
-				F2B3FFE01FAB242A006F97DF /* Address.swift in Sources */,
 				F2AFDCF61FA3160F00287C58 /* AssignmentsTableViewCell.swift in Sources */,
 				F228DE2A1FAC568F0023B2B6 /* ShopDetailsCollectionViewCell.swift in Sources */,
 				F2AFDCEA1FA3134600287C58 /* SideMenuViewController.swift in Sources */,
