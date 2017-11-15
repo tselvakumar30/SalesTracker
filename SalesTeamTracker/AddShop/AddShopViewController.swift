@@ -188,6 +188,8 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
             self.popupAlert(Title: "Information",msg: "Please Enter the Location")
         }else if arrayCollectionView.count == 0{
             self.popupAlert(Title: "Information",msg: "Please Add Atleast One Shop Photo")
+        }else if dShopCurrentLatitude == 0.0 || dShopCurrentLongitude == 0.0{
+            self.popupAlert(Title: "Information",msg: "Please Enter Valid Shop Address")
         }else{
             let parameter = NSMutableDictionary()
             parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
