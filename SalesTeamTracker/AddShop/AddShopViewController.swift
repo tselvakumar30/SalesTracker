@@ -186,15 +186,21 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
             self.popupAlert(Title: "Information",msg: "Please Enter Street Name")
         }else if (textFieldLocation.text?.count)! <= 1{
             self.popupAlert(Title: "Information",msg: "Please Enter the Location")
+        }else if arrayCollectionView.count == 0{
+            self.popupAlert(Title: "Information",msg: "Please Add Atleast One Shop Photo")
         }else{
             let parameter = NSMutableDictionary()
             parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
             parameter.setValue(textFieldShopName.text, forKey: "shopname")
             parameter.setValue(textFieldShopAddress.text, forKey: "shopaddress")
-            parameter.setValue(dUserCurrentLatitude, forKey: "latitude")
+            /*parameter.setValue(dUserCurrentLatitude, forKey: "latitude")
             parameter.setValue(dUserCurrentLongitude, forKey: "longitude")
             parameter.setValue(dShopCurrentLatitude, forKey: "latitude2")
-            parameter.setValue(dShopCurrentLongitude, forKey: "longitude2")
+            parameter.setValue(dShopCurrentLongitude, forKey: "longitude2")*/
+            parameter.setValue(dShopCurrentLatitude, forKey: "latitude")
+            parameter.setValue(dShopCurrentLongitude, forKey: "longitude")
+            parameter.setValue(0, forKey: "latitude2")
+            parameter.setValue(0, forKey: "longitude2")
             parameter.setValue(textFieldPersonName.text, forKey: "uniqueid")
             parameter.setValue(textFieldPhone.text, forKey: "phonenumber")
             parameter.setValue(textFieldLandmark.text, forKey: "landmark")
@@ -335,7 +341,6 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
             let arrayAddress = NSMutableArray()
             if let results = results {
                 for result in results {
-                    print(result.attributedFullText.string)
                     arrayAddress.add(result.attributedFullText.string)
                 }
                 if arrayAddress.count > 0{
@@ -346,7 +351,6 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
             }
         })
     }
-    
     //MARK:- Alert Class
     func popupAlert(Title:String,msg:String)
     {
@@ -527,9 +531,11 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         
         manager.post(stringURL as String, parameters: params, constructingBodyWith: {
             (data: AFMultipartFormData!) in
+            if self.arrayCollectionView.count > 0{
             for i in 0 ... self.arrayCollectionView.count - 1{
                 let strData:Data = UIImageJPEGRepresentation((self.arrayCollectionView[i] as? UIImage)!, 0.3)!
                 data.appendPart(withFileData: strData, name: "fileToUpload[]", fileName: "photo\(i).jpg", mimeType: "image/jpeg")
+            }
             }
         }, progress: nil, success: { (operation, responseObject) -> Void in
             let responseDictionary:NSDictionary = responseObject as! NSDictionary
@@ -541,6 +547,7 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
                         self.popupAlert(Title: "Information", msg: Msg)
                     }
                     self.stopLoading()
+                    self.navigationController?.popViewController(animated: true)
                 }else{
                     self.stopLoading()
                     if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{

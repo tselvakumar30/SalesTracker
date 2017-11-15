@@ -28,22 +28,12 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
     override func viewWillAppear(_ animated: Bool) {
         self.tableViewAssignMent.frame = CGRect(x: self.tableViewAssignMent.frame.origin.x, y: self.tableViewAssignMent.frame.origin.y, width: self.tableViewAssignMent.frame.width, height: self.view.frame.height - self.tableViewAssignMent.frame.origin.y-10)
         determineMyCurrentLocation()
-        addArrayData()
         let parameter = NSMutableDictionary()
         parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
         GetAssignments(params: parameter)
     }
     override func viewWillDisappear(_ animated: Bool) {
         locationManager.stopUpdatingLocation()
-    }
-    
-    func addArrayData(){
-        let param1 = NSMutableDictionary()
-        let param2 = NSMutableDictionary()
-        
-        param1.setValue("PetBuddy Products", forKey: "Shop_Name")
-        arrayShopList.add(param1)
-        duplicateArray.add(param1)
     }
     
     func initializeTableviewUI(){
@@ -108,9 +98,11 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
         if (indexPath as NSIndexPath).section == 0 {
             let Cell = tableView.dequeueReusableCell(withIdentifier: "AssignmentProgressTableViewCell") as! AssignmentProgressTableViewCell!
             Cell?.labelProgress.text = "0%"
-            let sProgress:String = String(roundf(nAssignmentStatus/nShopCount * 100)) + "%"
-            let arr = sProgress.components(separatedBy: ".")
-            Cell?.labelProgress.text = arr[0] + "%"
+            if nShopCount != 0 {
+                let sProgress:String = String(roundf(nAssignmentStatus/nShopCount * 100)) + "%"
+                let arr = sProgress.components(separatedBy: ".")
+                Cell?.labelProgress.text = arr[0] + "%"
+            }
             
             Cell?.sliderProgress.maximumValue = nShopCount
             Cell?.sliderProgress.value = nAssignmentStatus
