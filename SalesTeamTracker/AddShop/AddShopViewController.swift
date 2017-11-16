@@ -105,6 +105,8 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        dropDownAddress.hide()
+        dropDownLandmark.hide()
         locationManager.stopUpdatingLocation()
     }
     
