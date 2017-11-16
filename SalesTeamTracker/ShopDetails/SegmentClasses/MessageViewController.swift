@@ -15,11 +15,13 @@ class MessageViewController: UIViewController,IndicatorInfoProvider,UITableViewD
 
     var activity:NVActivityIndicatorView!
     var dictionaryFullDetails = NSDictionary()
-    
+    var bSalesManDistance = Bool()
+
     @IBOutlet var buttonSend: UIButton!
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        bSalesManDistance = UserDefaults.standard.bool(forKey: "SalesManDistance")
         getKeyboardHeight()
         initializeUI()
         setLoadingIndicator()
@@ -127,21 +129,26 @@ class MessageViewController: UIViewController,IndicatorInfoProvider,UITableViewD
     
     @IBAction func buttonSendMessage(_ sender: Any)
     {
-        if (textFieldMessage.text?.count)! > 0{
-            let parameter = NSMutableDictionary()
-            parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
-            if let sAssignId:String = dictionaryFullDetails.value(forKey: "assignmentid") as? String{
-                parameter.setValue(sAssignId, forKey: "assignmentid")
-            }
-            if let sShopId:String = dictionaryFullDetails.value(forKey: "shopid") as? String{
-                parameter.setValue(sShopId, forKey: "shopid")
-            }
-            parameter.setValue(textFieldMessage.text, forKey: "comment")
-            AddComments(params: parameter)
-            textFieldMessage.text = ""
+        if bSalesManDistance == true{
+            self.popupAlert(Title: "Information", msg: "You are far away from shop location")
         }else{
-            popupAlert(Title: "Information", msg: "Please add a comment!")
+            if (textFieldMessage.text?.count)! > 0{
+                let parameter = NSMutableDictionary()
+                parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
+                if let sAssignId:String = dictionaryFullDetails.value(forKey: "assignmentid") as? String{
+                    parameter.setValue(sAssignId, forKey: "assignmentid")
+                }
+                if let sShopId:String = dictionaryFullDetails.value(forKey: "shopid") as? String{
+                    parameter.setValue(sShopId, forKey: "shopid")
+                }
+                parameter.setValue(textFieldMessage.text, forKey: "comment")
+                AddComments(params: parameter)
+                textFieldMessage.text = ""
+            }else{
+                popupAlert(Title: "Information", msg: "Please add a comment!")
+            }
         }
+        
         self.viewTextField.frame.origin.y = fTextFieldInitialYaxis
 
     }

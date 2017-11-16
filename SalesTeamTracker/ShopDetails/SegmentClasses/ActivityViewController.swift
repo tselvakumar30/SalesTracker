@@ -24,9 +24,13 @@ class ActivityViewController: UIViewController,IndicatorInfoProvider {
     
     var activity:NVActivityIndicatorView!
     var dictionaryFullDetails = NSDictionary()
+    var bSalesManDistance = Bool()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bSalesManDistance = UserDefaults.standard.bool(forKey: "SalesManDistance")
+
         if let dictDetails:NSDictionary = UserDefaults.standard.value(forKey: "CURRENTSHOPDETAILS") as? NSDictionary{
             dictionaryFullDetails = dictDetails
             if let sDemoStatus:Int = dictDetails.value(forKey: "demo_status") as? Int{
@@ -61,35 +65,47 @@ class ActivityViewController: UIViewController,IndicatorInfoProvider {
     }
     
     @objc func clickOrder(sender:UISwitch){
-        nStatusType = 3
-        if sDemo == "0"{
-            sDemo = "1"
-            callWebservice()
+        if bSalesManDistance == true{
+            self.popupAlert(Title: "Information", msg: "You are far away from shop location")
         }else{
-            sDemo = "0"
-            callWebservice()
+            nStatusType = 3
+            if sDemo == "0"{
+                sDemo = "1"
+                callWebservice()
+            }else{
+                sDemo = "0"
+                callWebservice()
+            }
         }
-        
     }
     @objc func clickStocks(sender:UISwitch){
-        nStatusType = 2
-        if sSamples == "0"{
-            sSamples = "1"
-            callWebservice()
+        if bSalesManDistance == true{
+            self.popupAlert(Title: "Information", msg: "You are far away from shop location")
         }else{
-            sSamples = "0"
-            callWebservice()
+            nStatusType = 2
+            if sSamples == "0"{
+                sSamples = "1"
+                callWebservice()
+            }else{
+                sSamples = "0"
+                callWebservice()
+            }
         }
     }
     @objc func clickPromotion(sender:UISwitch){
-        nStatusType = 1
-        if sPromotion == "0"{
-            sPromotion = "1"
-            callWebservice()
+        if bSalesManDistance == true{
+            self.popupAlert(Title: "Information", msg: "You are far away from shop location")
         }else{
-            sPromotion = "0"
-            callWebservice()
+            nStatusType = 1
+            if sPromotion == "0"{
+                sPromotion = "1"
+                callWebservice()
+            }else{
+                sPromotion = "0"
+                callWebservice()
+            }
         }
+
     }
     
     func callWebservice(){

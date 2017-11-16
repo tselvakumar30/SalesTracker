@@ -26,9 +26,12 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
     let imagePicker = UIImagePickerController()
     
     var activity:NVActivityIndicatorView!
+    var bSalesManDistance = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        bSalesManDistance = UserDefaults.standard.bool(forKey: "SalesManDistance")
         
         initializeUI()
         setLoadingIndicator()
@@ -122,12 +125,21 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
     }
     
     @IBAction func buttonAddCart(_ sender:Any){
+        if bSalesManDistance == true{
+            self.popupAlert(Title: "Information", msg: "You are far away from shop location")
+        }else{
+            let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"AddCartViewController") as! AddCartViewController
+            self.navigationController?.pushViewController(nextViewController, animated: true)
+        }
         
-        let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"AddCartViewController") as! AddCartViewController
-        self.navigationController?.pushViewController(nextViewController, animated: true)
     }
     @IBAction func buttonAddImageForShop(_ sender:Any){
-        SelectImage()
+        if bSalesManDistance == true{
+            self.popupAlert(Title: "Information", msg: "You are far away from shop location")
+        }else{
+            SelectImage()
+        }
+
     }
     
     

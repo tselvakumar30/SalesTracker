@@ -2,8 +2,10 @@ import UIKit
 import PopupDialog
 import AFNetworking
 import NVActivityIndicatorView
+import CoreLocation
 
-class ShopsAssignedViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
+
+class ShopsAssignedViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,CLLocationManagerDelegate {
 
     @IBOutlet var tableViewAssignments: UITableView!
     var arrayShopList = NSMutableArray()
@@ -15,13 +17,19 @@ class ShopsAssignedViewController: UIViewController,UITableViewDelegate,UITableV
     var strToDate = String()
     var nTextFieldTag = Int()
     var activity:NVActivityIndicatorView!
+    var dUserCurrentLatitude:Double = 0.0
+    var dUserCurrentLongitude:Double = 0.0
+    var locationManager:CLLocationManager!
+
+
 
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initializeTableviewUI()
-        
+        determineMyCurrentLocation()
+
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         doneToolbar.barStyle = .default
         
@@ -37,6 +45,11 @@ class ShopsAssignedViewController: UIViewController,UITableViewDelegate,UITableV
         
         setLoadingIndicator()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        locationManager.stopUpdatingLocation()
+    }
+
     
     @objc func doneButtonAction(){
         textFieldFrom.resignFirstResponder()
@@ -141,6 +154,16 @@ class ShopsAssignedViewController: UIViewController,UITableViewDelegate,UITableV
         }
         nextViewController.dictionaryShopDetails = dictionary
         UserDefaults.standard.setValue(dictionary, forKey: "CURRENTSHOPDETAILS")
+        let dDestinationLatitude:Double = Double(((arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "latitude") as? String)!)!
+        let dDestinationLongitude:Double = Double(((arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "longitude") as? String)!)!
+        let distance:Float = self.kilometersfromPlace(fromLatitude: dUserCurrentLatitude, fromLongitude: dUserCurrentLongitude, toLatitude: dDestinationLatitude, toLongitude: dDestinationLongitude)
+        if distance <= 0.5{
+            UserDefaults.standard.setValue(false, forKey: "SalesManDistance")
+        }else{
+            UserDefaults.standard.setValue(true, forKey: "SalesManDistance")
+        }
+
+        
         self.navigationController?.pushViewController(nextViewController, animated: true)
         
     }
@@ -283,5 +306,35 @@ class ShopsAssignedViewController: UIViewController,UITableViewDelegate,UITableV
         self.present(popup, animated: true, completion: nil)
     }
     
+    
+    // CoreLocation - Get Location
+    func determineMyCurrentLocation() {
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        self.locationManager?.requestAlwaysAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] as CLLocation
+        dUserCurrentLatitude = userLocation.coordinate.latitude
+        dUserCurrentLongitude = userLocation.coordinate.longitude
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
+    {
+        print("Error \(error)")
+    }
+    
+    func kilometersfromPlace(fromLatitude: Double,fromLongitude: Double, toLatitude: Double,toLongitude: Double) -> Float {
+        let userloc = CLLocation(latitude: fromLatitude, longitude: fromLongitude)
+        let dest = CLLocation(latitude: toLatitude, longitude: toLongitude)
+        let dist:CLLocationDistance = (userloc.distance(from: dest) / 1000)
+        let distance = "\(dist)"
+        return Float(distance) ?? 0.0
+    }
+    
+
 
 }

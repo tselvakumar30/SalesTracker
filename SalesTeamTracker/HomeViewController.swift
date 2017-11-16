@@ -205,6 +205,15 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
             }
             nextViewController.dictionaryShopDetails = dictionary
             UserDefaults.standard.setValue(dictionary, forKey: "CURRENTSHOPDETAILS")
+            
+            let dDestinationLatitude:Double = Double(((arrayShopList[(indexPath as NSIndexPath).section-2] as AnyObject).value(forKey: "latitude") as? String)!)!
+            let dDestinationLongitude:Double = Double(((arrayShopList[(indexPath as NSIndexPath).section-2] as AnyObject).value(forKey: "longitude") as? String)!)!
+            let distance:Float = self.kilometersfromPlace(fromLatitude: dUserCurrentLatitude, fromLongitude: dUserCurrentLongitude, toLatitude: dDestinationLatitude, toLongitude: dDestinationLongitude)
+            if distance <= 0.5{
+                UserDefaults.standard.setValue(false, forKey: "SalesManDistance")
+            }else{
+                UserDefaults.standard.setValue(true, forKey: "SalesManDistance")
+            }
             self.navigationController?.pushViewController(nextViewController, animated: true)
         }
     }
@@ -297,19 +306,23 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
         let userLocation:CLLocation = locations[0] as CLLocation
         dUserCurrentLatitude = userLocation.coordinate.latitude
         dUserCurrentLongitude = userLocation.coordinate.longitude
+        
     }
-    
+
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
     {
         print("Error \(error)")
     }
 
     func kilometersfromPlace(fromLatitude: Double,fromLongitude: Double, toLatitude: Double,toLongitude: Double) -> Float {
+        //78.4795562178627 .. la 9.84693508130484
+        // 9.846563999999999 lo 78.479241700000003
+
         let userloc = CLLocation(latitude: fromLatitude, longitude: fromLongitude)
         let dest = CLLocation(latitude: toLatitude, longitude: toLongitude)
         let dist:CLLocationDistance = (userloc.distance(from: dest) / 1000)
         let distance = "\(dist)"
-        return Float(distance) ?? 0.0
+        return Float(distance)!
     }
     
     //MARK:- Webservices

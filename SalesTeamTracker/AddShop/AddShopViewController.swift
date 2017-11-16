@@ -5,6 +5,8 @@ import PopupDialog
 import NVActivityIndicatorView
 import AFNetworking
 import CoreLocation
+import CoreTelephony
+
 
 class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,CLLocationManagerDelegate {
     var activity:NVActivityIndicatorView!
@@ -44,13 +46,23 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     var nStateId:Int = 1
     var nAreaId:Int = 1
     
+    var nTextField = Int()
+    var bDropDownAccessed = Bool()
+    var arrPlaceIDAddress = NSMutableArray()
+    var arrPlaceIDLandmark = NSMutableArray()
+    var stringCountryRegion = String()
+
+    
     
     @IBOutlet var collectionViewAddShop: UICollectionView!
     
-    let dropDown = DropDown()
+    let dropDownAddress = DropDown()
+    let dropDownLandmark = DropDown()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getUserRegion()
         setLoadingIndicator()
         setUIProperties()
         
@@ -126,18 +138,32 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         CodeReuser().setBorderToTextFieldWithImage(theTextField: textFieldPersonName, theView:self.view, image: imageFiles().imageUser!)
         CodeReuser().setBorderToTextFieldWithImage(theTextField: textFieldPhone, theView:self.view, image: imageFiles().imageAddPhone!)
         CodeReuser().setBorderToTextFieldWithImage(theTextField: textFieldShopName, theView:self.view, image: imageFiles().imageShopName!)
-        dropDown.anchorView = self.textFieldShopAddress
-        dropDown.dataSource = ["Car", "Motorcycle", "Truck"]
-        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            print("Selected item: \(item) at index: \(index)")
-        }
-        dropDown.dismissMode = .onTap
-        dropDown.direction = .any
-        dropDown.bottomOffset = CGPoint(x: 0, y: self.textFieldShopAddress.bounds.height)
-        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            self.textFieldShopAddress.text = item
-        }
+    
         
+        dropDownAddress.anchorView = self.textFieldShopName
+        dropDownAddress.dismissMode = .onTap
+        dropDownAddress.direction = .top
+        dropDownAddress.bottomOffset = CGPoint(x: 0, y: self.textFieldShopName.bounds.height)
+        dropDownAddress.selectionAction = { [unowned self] (index: Int, item: String) in
+            self.textFieldShopAddress.text = item
+            self.getShopCoordinates(strTextField: self.textFieldShopAddress.text!)
+            self.bDropDownAccessed = true
+            let strPlaceID:String = self.arrPlaceIDAddress.object(at: index) as! String
+            self.getShopCoordinates(strTextField: strPlaceID)
+        }
+     
+        dropDownLandmark.anchorView = self.textFieldShopAddress
+        dropDownLandmark.dismissMode = .onTap
+        dropDownLandmark.direction = .top
+        dropDownLandmark.bottomOffset = CGPoint(x: 0, y: (self.textFieldShopAddress.frame.origin.y))
+        dropDownLandmark.selectionAction = { [unowned self] (index: Int, item: String) in
+            self.textFieldLandmark.text = item
+            self.getShopCoordinates(strTextField: self.textFieldLandmark.text!)
+            self.bDropDownAccessed = true
+            let strPlaceID:String = self.arrPlaceIDLandmark.object(at: index) as! String
+            self.getShopCoordinates(strTextField: strPlaceID)
+
+        }
         self.collectionViewAddShop.register(UINib(nibName: "ShopDetailsCollectionViewCell", bundle: Bundle.main), forCellWithReuseIdentifier: "ShopDetailsCollectionViewCell")
         pageControl.isHidden = true
         pageControl.numberOfPages = arrayCollectionView.count
@@ -168,7 +194,10 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     
     @IBAction func buttonSave(_ sender: Any)
     {
-        if imageViewShopImage.image == nil{
+        if !(self.bDropDownAccessed)
+        {
+            self.popupAlert(Title: "Information",msg: "Please Select Address/Landmark from DropDown")
+        }else if imageViewShopImage.image == nil{
             self.popupAlert(Title: "Information",msg: "Please capture the shop image")
         }else if (textFieldShopName.text?.count)! <= 1{
             self.popupAlert(Title: "Information",msg: "Please Enter Shop Name")
@@ -217,8 +246,24 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == textFieldShopAddress{
-            if(textFieldShopAddress.text?.count)! > 2 {
+            if(textFieldShopAddress.text?.count)! > 1 {
+                nTextField = 1
+                self.bDropDownAccessed = false
                 placeAutocomplete()
+            }else{
+                dropDownAddress.hide()
+            }
+        }
+        if textField == textFieldLandmark{
+            if(textFieldLandmark.text?.count)! > 1 {
+                nTextField = 2
+                if self.bDropDownAccessed == true{
+                }else{
+                    self.bDropDownAccessed = false
+                }
+                placeAutocomplete()
+            }else{
+                dropDownLandmark.hide()
             }
         }
         return true
@@ -248,13 +293,8 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
             textFieldLocation.inputView = pickerviewList
             pickerviewList.reloadAllComponents()
         }
+        
         return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == textFieldShopAddress{
-            self.getShopCoordinates(strTextField: textFieldShopAddress.text!)
-        }
     }
     
     //MARK:- Picker View Delegate and Datasource
@@ -331,27 +371,52 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     }
     
     func placeAutocomplete() {
+        arrPlaceIDAddress.removeAllObjects()
+        arrPlaceIDLandmark.removeAllObjects()
         let filter = GMSAutocompleteFilter()
         filter.type = .noFilter
-        filter.country = "IN"
+        filter.country = stringCountryRegion
         let placesClient = GMSPlacesClient()
-        placesClient.autocompleteQuery(textFieldShopAddress.text!, bounds: nil, filter: filter, callback: {(results, error) -> Void in
-            if let error = error {
-                print("Autocomplete error \(error)")
-                return
-            }
-            let arrayAddress = NSMutableArray()
-            if let results = results {
-                for result in results {
-                    arrayAddress.add(result.attributedFullText.string)
+        if nTextField == 1{
+            placesClient.autocompleteQuery(textFieldShopAddress.text!, bounds: nil, filter: filter, callback: {(results, error) -> Void in
+                if let error = error {
+                    print("Autocomplete error \(error)")
+                    return
                 }
-                if arrayAddress.count > 0{
-                    self.dropDown.dataSource = arrayAddress as! [String]
-                    //
-                    self.dropDown.show()
+                let arrayAddress = NSMutableArray()
+                if let results = results {
+                    for result in results {
+                        arrayAddress.add(result.attributedFullText.string)
+                        self.arrPlaceIDAddress.add(result.placeID!)
+
+                        print(result.placeID)
+                    }
+                    if arrayAddress.count > 0{
+                        self.dropDownAddress.dataSource = arrayAddress as! [String]
+                        self.dropDownAddress.show()
+                    }
                 }
-            }
-        })
+            })
+        }else{
+            placesClient.autocompleteQuery(textFieldLandmark.text!, bounds: nil, filter: filter, callback: {(results, error) -> Void in
+                if let error = error {
+                    print("Autocomplete error \(error)")
+                    return
+                }
+                let arrayAddress = NSMutableArray()
+                if let results = results {
+                    for result in results {
+                        arrayAddress.add(result.attributedFullText.string)
+                        self.arrPlaceIDLandmark.add(result.placeID!)
+                    }
+                    if arrayAddress.count > 0{
+                        self.dropDownLandmark.dataSource = arrayAddress as! [String]
+                        self.dropDownLandmark.show()
+                    }
+                }
+            })
+        }
+        
     }
     //MARK:- Alert Class
     func popupAlert(Title:String,msg:String)
@@ -566,18 +631,51 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     // MARK:- Get Latitude&Longitude of Shop Address
     
     func getShopCoordinates(strTextField:String){
-        let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(strTextField) { (placemarks, error) in
-            if error == nil{
-                let placemarks = placemarks
-                let location:CLLocation = (placemarks?.first?.location)!
-                self.dShopCurrentLatitude = (location.coordinate.latitude)
-                self.dShopCurrentLongitude = (location.coordinate.longitude)
+//        let geoCoder = CLGeocoder()
+//        geoCoder.geocodeAddressString(strTextField) { (placemarks, error) in
+//            if error == nil{
+//                let placemarks = placemarks
+//                let location:CLLocation = (placemarks?.first?.location)!
+//                self.dShopCurrentLatitude = (location.coordinate.latitude)
+//                self.dShopCurrentLongitude = (location.coordinate.longitude)
+//            }
+//            else
+//            {
+//
+//            }
+//        }
+        let placeClient = GMSPlacesClient()
+        placeClient.lookUpPlaceID(strTextField, callback: {(_ result: GMSPlace?, _ error: Error?) -> Void in
+            if error == nil {
+                print("place : \(result?.coordinate.latitude),\(result?.coordinate.longitude)")
+                self.dShopCurrentLatitude = (result?.coordinate.latitude)!
+                self.dShopCurrentLongitude = (result?.coordinate.longitude)!
             }
             else {
             }
-        }
+        })
+        
+    }
     
+    //MARK:- Get User Country Region
+    
+    
+    func getUserRegion(){
+        
+        let info = CTTelephonyNetworkInfo()
+        let carrier: CTCarrier? = info.subscriberCellularProvider
+        //        let mobileCountryCode: String? = carrier?.mobileCountryCode
+        //        let carrierName: String? = carrier?.carrierName
+        let isoCountryCode: String? = carrier?.isoCountryCode
+        if isoCountryCode != nil{
+            stringCountryRegion = String(format: "%@", (isoCountryCode?.uppercased())!)
+        }
+        if isoCountryCode == nil{
+            let currentLocale = NSLocale.current
+            let countryCode = currentLocale.regionCode!
+            stringCountryRegion = String(format: "%@", countryCode.uppercased())
+        }
+        
     }
         
     

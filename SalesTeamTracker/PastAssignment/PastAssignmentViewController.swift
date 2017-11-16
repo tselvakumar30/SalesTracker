@@ -208,6 +208,17 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
             }
             nextViewController.dictionaryShopDetails = dictionary
             UserDefaults.standard.setValue(dictionary, forKey: "CURRENTSHOPDETAILS")
+        
+        let dDestinationLatitude:Double = Double(((arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "latitude") as? String)!)!
+        let dDestinationLongitude:Double = Double(((arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "longitude") as? String)!)!
+        let distance:Float = self.kilometersfromPlace(fromLatitude: dUserCurrentLatitude, fromLongitude: dUserCurrentLongitude, toLatitude: dDestinationLatitude, toLongitude: dDestinationLongitude)
+        if distance <= 0.5{
+            UserDefaults.standard.setValue(false, forKey: "SalesManDistance")
+        }else{
+            UserDefaults.standard.setValue(true, forKey: "SalesManDistance")
+        }
+
+        
             self.navigationController?.pushViewController(nextViewController, animated: true)
     }
     

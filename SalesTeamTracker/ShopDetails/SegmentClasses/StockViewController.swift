@@ -12,9 +12,14 @@ class StockViewController: UIViewController,IndicatorInfoProvider,UICollectionVi
     
     var activity:NVActivityIndicatorView!
     var dictionaryFullDetails = NSDictionary()
+    
+    var bSalesManDistance = Bool()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        bSalesManDistance = UserDefaults.standard.bool(forKey: "SalesManDistance")
+
         if let dictDetails:NSDictionary = UserDefaults.standard.value(forKey: "CURRENTSHOPDETAILS") as? NSDictionary{
             dictionaryFullDetails = dictDetails
         }
@@ -93,37 +98,46 @@ class StockViewController: UIViewController,IndicatorInfoProvider,UICollectionVi
 
     @objc func buttonIncrement(sender:UIButton)
     {
-        let parameter = NSMutableDictionary()
-        if let sCount:String = (arrayCollectionView[sender.tag] as AnyObject).value(forKey: "stock") as? String{
-            var nNewCount:Int = Int(sCount)!
-            nNewCount = nNewCount + 1
-            parameter.setValue(String(nNewCount), forKey: "stockvalue")
+        if bSalesManDistance == true{
+            self.popupAlert(Title: "Information", msg: "You are far away from shop location")
+        }else{
+            let parameter = NSMutableDictionary()
+            if let sCount:String = (arrayCollectionView[sender.tag] as AnyObject).value(forKey: "stock") as? String{
+                var nNewCount:Int = Int(sCount)!
+                nNewCount = nNewCount + 1
+                parameter.setValue(String(nNewCount), forKey: "stockvalue")
+            }
+            parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
+            if let sStockId:String = (arrayCollectionView[sender.tag] as AnyObject).value(forKey: "stockid") as? String{
+                parameter.setValue(sStockId, forKey: "stockid")
+            }
+            UpdateStockDetails(params: parameter)
         }
-        parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
-        if let sStockId:String = (arrayCollectionView[sender.tag] as AnyObject).value(forKey: "stockid") as? String{
-            parameter.setValue(sStockId, forKey: "stockid")
-        }
-        UpdateStockDetails(params: parameter)
+
     }
 
     @objc func buttonDecrement(sender:UIButton)
     {
-        let parameter = NSMutableDictionary()
-        if let sCount:String = (arrayCollectionView[sender.tag] as AnyObject).value(forKey: "stock") as? String{
-            var nNewCount:Int = Int(sCount)!
-            if nNewCount != 0{
-               nNewCount = nNewCount - 1
-            }else{
-                popupAlert(Title: "Information", msg: "Stock is already zero!")
-                return
+        if bSalesManDistance == true{
+            self.popupAlert(Title: "Information", msg: "You are far away from shop location")
+        }else{
+            let parameter = NSMutableDictionary()
+            if let sCount:String = (arrayCollectionView[sender.tag] as AnyObject).value(forKey: "stock") as? String{
+                var nNewCount:Int = Int(sCount)!
+                if nNewCount != 0{
+                    nNewCount = nNewCount - 1
+                }else{
+                    popupAlert(Title: "Information", msg: "Stock is already zero!")
+                    return
+                }
+                parameter.setValue(String(nNewCount), forKey: "stockvalue")
             }
-            parameter.setValue(String(nNewCount), forKey: "stockvalue")
+            parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
+            if let sStockId:String = (arrayCollectionView[sender.tag] as AnyObject).value(forKey: "stockid") as? String{
+                parameter.setValue(sStockId, forKey: "stockid")
+            }
+            UpdateStockDetails(params: parameter)
         }
-        parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
-        if let sStockId:String = (arrayCollectionView[sender.tag] as AnyObject).value(forKey: "stockid") as? String{
-            parameter.setValue(sStockId, forKey: "stockid")
-        }
-        UpdateStockDetails(params: parameter)
     }
 
     //MARK : ScrollView

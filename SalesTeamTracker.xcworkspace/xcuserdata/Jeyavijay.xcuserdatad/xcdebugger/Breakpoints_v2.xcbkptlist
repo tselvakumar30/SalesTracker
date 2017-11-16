@@ -25,13 +25,61 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SalesTeamTracker/ViewController.swift"
-            timestampString = "531933720.849061"
+            filePath = "SalesTeamTracker/HomeViewController.swift"
+            timestampString = "532544680.801085"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "Registration(params:)"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "buttonSwitch(sender:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SalesTeamTracker.HomeViewController.buttonSwitch(sender: __ObjC.UISwitch) -&gt; ()"
+                  moduleName = "SalesTeamTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/NareshKumar/Documents/Updated%20Sources/SalesTracker/SalesTeamTracker/HomeViewController.swift"
+                  timestampString = "532544684.767211"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "228"
+                  endingLineNumber = "228"
+                  offsetFromSymbolStart = "1828">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SalesTeamTracker.HomeViewController.buttonSwitch(sender: __ObjC.UISwitch) -&gt; ()"
+                  moduleName = "SalesTeamTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/NareshKumar/Documents/Updated%20Sources/SalesTracker/SalesTeamTracker/HomeViewController.swift"
+                  timestampString = "532544684.769512"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "228"
+                  endingLineNumber = "228"
+                  offsetFromSymbolStart = "6344">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SalesTeamTracker/AddShop/AddShopViewController.swift"
+            timestampString = "532544680.801184"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "596"
+            endingLineNumber = "596"
+            landmarkName = "AddShop(params:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SalesTeamTracker/AddShop/AddShopViewController.swift"
-            timestampString = "532255918.794686"
+            timestampString = "532544680.80177"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "562"
-            endingLineNumber = "562"
+            startingLineNumber = "650"
+            endingLineNumber = "650"
             landmarkName = "getShopCoordinates(strTextField:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -57,13 +105,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SalesTeamTracker/SideMenu/SideMenuViewController.swift"
-            timestampString = "532255918.794807"
+            filePath = "SalesTeamTracker/HomeViewController.swift"
+            timestampString = "532544680.802213"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "tableView(_:didSelectRowAt:)"
+            startingLineNumber = "324"
+            endingLineNumber = "324"
+            landmarkName = "kilometersfromPlace(fromLatitude:fromLongitude:toLatitude:toLongitude:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SalesTeamTracker/AddShop/AddShopViewController.swift"
+            timestampString = "532544680.802283"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "665"
+            endingLineNumber = "665"
+            landmarkName = "getUserRegion()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
