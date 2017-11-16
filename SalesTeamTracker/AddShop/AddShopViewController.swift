@@ -297,6 +297,11 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         return true
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        dropDownAddress.hide()
+        dropDownLandmark.hide()
+    }
+    
     //MARK:- Picker View Delegate and Datasource
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int
