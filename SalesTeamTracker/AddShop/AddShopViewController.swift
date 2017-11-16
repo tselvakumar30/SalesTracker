@@ -248,8 +248,11 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         if textField == textFieldShopAddress{
             if(textFieldShopAddress.text?.count)! > 1 {
                 nTextField = 1
-                self.bDropDownAccessed = false
-                placeAutocomplete()
+                if self.bDropDownAccessed == true{
+                }else{
+                    self.bDropDownAccessed = false
+                    placeAutocomplete()
+                }
             }else{
                 dropDownAddress.hide()
             }
@@ -260,8 +263,8 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
                 if self.bDropDownAccessed == true{
                 }else{
                     self.bDropDownAccessed = false
+                    placeAutocomplete()
                 }
-                placeAutocomplete()
             }else{
                 dropDownLandmark.hide()
             }
@@ -636,19 +639,6 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     // MARK:- Get Latitude&Longitude of Shop Address
     
     func getShopCoordinates(strTextField:String){
-//        let geoCoder = CLGeocoder()
-//        geoCoder.geocodeAddressString(strTextField) { (placemarks, error) in
-//            if error == nil{
-//                let placemarks = placemarks
-//                let location:CLLocation = (placemarks?.first?.location)!
-//                self.dShopCurrentLatitude = (location.coordinate.latitude)
-//                self.dShopCurrentLongitude = (location.coordinate.longitude)
-//            }
-//            else
-//            {
-//
-//            }
-//        }
         let placeClient = GMSPlacesClient()
         placeClient.lookUpPlaceID(strTextField, callback: {(_ result: GMSPlace?, _ error: Error?) -> Void in
             if error == nil {
@@ -659,7 +649,6 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
             else {
             }
         })
-        
     }
     
     //MARK:- Get User Country Region
