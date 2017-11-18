@@ -19,6 +19,9 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
     var activity:NVActivityIndicatorView!
     var nAssignmentStatus:Float = 0
     var nShopCount:Float = 0
+    var frameNormalTableview = CGRect()
+    var frameHideButtonTableview = CGRect()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +29,6 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.tableViewAssignMent.frame = CGRect(x: self.tableViewAssignMent.frame.origin.x, y: self.tableViewAssignMent.frame.origin.y, width: self.tableViewAssignMent.frame.width, height: self.view.frame.height - self.tableViewAssignMent.frame.origin.y-10)
         determineMyCurrentLocation()
         let parameter = NSMutableDictionary()
         parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
@@ -43,6 +45,8 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
         self.tableViewAssignMent.register(UINib(nibName: "AssignmentSearchTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "AssignmentSearchTableViewCell")
         self.tableViewAssignMent.register(UINib(nibName: "AssignmentsTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "AssignmentsTableViewCell")
         tableViewAssignMent.reloadData()
+        frameHideButtonTableview = CGRect(x: tableViewAssignMent.frame.origin.x, y: tableViewAssignMent.frame.origin.y, width: tableViewAssignMent.frame.width, height: tableViewAssignMent.frame.height)
+        frameNormalTableview = CGRect(x: tableViewAssignMent.frame.origin.x, y: tableViewAssignMent.frame.origin.y, width: tableViewAssignMent.frame.width, height: tableViewAssignMent.frame.height-buttonAttendance.frame.height)
     }
 
     override func didReceiveMemoryWarning() {
@@ -166,8 +170,8 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
             Cell?.labelShopName.text = (arrayShopList[(indexPath as NSIndexPath).section-2] as AnyObject).value(forKey: "shopname") as? String
             Cell?.labelStreetName.text = (arrayShopList[(indexPath as NSIndexPath).section-2] as AnyObject).value(forKey: "shopaddress") as? String
             
-            if let sStatus:String = (arrayShopList[(indexPath as NSIndexPath).section-2] as AnyObject).value(forKey: "status") as? String{
-                if sStatus == "0"{
+            if let sStatus:Int = (arrayShopList[(indexPath as NSIndexPath).section-2] as AnyObject).value(forKey: "status") as? Int{
+                if sStatus == 0{
                     Cell?.SwitchLocation.isOn = false
                 }else{
                     Cell?.SwitchLocation.isOn = true
@@ -234,8 +238,8 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
         parameter.setValue(sShopId, forKey: "shopid")
         
         if distance <= 0.5{
-            if let sStatus:String = (arrayShopList[sender.tag] as AnyObject).value(forKey: "status") as? String{
-                if sStatus == "0"{
+            if let sStatus:Int = (arrayShopList[sender.tag] as AnyObject).value(forKey: "status") as? Int{
+                if sStatus == 0{
                     parameter.setValue("1", forKey: "status")
                 }else{
                     parameter.setValue("0", forKey: "status")
@@ -348,11 +352,10 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
                     if let nAttendence:Float = responseDictionary.value(forKey: "attendance_status") as? Float{
                         if nAttendence == 0{
                             self.buttonAttendance.isHidden = false
-                            self.tableViewAssignMent.frame = CGRect(x: self.tableViewAssignMent.frame.origin.x, y: self.tableViewAssignMent.frame.origin.y, width: self.tableViewAssignMent.frame.width, height: self.tableViewAssignMent.frame.height - self.buttonAttendance.frame.height)
-
+                            self.tableViewAssignMent.frame = self.frameNormalTableview
                         }else{
                             self.buttonAttendance.isHidden = true
-                            self.tableViewAssignMent.frame = CGRect(x: self.tableViewAssignMent.frame.origin.x, y: self.tableViewAssignMent.frame.origin.y, width: self.tableViewAssignMent.frame.width, height: self.tableViewAssignMent.frame.height+(self.buttonAttendance.frame.height)/2.3)
+                            self.tableViewAssignMent.frame = self.frameHideButtonTableview
                         }
                     }
                     if let arrayResults:NSArray = responseDictionary.value(forKey: "results") as? NSArray{
@@ -423,11 +426,11 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
                 let strStatus:NSString = (responseDictionary).value(forKey: "status") as! NSString
                 if strStatus == "true"{
                     self.buttonAttendance.isHidden = true
-                    self.tableViewAssignMent.frame = CGRect(x: self.tableViewAssignMent.frame.origin.x, y: self.tableViewAssignMent.frame.origin.y, width: self.tableViewAssignMent.frame.width, height: self.tableViewAssignMent.frame.height+(self.buttonAttendance.frame.height)/2.3)
+                    self.tableViewAssignMent.frame = self.frameHideButtonTableview
                     self.stopLoading()
                 }else{
-                    self.tableViewAssignMent.frame = CGRect(x: self.tableViewAssignMent.frame.origin.x, y: self.tableViewAssignMent.frame.origin.y, width: self.tableViewAssignMent.frame.width, height: self.tableViewAssignMent.frame.height - self.buttonAttendance.frame.height)
-
+                    self.buttonAttendance.isHidden = false
+                    self.tableViewAssignMent.frame = self.frameNormalTableview
                     self.stopLoading()
                     if let Msg:String = (responseDictionary).value(forKey: "msg") as? String{
                         self.popupAlert(Title: "Information", msg: Msg)
@@ -474,7 +477,5 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
         popup.addButtons([buttonOk])
         self.present(popup, animated: true, completion: nil)
     }
-    
-    
-    
+
 }
