@@ -60,7 +60,7 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
         labelAddress.text = dictionaryShopDetails.value(forKey: "shopaddress") as? String
         
         pageControl.numberOfPages = arrayCollectionView.count
-        pageControl.frame = CGRect(x:0,y:self.collectionViewImages.frame.size.height,width: self.pageControl.frame.size.width, height: self.pageControl.frame.size.height)
+   //     pageControl.frame = CGRect(x:0,y:self.collectionViewImages.frame.size.height,width: self.pageControl.frame.size.width, height: self.pageControl.frame.size.height)
         
         let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
@@ -72,6 +72,9 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
         collectionViewImages.frame = CGRect(x:0,y:0,width: self.collectionViewImages.frame.size.width, height: self.collectionViewImages.frame.size.height)
         segmentedControl.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.white], for: UIControlState.selected)
         segmentedControl.frame = CGRect(x: segmentedControl.frame.origin.x, y: segmentedControl.frame.origin.y, width: segmentedControl.frame.size.width, height: 40)
+     
+  //      pageControl.frame = CGRect(x: pageControl.frame.origin.x, y: collectionViewImages.frame.origin.y+self.collectionViewImages.frame.size.height-(pageControl.frame.size.height/2), width: pageControl.frame.size.width, height: pageControl.frame.size.height)
+
         
         
         collectionViewImages.reloadData()
@@ -185,15 +188,14 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
             }
         }
     }
-    
-    
+
     // MARK: - UIImagePickerControllerDelegate Methods
     
     func SelectImage()
     {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum){
             imagePicker.delegate = self
-            self.showActionSheet()
+            self.camera()
         }
     }
     
@@ -215,17 +217,7 @@ class SingleShopViewController: SegmentedPagerTabStripViewController,UICollectio
         dismiss(animated: true, completion: nil)
     }
     
-    //MARK: ActionSheet Delegate
     
-    func showActionSheet()
-    {
-        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: UIAlertActionStyle.default, handler: { (alert:UIAlertAction!) -> Void in
-            self.camera()
-        }))
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
-        self.present(actionSheet, animated: true, completion: nil)
-    }
     func camera()
     {
         imagePicker.sourceType = UIImagePickerControllerSourceType.camera

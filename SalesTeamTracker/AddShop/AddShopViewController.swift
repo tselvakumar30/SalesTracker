@@ -11,8 +11,8 @@ import CoreTelephony
 class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,CLLocationManagerDelegate {
     var activity:NVActivityIndicatorView!
     var locationManager:CLLocationManager!
-    var dUserCurrentLatitude:Double = 0.0
-    var dUserCurrentLongitude:Double = 0.0
+    var dShopLandmarkLatitude:Double = 0.0
+    var dShopLandmarkLongitude:Double = 0.0
     var dShopCurrentLatitude:Double = 0.0
     var dShopCurrentLongitude:Double = 0.0
     let imagePicker = UIImagePickerController()
@@ -101,35 +101,13 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         let parameter = NSMutableDictionary()
         parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
         GetCountry(params: parameter)
-        determineMyCurrentLocation()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         dropDownAddress.hide()
         dropDownLandmark.hide()
-        locationManager.stopUpdatingLocation()
     }
-    
-    // CoreLocation - Get Location
-    func determineMyCurrentLocation() {
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        self.locationManager?.requestAlwaysAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager?.startUpdatingLocation()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let userLocation:CLLocation = locations[0] as CLLocation
-        dUserCurrentLatitude = userLocation.coordinate.latitude
-        dUserCurrentLongitude = userLocation.coordinate.longitude
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
-    {
-        print("Error \(error)")
-    }
-    
+
     func setUIProperties(){
         scrollView.contentSize = CGSize(width: self.viewScroll.frame.width, height: self.buttonSave.frame.height+self.buttonSave.frame.origin.y+25)
         CodeReuser().setBorderToTextFieldWithImage(theTextField: textFieldLandmark, theView:self.view, image: imageFiles().imageLandmark!)
@@ -232,8 +210,8 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
             parameter.setValue(dShopCurrentLongitude, forKey: "longitude2")*/
             parameter.setValue(dShopCurrentLatitude, forKey: "latitude")
             parameter.setValue(dShopCurrentLongitude, forKey: "longitude")
-            parameter.setValue(0, forKey: "latitude2")
-            parameter.setValue(0, forKey: "longitude2")
+            parameter.setValue(dShopLandmarkLatitude, forKey: "latitude2")
+            parameter.setValue(dShopLandmarkLongitude, forKey: "longitude2")
             parameter.setValue(textFieldPersonName.text, forKey: "uniqueid")
             parameter.setValue(textFieldPhone.text, forKey: "phonenumber")
             parameter.setValue(textFieldLandmark.text, forKey: "landmark")
@@ -250,11 +228,8 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         if textField == textFieldShopAddress{
             if(textFieldShopAddress.text?.count)! > 1 {
                 nTextField = 1
-                if self.bDropDownAccessed == true{
-                }else{
-                    self.bDropDownAccessed = false
-                    placeAutocomplete()
-                }
+                //bDropDownAccessed = false
+                placeAutocomplete()
             }else{
                 dropDownAddress.hide()
             }
@@ -262,11 +237,10 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         if textField == textFieldLandmark{
             if(textFieldLandmark.text?.count)! > 1 {
                 nTextField = 2
-                if self.bDropDownAccessed == true{
-                }else{
-                    self.bDropDownAccessed = false
-                    placeAutocomplete()
+                if (bDropDownAccessed){
+                    
                 }
+                placeAutocomplete()
             }else{
                 dropDownLandmark.hide()
             }
@@ -645,8 +619,13 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         placeClient.lookUpPlaceID(strTextField, callback: {(_ result: GMSPlace?, _ error: Error?) -> Void in
             if error == nil {
                 print("place : \(result?.coordinate.latitude),\(result?.coordinate.longitude)")
-                self.dShopCurrentLatitude = (result?.coordinate.latitude)!
-                self.dShopCurrentLongitude = (result?.coordinate.longitude)!
+                if self.nTextFieldTags == 1{
+                    self.dShopCurrentLatitude = (result?.coordinate.latitude)!
+                    self.dShopCurrentLongitude = (result?.coordinate.longitude)!
+                }else{
+                    self.dShopLandmarkLatitude = (result?.coordinate.latitude)!
+                    self.dShopLandmarkLongitude = (result?.coordinate.longitude)!
+                }
             }
             else {
             }
@@ -654,8 +633,7 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     }
     
     //MARK:- Get User Country Region
-    
-    
+
     func getUserRegion(){
         
         let info = CTTelephonyNetworkInfo()

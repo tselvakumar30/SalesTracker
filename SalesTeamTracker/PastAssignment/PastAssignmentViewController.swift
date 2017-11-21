@@ -211,7 +211,16 @@ class PastAssignmentViewController: UIViewController,ChartViewDelegate,UITableVi
         
         let dDestinationLatitude:Double = Double(((arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "latitude") as? String)!)!
         let dDestinationLongitude:Double = Double(((arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "longitude") as? String)!)!
-        let distance:Float = self.kilometersfromPlace(fromLatitude: dUserCurrentLatitude, fromLongitude: dUserCurrentLongitude, toLatitude: dDestinationLatitude, toLongitude: dDestinationLongitude)
+        var distance = Float()
+        if dDestinationLatitude == 0.0{
+            let dDestinationLatitude1:Double = Double(((arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "latitude2") as? String)!)!
+            let dDestinationLongitude1:Double = Double(((arrayShopList[(indexPath as NSIndexPath).section] as AnyObject).value(forKey: "longitude2") as? String)!)!
+            distance = self.kilometersfromPlace(fromLatitude: dUserCurrentLatitude, fromLongitude: dUserCurrentLongitude, toLatitude: dDestinationLatitude1, toLongitude: dDestinationLongitude1)
+        }else{
+            distance = self.kilometersfromPlace(fromLatitude: dUserCurrentLatitude, fromLongitude: dUserCurrentLongitude, toLatitude: dDestinationLatitude, toLongitude: dDestinationLongitude)
+        }
+
+        
         if distance <= 0.5{
             UserDefaults.standard.setValue(false, forKey: "SalesManDistance")
         }else{

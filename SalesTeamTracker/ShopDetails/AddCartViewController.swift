@@ -170,12 +170,12 @@ class AddCartViewController: UIViewController,UICollectionViewDelegate, UICollec
         
         if bIsStockAdded{
             do {
-                
                 let jsonData = try? JSONSerialization.data(withJSONObject: parameter, options: JSONSerialization.WritingOptions(rawValue: 0))
                 let objectString = String(data: jsonData!, encoding: .utf8)
                 let passParam = NSMutableDictionary()
                 passParam.setValue(objectString, forKey: "order_value")
                 AddCart(params: passParam)
+                print(passParam)
             }
         }else{
             popupAlert(Title: "Information", msg: "Please add atleast one product!")
