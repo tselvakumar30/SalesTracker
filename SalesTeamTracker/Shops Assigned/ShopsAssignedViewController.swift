@@ -224,11 +224,19 @@ class ShopsAssignedViewController: UIViewController,UITableViewDelegate,UITableV
     
     @objc func buttonMap(sender:UIButton){
         let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"MapViewController") as! MapViewController
-        nextViewController.doubleLatitude = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "latitude") as? String)!)!
-        nextViewController.doubleLongitude = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "longitude") as? String)!)!
+        let dDestinationLatitude:Double = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "latitude") as? String)!)!
+        let dDestinationLongitude:Double = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "longitude") as? String)!)!
+        if dDestinationLatitude != 0.0{
+            nextViewController.doubleLatitude = dDestinationLatitude
+            nextViewController.doubleLongitude = dDestinationLongitude
+        }else{
+            nextViewController.doubleLatitude = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "latitude") as? String)!)!
+            nextViewController.doubleLongitude = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "longitude") as? String)!)!
+        }
         nextViewController.stringMapTitle = ((arrayShopList[sender.tag] as AnyObject).value(forKey: "shopname") as? String)!
         self.navigationController?.pushViewController(nextViewController, animated: true)
     }
+    
     @objc func buttonCall(sender:UIButton)
     {
         let sPhonenumber:String = ((arrayShopList[sender.tag] as AnyObject).value(forKey: "phonenumber") as? String)!

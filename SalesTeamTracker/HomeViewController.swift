@@ -234,8 +234,15 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
         let dDestinationLatitude:Double = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "latitude") as? String)!)!
         let dDestinationLongitude:Double = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "longitude") as? String)!)!
         
-        let distance:Float = self.kilometersfromPlace(fromLatitude: dUserCurrentLatitude, fromLongitude: dUserCurrentLongitude, toLatitude: dDestinationLatitude, toLongitude: dDestinationLongitude)
-        
+        var distance = Float()
+        if dDestinationLatitude == 0.0{
+            let dDestinationLatitude1:Double = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "latitude2") as? String)!)!
+            let dDestinationLongitude1:Double = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "longitude2") as? String)!)!
+            distance = self.kilometersfromPlace(fromLatitude: dUserCurrentLatitude, fromLongitude: dUserCurrentLongitude, toLatitude: dDestinationLatitude1, toLongitude: dDestinationLongitude1)
+        }else{
+            distance = self.kilometersfromPlace(fromLatitude: dUserCurrentLatitude, fromLongitude: dUserCurrentLongitude, toLatitude: dDestinationLatitude, toLongitude: dDestinationLongitude)
+        }
+
         let sAssignmentId:String = ((arrayShopList[sender.tag] as AnyObject).value(forKey: "assignmentid") as? String)!
         let sShopId:String = ((arrayShopList[sender.tag] as AnyObject).value(forKey: "shopid") as? String)!
         
@@ -261,8 +268,15 @@ class HomeViewController:UIViewController,UITableViewDelegate,UITableViewDataSou
     
     @objc func buttonMap(sender:UIButton){
         let nextViewController = self.storyBoard.instantiateViewController(withIdentifier:"MapViewController") as! MapViewController
-        nextViewController.doubleLatitude = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "latitude") as? String)!)!
-        nextViewController.doubleLongitude = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "longitude") as? String)!)!
+        let dDestinationLatitude:Double = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "latitude") as? String)!)!
+        let dDestinationLongitude:Double = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "longitude") as? String)!)!
+        if dDestinationLatitude == 0.0{
+            nextViewController.doubleLatitude = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "latitude2") as? String)!)!
+            nextViewController.doubleLongitude = Double(((arrayShopList[sender.tag] as AnyObject).value(forKey: "longitude2") as? String)!)!
+        }else{
+            nextViewController.doubleLatitude = dDestinationLatitude
+            nextViewController.doubleLongitude = dDestinationLongitude
+        }
         nextViewController.stringMapTitle = ((arrayShopList[sender.tag] as AnyObject).value(forKey: "shopname") as? String)!
             self.navigationController?.pushViewController(nextViewController, animated: true)
     }

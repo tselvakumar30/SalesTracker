@@ -15,6 +15,8 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     var dShopLandmarkLongitude:Double = 0.0
     var dShopCurrentLatitude:Double = 0.0
     var dShopCurrentLongitude:Double = 0.0
+    var dUserCurrentLatitude:Double = 0.0
+    var dUserCurrentLongitude:Double = 0.0
     let imagePicker = UIImagePickerController()
     var imageUpload = UIImage()
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
@@ -41,6 +43,7 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     var arrayCountry = NSArray()
     var arrayState = NSArray()
     var arrayArea = NSArray()
+    var distance = Float()
     
     var nCountryId:Int = 1
     var nStateId:Int = 1
@@ -65,6 +68,8 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         getUserRegion()
         setLoadingIndicator()
         setUIProperties()
+        determineMyCurrentLocation()
+
         
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         doneToolbar.barStyle = .default
@@ -80,6 +85,7 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         textFieldStreetName.inputAccessoryView = doneToolbar
         textFieldLocation.inputAccessoryView = doneToolbar
     }
+    
     @objc func doneButtonAction(){
         textFieldCountryName.resignFirstResponder()
         textFieldStreetName.resignFirstResponder()
@@ -99,6 +105,7 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     
     override func viewWillAppear(_ animated: Bool) {
         let parameter = NSMutableDictionary()
+        determineMyCurrentLocation()
         parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
         GetCountry(params: parameter)
     }
@@ -106,6 +113,7 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     override func viewWillDisappear(_ animated: Bool) {
         dropDownAddress.hide()
         dropDownLandmark.hide()
+        locationManager.stopUpdatingLocation()
     }
 
     func setUIProperties(){
@@ -174,6 +182,12 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     
     @IBAction func buttonSave(_ sender: Any)
     {
+        if dShopCurrentLatitude != 0.0{
+            distance = kilometersfromPlace(fromLatitude: dUserCurrentLatitude, fromLongitude: dUserCurrentLongitude, toLatitude: dShopCurrentLatitude, toLongitude: dShopCurrentLongitude)
+        }else{
+            distance = kilometersfromPlace(fromLatitude: dUserCurrentLatitude, fromLongitude: dUserCurrentLongitude, toLatitude: dShopLandmarkLatitude, toLongitude: dShopLandmarkLongitude)
+        }
+        
         if !(self.bDropDownAccessed)
         {
             self.popupAlert(Title: "Information",msg: "Please Select Address/Landmark from DropDown")
@@ -197,8 +211,8 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
             self.popupAlert(Title: "Information",msg: "Please Enter the Location")
         }else if arrayCollectionView.count == 0{
             self.popupAlert(Title: "Information",msg: "Please Add Atleast One Shop Photo")
-        }else if dShopCurrentLatitude == 0.0 || dShopCurrentLongitude == 0.0{
-            self.popupAlert(Title: "Information",msg: "Please Enter Valid Shop Address")
+        }else if distance > 0.5{
+            self.popupAlert(Title: "Information",msg: "You are not in shop range. Please try again.")
         }else{
             let parameter = NSMutableDictionary()
             parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
@@ -228,7 +242,6 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         if textField == textFieldShopAddress{
             if(textFieldShopAddress.text?.count)! > 1 {
                 nTextField = 1
-                //bDropDownAccessed = false
                 placeAutocomplete()
             }else{
                 dropDownAddress.hide()
@@ -237,9 +250,6 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         if textField == textFieldLandmark{
             if(textFieldLandmark.text?.count)! > 1 {
                 nTextField = 2
-                if (bDropDownAccessed){
-                    
-                }
                 placeAutocomplete()
             }else{
                 dropDownLandmark.hide()
@@ -651,6 +661,38 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         }
         
     }
+    
+    
+    // CoreLocation - Get Location
+    func determineMyCurrentLocation() {
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        self.locationManager?.requestAlwaysAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] as CLLocation
+        dUserCurrentLatitude = userLocation.coordinate.latitude
+        dUserCurrentLongitude = userLocation.coordinate.longitude
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
+    {
+        print("Error \(error)")
+    }
+    
+    func kilometersfromPlace(fromLatitude: Double,fromLongitude: Double, toLatitude: Double,toLongitude: Double) -> Float {
+        let userloc = CLLocation(latitude: fromLatitude, longitude: fromLongitude)
+        let dest = CLLocation(latitude: toLatitude, longitude: toLongitude)
+        let dist:CLLocationDistance = (userloc.distance(from: dest) / 1000)
+        let distance = "\(dist)"
+        return Float(distance)!
+    }
+    
+
         
     
 }
