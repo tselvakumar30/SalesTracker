@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7C02E4B31FBADC3900AFDF69 /* Coimbatore.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 7C02E4B21FBADC3900AFDF69 /* Coimbatore.gpx */; };
+		7C12B23B1FC819A1008E0D45 /* GPSTrackerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C12B23A1FC819A1008E0D45 /* GPSTrackerManager.swift */; };
 		7C5A7B301F9F4EF4008C7C29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5A7B2F1F9F4EF4008C7C29 /* AppDelegate.swift */; };
 		7C5A7B321F9F4EF4008C7C29 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5A7B311F9F4EF4008C7C29 /* ViewController.swift */; };
 		7C5A7B351F9F4EF4008C7C29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C5A7B331F9F4EF4008C7C29 /* Main.storyboard */; };
@@ -51,6 +52,7 @@
 /* Begin PBXFileReference section */
 		4C236173DAC50C69DB584573 /* Pods-SalesTeamTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SalesTeamTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-SalesTeamTracker/Pods-SalesTeamTracker.release.xcconfig"; sourceTree = "<group>"; };
 		7C02E4B21FBADC3900AFDF69 /* Coimbatore.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Coimbatore.gpx; sourceTree = "<group>"; };
+		7C12B23A1FC819A1008E0D45 /* GPSTrackerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GPSTrackerManager.swift; path = SalesTeamTracker/GPS/GPSTrackerManager.swift; sourceTree = SOURCE_ROOT; };
 		7C5A7B2C1F9F4EF3008C7C29 /* SalesTeamTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SalesTeamTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C5A7B2F1F9F4EF4008C7C29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7C5A7B311F9F4EF4008C7C29 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +112,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7C12B2391FC81980008E0D45 /* GPS */ = {
+			isa = PBXGroup;
+			children = (
+				7C12B23A1FC819A1008E0D45 /* GPSTrackerManager.swift */,
+			);
+			name = GPS;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		7C5A7B231F9F4EF3008C7C29 = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +142,7 @@
 		7C5A7B2E1F9F4EF3008C7C29 /* SalesTeamTracker */ = {
 			isa = PBXGroup;
 			children = (
+				7C12B2391FC81980008E0D45 /* GPS */,
 				7C02E4B21FBADC3900AFDF69 /* Coimbatore.gpx */,
 				F28CFBFA1FB42C2300C07BBD /* SalesTeamTracker.entitlements */,
 				F228DE211FAC55FD0023B2B6 /* ShopDetails */,
@@ -453,6 +465,7 @@
 				F2D45A2B1FA9D4D90037B916 /* AddShopViewController.swift in Sources */,
 				F2AFDCDF1FA20F8A00287C58 /* ApiString.swift in Sources */,
 				F2B3FFE31FAB24C8006F97DF /* AutocompleteCell.swift in Sources */,
+				7C12B23B1FC819A1008E0D45 /* GPSTrackerManager.swift in Sources */,
 				F2AFDCE51FA30A2E00287C58 /* HomeViewController.swift in Sources */,
 				F2D45A281FA99F950037B916 /* ShopsAssignedViewController.swift in Sources */,
 				F228DE301FAC5C720023B2B6 /* MessageViewController.swift in Sources */,

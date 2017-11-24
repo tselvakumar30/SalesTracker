@@ -5,14 +5,12 @@ import GooglePlaces
 import DropDown
 import UserNotifications
 
-
-
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
 
+    var tracking = GPSTrackerManager()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
    
@@ -20,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
        GMSServices.provideAPIKey("AIzaSyB1XA8CUkcDrSXV6vGiScUrk8UZ9XVcFFU")
         GMSPlacesClient.provideAPIKey("AIzaSyB1XA8CUkcDrSXV6vGiScUrk8UZ9XVcFFU")
         DropDown.startListeningToKeyboard()
-        
+        tracking.startTracking()
         #if (arch(i386) || arch(x86_64)) && os(iOS)
             UserDefaults.standard.set("90cc0d0b47e357836cff5304dcf9a5d190a7080d61b6e4cd9691b55365fb846c", forKey: "DEVICETOKEN")
         #endif

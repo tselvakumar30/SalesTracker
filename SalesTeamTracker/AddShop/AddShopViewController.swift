@@ -68,8 +68,10 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
         getUserRegion()
         setLoadingIndicator()
         setUIProperties()
-        determineMyCurrentLocation()
 
+        let parameter = NSMutableDictionary()
+        parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
+        GetCountry(params: parameter)
         
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         doneToolbar.barStyle = .default
@@ -94,26 +96,21 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
             let parameter = NSMutableDictionary()
             parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
             parameter.setValue(self.nStateId, forKey: "stateid")
+            textFieldLocation.text = ""
             self.GetArea(params: parameter)
         }else if nTextFieldTags == 1{
             let parameter = NSMutableDictionary()
             parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
             parameter.setValue(self.nCountryId, forKey: "countryid")
+            textFieldStreetName.text = ""
+            textFieldLocation.text = ""
             self.GetState(params: parameter)
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        let parameter = NSMutableDictionary()
-        determineMyCurrentLocation()
-        parameter.setValue(UserDefaults.standard.value(forKey: "USERID"), forKey: "userid")
-        GetCountry(params: parameter)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         dropDownAddress.hide()
         dropDownLandmark.hide()
-        locationManager.stopUpdatingLocation()
     }
 
     func setUIProperties(){
@@ -183,9 +180,9 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
     @IBAction func buttonSave(_ sender: Any)
     {
         if dShopCurrentLatitude != 0.0{
-            distance = kilometersfromPlace(fromLatitude: dUserCurrentLatitude, fromLongitude: dUserCurrentLongitude, toLatitude: dShopCurrentLatitude, toLongitude: dShopCurrentLongitude)
+            distance = kilometersfromPlace(fromLatitude: Double(GPSTrackerManager().getLatitude())!, fromLongitude: Double(GPSTrackerManager().getLongitude())!, toLatitude: dShopCurrentLatitude, toLongitude: dShopCurrentLongitude)
         }else{
-            distance = kilometersfromPlace(fromLatitude: dUserCurrentLatitude, fromLongitude: dUserCurrentLongitude, toLatitude: dShopLandmarkLatitude, toLongitude: dShopLandmarkLongitude)
+            distance = kilometersfromPlace(fromLatitude: Double(GPSTrackerManager().getLatitude())!, fromLongitude: Double(GPSTrackerManager().getLongitude())!, toLatitude: dShopLandmarkLatitude, toLongitude: dShopLandmarkLongitude)
         }
         
         if !(self.bDropDownAccessed)
@@ -383,11 +380,12 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
                         arrayAddress.add(result.attributedFullText.string)
                         self.arrPlaceIDAddress.add(result.placeID!)
 
-                        print(result.placeID)
                     }
                     if arrayAddress.count > 0{
                         self.dropDownAddress.dataSource = arrayAddress as! [String]
                         self.dropDownAddress.show()
+                    }else{
+                        self.dropDownAddress.hide()
                     }
                 }
             })
@@ -406,6 +404,8 @@ class AddShopViewController: UIViewController ,UIImagePickerControllerDelegate,U
                     if arrayAddress.count > 0{
                         self.dropDownLandmark.dataSource = arrayAddress as! [String]
                         self.dropDownLandmark.show()
+                    }else{
+                        self.dropDownLandmark.hide()
                     }
                 }
             })
